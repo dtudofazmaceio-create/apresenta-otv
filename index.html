@@ -53,8 +53,10 @@ label.l{display:block;color:var(--mu);font-size:12px;font-weight:600;margin:12px
 .sw input:checked+span{background:var(--ac)}.sw input:checked+span:after{left:21px}
 .dock{position:fixed;left:0;right:0;bottom:0;background:#0d1226f2;backdrop-filter:blur(10px);border-top:1px solid var(--ln);padding:12px 22px;z-index:6}
 .dk{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.dk #msg{flex:1;min-width:140px;font-size:13px}
-dialog{background:var(--p);color:var(--tx);border:1px solid var(--ln);border-radius:18px;padding:24px;width:min(92vw,380px)}dialog::backdrop{background:#000a}
-dialog h3{margin:0 0 6px}#code{font-size:26px;letter-spacing:.3em;text-align:center;text-transform:uppercase;font-weight:800;margin:14px 0}
+dialog{background:var(--p);color:var(--tx);border:1px solid var(--ln);border-radius:18px;padding:24px;width:min(94vw,520px)}dialog::backdrop{background:#000a}
+dialog h3{margin:0 0 6px}#code{font-size:22px;letter-spacing:.3em;text-align:center;text-transform:uppercase;font-weight:800;flex:1}
+.opt{border:1px solid var(--ln);border-radius:14px;padding:14px;margin-top:12px;background:#0f1530}.oh{display:flex;align-items:center;gap:8px;margin-bottom:8px}.oh .i{color:var(--ac)}.oh em{color:var(--mu);font-size:12px;font-style:normal}
+.steps{margin:0 0 12px;padding-left:18px;color:var(--mu);font-size:13px}.steps li{margin-bottom:5px}.steps b{color:var(--tx)}
 #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#26304e;padding:10px 18px;border-radius:999px;opacity:0;transition:.3s;pointer-events:none;z-index:20}#toast.show{opacity:1}
 .home{max-width:760px;margin:12vh auto;padding:20px;text-align:center}.home h1{font-size:30px;margin:10px 0 6px}
 .hc{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
@@ -101,7 +103,7 @@ dialog h3{margin:0 0 6px}#code{font-size:26px;letter-spacing:.3em;text-align:cen
 <div id="pc" hidden>
   <header class="top">
     <div class="brand"><span><i data-i="tv"></i></span>Apresentação na TV</div>
-    <div class="chip"><span class="dot" id="dot"></span><span id="cTxt">Sem TV</span><button id="bConn"><i data-i="wifi"></i>Conectar</button></div>
+    <div class="chip"><span class="dot" id="dot"></span><span id="cTxt">Sem TV</span><button id="bConn"><i data-i="monitor"></i>Mostrar na TV</button></div>
   </header>
   <div class="grid">
     <section class="card">
@@ -167,15 +169,28 @@ dialog h3{margin:0 0 6px}#code{font-size:26px;letter-spacing:.3em;text-align:cen
     <button class="ic" id="bLoop" title="Repetir"><i data-i="repeat"></i></button>
     <button class="ic" id="bMute" title="Sem som na TV"></button>
     <div id="msg" class="mu"></div>
-    <button class="dg" id="bClear"><i data-i="trash"></i>Limpar TV</button>
-    <button class="pri" id="bSync"><i data-i="cast"></i>Enviar para a TV</button>
+    <button class="dg" id="bClear" hidden><i data-i="trash"></i>Limpar TV</button>
+    <button id="bSync" hidden><i data-i="cast"></i>Enviar para a TV</button>
+    <button class="pri" id="bOpenDock"><i data-i="monitor"></i>Apresentar</button>
   </div></footer>
 
   <dialog id="dlg">
-    <h3>Conectar à TV</h3>
-    <p class="mu" style="margin:0">Abra este endereço com <b>#tv</b> no navegador da TV e digite o código mostrado.</p>
-    <input id="code" maxlength="6" placeholder="······" autocomplete="off">
-    <div class="row" style="justify-content:flex-end"><button id="dX">Cancelar</button><button class="pri" id="dOk">Conectar</button></div>
+    <div class="row" style="justify-content:space-between"><h3 style="margin:0">Mostrar na TV</h3><button class="ic" id="dX"><i data-i="x"></i></button></div>
+    <div class="opt">
+      <div class="oh"><i data-i="monitor"></i><b>Transmitir pela rede</b><em>nada para instalar na TV</em></div>
+      <ol class="steps">
+        <li>Clique em <b>Abrir tela de apresentação</b>.</li>
+        <li>Procure a TV na rede: <b>Windows</b> Win+K · <b>Chrome</b> menu ⋮ › Salvar, compartilhar e transmitir › Transmitir · <b>Mac</b> Central de Controle › Espelhamento de tela.</li>
+        <li>No Windows, escolha <b>Estender</b>: a janela abre direto na TV. No espelhamento, ela aparece duplicada.</li>
+        <li>Clique na janela e aperte <b>Enter</b> para tela cheia.</li>
+      </ol>
+      <button class="pri" id="bOpen"><i data-i="monitor"></i>Abrir tela de apresentação</button>
+    </div>
+    <div class="opt">
+      <div class="oh"><i data-i="tv"></i><b>TV com navegador</b><em>opcional</em></div>
+      <p class="mu" style="margin:0 0 10px;font-size:13px">Abra este endereço com <b>#tv</b> no navegador da TV e digite o código.</p>
+      <div class="row"><input id="code" maxlength="6" placeholder="······" autocomplete="off"><button class="pri" id="dOk">Conectar</button></div>
+    </div>
   </dialog>
 </div>
 
@@ -202,7 +217,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 const PREFIX='apresdj-';
-const mode=location.hash==='#tv'?'tv':location.hash==='#pc'?'pc':'';
+const mode=location.hash==='#tv'?'tv':location.hash==='#pc'?'pc':location.hash==='#play'?'play':'';
 addEventListener('hashchange',()=>location.reload());
 
 /* ---------- ícones vetoriais ---------- */
@@ -222,6 +237,7 @@ monitor:'<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x
 trash:'<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5 0V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2"/>',
 copy:'<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
 plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
 edit:'<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>',
 eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
 upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>',
@@ -259,7 +275,7 @@ const fit=el=>{el.style.fontSize=(el.clientWidth/100)+'px'};
 
 /* ---------- IndexedDB ---------- */
 const dbp=new Promise((ok,err)=>{
-  const r=indexedDB.open('apresentacao-'+(mode||'home'),1);
+  const r=indexedDB.open('apresentacao-'+(mode==='play'?'pc':mode||'home'),1);
   r.onupgradeneeded=()=>r.result.createObjectStore('m',{keyPath:'id'});
   r.onsuccess=()=>ok(r.result);r.onerror=()=>err(r.error);
 });
@@ -270,11 +286,13 @@ function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');cl
 paint();
 if(!mode)$('#home').hidden=false;
 else if(mode==='pc'){$('#pc').hidden=false;bootPC()}
+else if(mode==='play'){$('#tv').hidden=false;bootTV(true)}
 else{$('#tv').hidden=false;bootTV()}
 
 /* ================= COMPUTADOR ================= */
 function bootPC(){
   let items=[],bgs=[],peer,conn,want=false,tvHas=null,acks={},curId=null,tvPlaying=false,editId=null,urls=[];
+  const bc=new BroadcastChannel('apres');let playerWin=null;
   let cfg={...DEF,...JSON.parse(localStorage.cfg||'{}')};
   const dr={};
   const newDraft=()=>{Object.assign(dr,{c1:TPL[0].c1,c2:TPL[0].c2,fg:TPL[0].fg,font:'moderna',al:'center',up:false,size:'M',title:'',text:'',dur:10});editId=null};
@@ -298,8 +316,9 @@ function bootPC(){
     $('#bLoop').classList.toggle('on',cfg.loop);$('#bMute').classList.toggle('on',cfg.mute);
     $('#bMute').innerHTML=ic(cfg.mute?'volume-x':'volume-2');$('#clk').checked=cfg.clock;
     $('#bPlay').innerHTML=ic(tvPlaying?'pause':'play');
+    $('#bSync').hidden=$('#bClear').hidden=!(conn&&conn.open);
   }
-  function saveCfg(){localStorage.cfg=JSON.stringify(cfg);syncUI();if(conn&&conn.open)conn.send({t:'cfg',cfg})}
+  function saveCfg(){localStorage.cfg=JSON.stringify(cfg);syncUI();bc.postMessage({t:'reload'});if(conn&&conn.open)conn.send({t:'cfg',cfg})}
   document.addEventListener('click',e=>{
     const b=e.target.closest('.seg button');if(!b)return;const s=b.parentElement;
     if(s.dataset.k){cfg[s.dataset.k]=b.dataset.v;saveCfg()}else{dr[s.dataset.d]=b.dataset.v;drawPv()}
@@ -340,7 +359,7 @@ function bootPC(){
     const a=await all();
     items=a.filter(x=>x.kind!=='bg').sort((x,y)=>x.order-y.order);
     bgs=a.filter(x=>x.kind==='bg').sort((x,y)=>x.order-y.order);
-    render();
+    render();bc.postMessage({t:'reload'});
   }
   function render(){
     urls.forEach(u=>URL.revokeObjectURL(u));urls=[];
@@ -365,7 +384,7 @@ function bootPC(){
     if(a==='rm'){await del(id);if(editId===id){newDraft();fillForm()}}
     else if(a==='dup')await put({...it,id:uid(),order:it.order+.001});
     else if(a==='edit'){Object.assign(dr,{c1:it.c1,c2:it.c2,fg:it.fg,font:it.font,al:it.al,up:it.up,size:it.size,title:it.title,text:it.text,dur:it.dur});editId=id;goText();fillForm();return}
-    else if(a==='show'){await sync();send({t:'cmd',c:'show',id});return}
+    else if(a==='show'){if(conn&&conn.open)await sync();ctl({t:'cmd',c:'show',id});return}
     load();
   };
   $('#list').onchange=async e=>{const id=e.target.dataset.dur;if(!id)return;const it=items.find(x=>x.id===id);it.dur=Math.max(2,+e.target.value||8);await put(it)};
@@ -430,28 +449,53 @@ function bootPC(){
   /* conexão com a TV */
   const setConn=(s,t)=>{$('#dot').className='dot '+s;$('#cTxt').textContent=t};
   const send=m=>{if(!conn||!conn.open){toast('Conecte à TV primeiro');return false}conn.send(m);return true};
+  const ctl=m=>{bc.postMessage(m);if(conn&&conn.open)conn.send(m)};
+  function onState(d){curId=d.id;tvPlaying=d.playing;syncUI();document.querySelectorAll('#list .it').forEach(x=>x.classList.toggle('now',x.dataset.id===curId))}
+  bc.onmessage=e=>{
+    const d=e.data;
+    if(d.t==='state'){onState(d);if(!(conn&&conn.open))setConn('on','Apresentando na tela local')}
+    else if(d.t==='closed'){curId=null;tvPlaying=false;syncUI();if(!(conn&&conn.open))setConn('','Sem TV')}
+  };
+  function ensurePeer(cb){
+    if(peer&&!peer.destroyed){peer.open?cb():peer.once('open',cb);return}
+    peer=new Peer();
+    peer.on('open',cb);
+    peer.on('disconnected',()=>peer.reconnect());
+    peer.on('error',e=>{
+      setConn('',e.type==='peer-unavailable'?'TV não encontrada — está aberta?':'Erro de conexão ('+e.type+')');
+      if(want&&localStorage.last)setTimeout(()=>connect(localStorage.last),5000);
+    });
+  }
   function connect(code){
     code=(code||'').trim().toUpperCase();if(!code)return;
     localStorage.last=code;want=true;setConn('w','Conectando…');
-    if(conn){try{conn.close()}catch(e){}}
-    const c=conn=peer.connect(PREFIX+code,{reliable:true});
-    c.on('open',()=>{setConn('on','TV conectada · '+code);toast('TV conectada');c.send({t:'cfg',cfg})});
-    c.on('close',()=>{if(c!==conn)return;setConn('','Sem TV');curId=null;tvPlaying=false;syncUI();Object.values(acks).forEach(f=>f());if(want)setTimeout(()=>want&&connect(code),4000)});
-    c.on('data',d=>{
-      if(d.t==='has')tvHas=d.ids;
-      else if(d.t==='ack'&&acks[d.id]){acks[d.id]();delete acks[d.id]}
-      else if(d.t==='state'){curId=d.id;tvPlaying=d.playing;syncUI();document.querySelectorAll('#list .it').forEach(x=>x.classList.toggle('now',x.dataset.id===curId))}
+    ensurePeer(()=>{
+      if(conn){try{conn.close()}catch(e){}}
+      const c=conn=peer.connect(PREFIX+code,{reliable:true});
+      c.on('open',()=>{setConn('on','TV conectada · '+code);toast('TV conectada');c.send({t:'cfg',cfg});syncUI()});
+      c.on('close',()=>{if(c!==conn)return;setConn('','Sem TV');curId=null;tvPlaying=false;syncUI();Object.values(acks).forEach(f=>f());if(want)setTimeout(()=>want&&connect(code),4000)});
+      c.on('data',d=>{
+        if(d.t==='has')tvHas=d.ids;
+        else if(d.t==='ack'&&acks[d.id]){acks[d.id]();delete acks[d.id]}
+        else if(d.t==='state')onState(d);
+      });
     });
   }
-  peer=new Peer();
-  peer.on('open',()=>{localStorage.last?connect(localStorage.last):$('#dlg').showModal()});
-  peer.on('disconnected',()=>peer.reconnect());
-  peer.on('error',e=>{
-    setConn('',e.type==='peer-unavailable'?'TV não encontrada — está aberta?':'Erro de conexão ('+e.type+')');
-    if(want&&localStorage.last)setTimeout(()=>connect(localStorage.last),5000);
-  });
+  function openPlayer(){
+    if(playerWin&&!playerWin.closed){playerWin.focus();return}
+    playerWin=window.open(location.href.split('#')[0]+'#play','apres-player','popup,width=1280,height=720');
+    if(!playerWin)return toast('O navegador bloqueou a janela. Permita pop-ups para este site.');
+    toast('Tela aberta. Transmita esta janela para a TV (Win+K) e aperte Enter nela para tela cheia.');
+    (async()=>{try{
+      if(!window.getScreenDetails)return;
+      const s=(await getScreenDetails()).screens.find(x=>!x.isPrimary);
+      if(s&&!playerWin.closed){playerWin.moveTo(s.availLeft,s.availTop);playerWin.resizeTo(s.availWidth,s.availHeight)}
+    }catch(e){}})();
+  }
   $('#bConn').onclick=()=>{$('#code').value=localStorage.last||'';$('#dlg').showModal()};
   $('#dX').onclick=()=>$('#dlg').close();
+  $('#bOpen').onclick=()=>{$('#dlg').close();openPlayer()};
+  $('#bOpenDock').onclick=openPlayer;
   $('#dOk').onclick=()=>{$('#dlg').close();connect($('#code').value)};
   $('#code').onkeydown=e=>{if(e.key==='Enter')$('#dOk').click()};
 
@@ -471,22 +515,24 @@ function bootPC(){
     if(conn.open){conn.send({t:'playlist',list:items.map(x=>({id:x.id,dur:x.dur})),bg:bgs.map(x=>x.id),cfg});$('#msg').textContent='Enviado — a TV já está exibindo ✓'}
   }
   $('#bSync').onclick=sync;
-  $('#bPlay').onclick=()=>send({t:'cmd',c:tvPlaying?'pause':'play'});
-  $('#bNext').onclick=()=>send({t:'cmd',c:'next'});
-  $('#bPrev').onclick=()=>send({t:'cmd',c:'prev'});
+  $('#bPlay').onclick=()=>ctl({t:'cmd',c:tvPlaying?'pause':'play'});
+  $('#bNext').onclick=()=>ctl({t:'cmd',c:'next'});
+  $('#bPrev').onclick=()=>ctl({t:'cmd',c:'prev'});
   $('#bClear').onclick=()=>{if(confirm('Remover todo o conteúdo da TV? (a biblioteca do computador é mantida)'))send({t:'clear'})};
   fillForm();syncUI();load();
+  if(localStorage.last)connect(localStorage.last);
+  else if(!localStorage.seen){localStorage.seen=1;$('#dlg').showModal()}
 }
 
 /* ================= TV ================= */
-function bootTV(){
+function bootTV(local){
   let pl=[],bg=[],cfg={...DEF},idx=0,timer,playing=true,url=null,skip=0,peer,conn,tries=0,aud=null,cur=null,bgi=0,bgUrl=null;
-  const stage=$('#stage'),bgA=new Audio();
-  try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
+  const stage=$('#stage'),bgA=new Audio(),bc=local?new BroadcastChannel('apres'):null;
+  if(!local)try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
   const badge=t=>{const b=$('#badge');b.textContent=t;b.classList.add('show');clearTimeout(badge.t);badge.t=setTimeout(()=>b.classList.remove('show'),3500)};
   const persist=()=>{localStorage.pl=JSON.stringify(pl);localStorage.bg=JSON.stringify(bg);localStorage.tvcfg=JSON.stringify(cfg)};
   const vid=()=>stage.querySelector('video')||aud;
-  const report=()=>{if(conn&&conn.open)conn.send({t:'state',id:cur&&cur.id,playing})};
+  const report=()=>{const m={t:'state',id:cur&&cur.id,playing};if(local)bc.postMessage(m);else if(conn&&conn.open)conn.send(m)};
 
   function applyCfg(){
     stage.classList.toggle('cover',cfg.fit==='cover');
@@ -543,6 +589,19 @@ function bootTV(){
   function advance(){if(!cfg.loop&&idx>=pl.length-1){playing=false;report();return}show(idx+1)}
   addEventListener('resize',()=>{const s=stage.querySelector('.slide');s&&fit(s)});
 
+  async function refresh(curId,wasEmpty,oldBg){
+    applyCfg();
+    if(JSON.stringify(bg)!==oldBg)await bgNext(true);
+    const k=pl.findIndex(x=>x.id===curId);
+    if(wasEmpty||k<0)show(0);else{idx=k;bgSync();report()}
+  }
+  async function loadLocal(){
+    const prev=[cur&&cur.id,!pl.length,JSON.stringify(bg)],a=await all();
+    pl=a.filter(x=>x.kind!=='bg').sort((x,y)=>x.order-y.order).map(x=>({id:x.id,dur:x.dur}));
+    bg=a.filter(x=>x.kind==='bg').sort((x,y)=>x.order-y.order).map(x=>x.id);
+    cfg={...DEF,...JSON.parse(localStorage.cfg||'{}')};
+    await refresh(...prev);
+  }
   async function onData(d){
     if(d.t==='hello')conn.send({t:'has',ids:(await all()).map(x=>x.id)});
     else if(d.t==='item'){
@@ -554,10 +613,7 @@ function bootTV(){
       pl=d.list;bg=d.bg||[];cfg={...DEF,...d.cfg};persist();
       const keep=new Set([...pl.map(x=>x.id),...bg]);
       for(const x of await all())if(!keep.has(x.id))await del(x.id);
-      applyCfg();playing=true;
-      if(JSON.stringify(bg)!==oldBg)await bgNext(true);
-      const k=pl.findIndex(x=>x.id===curId);
-      if(wasEmpty||k<0)show(0);else{idx=k;bgSync();report()}
+      playing=true;await refresh(curId,wasEmpty,oldBg);
       badge('Conteúdo atualizado');
     }else if(d.t==='cfg'){cfg={...DEF,...d.cfg};persist();applyCfg();bgSync()}
     else if(d.t==='cmd'){
@@ -588,7 +644,7 @@ function bootTV(){
       else if(['network','server-error','socket-error','socket-closed'].includes(e.type))setTimeout(()=>{peer.destroyed?startPeer():peer.reconnect()},5000);
     });
   }
-  startPeer();
+  if(!local)startPeer();
 
   const fs=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{});
   addEventListener('keydown',e=>{
@@ -599,7 +655,12 @@ function bootTV(){
     else if(e.key===' '){playing=!playing;if(playing)show(idx);else{clearTimeout(timer);const m=vid();m&&m.pause();bgSync();report()}}
   });
   addEventListener('click',()=>{fs();bgSync();const m=vid();if(m&&playing&&m.paused)m.play().catch(()=>{})});
-  applyCfg();bgNext(true);show(0);
+  if(local){
+    $('#idle').innerHTML=`<div class="lg">${ic('tv')}</div><h1>Programação vazia</h1><p>Adicione itens no computador e eles aparecem aqui.</p><small>Enter: tela cheia · ◀ ▶ trocar · Espaço pausar</small>`;
+    bc.onmessage=e=>{const d=e.data;if(d.t==='reload')loadLocal();else onData(d)};
+    addEventListener('pagehide',()=>bc.postMessage({t:'closed'}));
+    loadLocal();
+  }else{applyCfg();bgNext(true);show(0)}
 }
 </script>
 </body>
