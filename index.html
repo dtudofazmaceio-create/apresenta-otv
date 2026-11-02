@@ -623,6 +623,532 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
   </ol>
 </dialog>
 
+<script>/* FFmpeg.wasm 0.12 (MIT) — controle embutido */
+const FFmpegLib=(()=>{
+const MIME_TYPE_JAVASCRIPT = "text/javascript";
+const MIME_TYPE_WASM = "application/wasm";
+const CORE_VERSION = "0.12.9";
+const CORE_URL = `https://unpkg.com/@ffmpeg/core@${CORE_VERSION}/dist/umd/ffmpeg-core.js`;
+var FFMessageType;
+(function (FFMessageType) {
+    FFMessageType["LOAD"] = "LOAD";
+    FFMessageType["EXEC"] = "EXEC";
+    FFMessageType["FFPROBE"] = "FFPROBE";
+    FFMessageType["WRITE_FILE"] = "WRITE_FILE";
+    FFMessageType["READ_FILE"] = "READ_FILE";
+    FFMessageType["DELETE_FILE"] = "DELETE_FILE";
+    FFMessageType["RENAME"] = "RENAME";
+    FFMessageType["CREATE_DIR"] = "CREATE_DIR";
+    FFMessageType["LIST_DIR"] = "LIST_DIR";
+    FFMessageType["DELETE_DIR"] = "DELETE_DIR";
+    FFMessageType["ERROR"] = "ERROR";
+    FFMessageType["DOWNLOAD"] = "DOWNLOAD";
+    FFMessageType["PROGRESS"] = "PROGRESS";
+    FFMessageType["LOG"] = "LOG";
+    FFMessageType["MOUNT"] = "MOUNT";
+    FFMessageType["UNMOUNT"] = "UNMOUNT";
+})(FFMessageType || (FFMessageType = {}));
+
+const ERROR_UNKNOWN_MESSAGE_TYPE = new Error("unknown message type");
+const ERROR_NOT_LOADED = new Error("ffmpeg is not loaded, call `await ffmpeg.load()` first");
+const ERROR_TERMINATED = new Error("called FFmpeg.terminate()");
+const ERROR_IMPORT_FAILURE = new Error("failed to import ffmpeg-core.js");
+
+/**
+ * Generate an unique message ID.
+ */
+const getMessageID = (() => {
+    let messageID = 0;
+    return () => messageID++;
+})();
+
+/**
+ * Provides APIs to interact with ffmpeg web worker.
+ *
+ * @example
+ * ```ts
+ * const ffmpeg = new FFmpeg();
+ * ```
+ */
+class FFmpeg {
+    #worker = null;
+    /**
+     * #resolves and #rejects tracks Promise resolves and rejects to
+     * be called when we receive message from web worker.
+     */
+    #resolves = {};
+    #rejects = {};
+    #logEventCallbacks = [];
+    #progressEventCallbacks = [];
+    loaded = false;
+    /**
+     * register worker message event handlers.
+     */
+    #registerHandlers = () => {
+        if (this.#worker) {
+            this.#worker.onmessage = ({ data: { id, type, data }, }) => {
+                switch (type) {
+                    case FFMessageType.LOAD:
+                        this.loaded = true;
+                        this.#resolves[id](data);
+                        break;
+                    case FFMessageType.MOUNT:
+                    case FFMessageType.UNMOUNT:
+                    case FFMessageType.EXEC:
+                    case FFMessageType.FFPROBE:
+                    case FFMessageType.WRITE_FILE:
+                    case FFMessageType.READ_FILE:
+                    case FFMessageType.DELETE_FILE:
+                    case FFMessageType.RENAME:
+                    case FFMessageType.CREATE_DIR:
+                    case FFMessageType.LIST_DIR:
+                    case FFMessageType.DELETE_DIR:
+                        this.#resolves[id](data);
+                        break;
+                    case FFMessageType.LOG:
+                        this.#logEventCallbacks.forEach((f) => f(data));
+                        break;
+                    case FFMessageType.PROGRESS:
+                        this.#progressEventCallbacks.forEach((f) => f(data));
+                        break;
+                    case FFMessageType.ERROR:
+                        this.#rejects[id](data);
+                        break;
+                }
+                delete this.#resolves[id];
+                delete this.#rejects[id];
+            };
+        }
+    };
+    /**
+     * Generic function to send messages to web worker.
+     */
+    #send = ({ type, data }, trans = [], signal) => {
+        if (!this.#worker) {
+            return Promise.reject(ERROR_NOT_LOADED);
+        }
+        return new Promise((resolve, reject) => {
+            const id = getMessageID();
+            this.#worker && this.#worker.postMessage({ id, type, data }, trans);
+            this.#resolves[id] = resolve;
+            this.#rejects[id] = reject;
+            signal?.addEventListener("abort", () => {
+                reject(new DOMException(`Message # ${id} was aborted`, "AbortError"));
+            }, { once: true });
+        });
+    };
+    on(event, callback) {
+        if (event === "log") {
+            this.#logEventCallbacks.push(callback);
+        }
+        else if (event === "progress") {
+            this.#progressEventCallbacks.push(callback);
+        }
+    }
+    off(event, callback) {
+        if (event === "log") {
+            this.#logEventCallbacks = this.#logEventCallbacks.filter((f) => f !== callback);
+        }
+        else if (event === "progress") {
+            this.#progressEventCallbacks = this.#progressEventCallbacks.filter((f) => f !== callback);
+        }
+    }
+    /**
+     * Loads ffmpeg-core inside web worker. It is required to call this method first
+     * as it initializes WebAssembly and other essential variables.
+     *
+     * @category FFmpeg
+     * @returns `true` if ffmpeg core is loaded for the first time.
+     */
+    load = ({ classWorkerURL, ...config } = {}, { signal } = {}) => {
+        if (!this.#worker) {
+            this.#worker = new Worker(classWorkerURL);
+            this.#registerHandlers();
+        }
+        return this.#send({
+            type: FFMessageType.LOAD,
+            data: config,
+        }, undefined, signal);
+    };
+    /**
+     * Execute ffmpeg command.
+     *
+     * @remarks
+     * To avoid common I/O issues, ["-nostdin", "-y"] are prepended to the args
+     * by default.
+     *
+     * @example
+     * ```ts
+     * const ffmpeg = new FFmpeg();
+     * await ffmpeg.load();
+     * await ffmpeg.writeFile("video.avi", ...);
+     * // ffmpeg -i video.avi video.mp4
+     * await ffmpeg.exec(["-i", "video.avi", "video.mp4"]);
+     * const data = ffmpeg.readFile("video.mp4");
+     * ```
+     *
+     * @returns `0` if no error, `!= 0` if timeout (1) or error.
+     * @category FFmpeg
+     */
+    exec = (
+    /** ffmpeg command line args */
+    args, 
+    /**
+     * milliseconds to wait before stopping the command execution.
+     *
+     * @defaultValue -1
+     */
+    timeout = -1, { signal } = {}) => this.#send({
+        type: FFMessageType.EXEC,
+        data: { args, timeout },
+    }, undefined, signal);
+    /**
+     * Execute ffprobe command.
+     *
+     * @example
+     * ```ts
+     * const ffmpeg = new FFmpeg();
+     * await ffmpeg.load();
+     * await ffmpeg.writeFile("video.avi", ...);
+     * // Getting duration of a video in seconds: ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 video.avi -o output.txt
+     * await ffmpeg.ffprobe(["-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", "video.avi", "-o", "output.txt"]);
+     * const data = ffmpeg.readFile("output.txt");
+     * ```
+     *
+     * @returns `0` if no error, `!= 0` if timeout (1) or error.
+     * @category FFmpeg
+     */
+    ffprobe = (
+    /** ffprobe command line args */
+    args, 
+    /**
+     * milliseconds to wait before stopping the command execution.
+     *
+     * @defaultValue -1
+     */
+    timeout = -1, { signal } = {}) => this.#send({
+        type: FFMessageType.FFPROBE,
+        data: { args, timeout },
+    }, undefined, signal);
+    /**
+     * Terminate all ongoing API calls and terminate web worker.
+     * `FFmpeg.load()` must be called again before calling any other APIs.
+     *
+     * @category FFmpeg
+     */
+    terminate = () => {
+        const ids = Object.keys(this.#rejects);
+        // rejects all incomplete Promises.
+        for (const id of ids) {
+            this.#rejects[id](ERROR_TERMINATED);
+            delete this.#rejects[id];
+            delete this.#resolves[id];
+        }
+        if (this.#worker) {
+            this.#worker.terminate();
+            this.#worker = null;
+            this.loaded = false;
+        }
+    };
+    /**
+     * Write data to ffmpeg.wasm.
+     *
+     * @example
+     * ```ts
+     * const ffmpeg = new FFmpeg();
+     * await ffmpeg.load();
+     * await ffmpeg.writeFile("video.avi", await fetchFile("../video.avi"));
+     * await ffmpeg.writeFile("text.txt", "hello world");
+     * ```
+     *
+     * @category File System
+     */
+    writeFile = (path, data, { signal } = {}) => {
+        const trans = [];
+        if (data instanceof Uint8Array) {
+            trans.push(data.buffer);
+        }
+        return this.#send({
+            type: FFMessageType.WRITE_FILE,
+            data: { path, data },
+        }, trans, signal);
+    };
+    mount = (fsType, options, mountPoint) => {
+        const trans = [];
+        return this.#send({
+            type: FFMessageType.MOUNT,
+            data: { fsType, options, mountPoint },
+        }, trans);
+    };
+    unmount = (mountPoint) => {
+        const trans = [];
+        return this.#send({
+            type: FFMessageType.UNMOUNT,
+            data: { mountPoint },
+        }, trans);
+    };
+    /**
+     * Read data from ffmpeg.wasm.
+     *
+     * @example
+     * ```ts
+     * const ffmpeg = new FFmpeg();
+     * await ffmpeg.load();
+     * const data = await ffmpeg.readFile("video.mp4");
+     * ```
+     *
+     * @category File System
+     */
+    readFile = (path, 
+    /**
+     * File content encoding, supports two encodings:
+     * - utf8: read file as text file, return data in string type.
+     * - binary: read file as binary file, return data in Uint8Array type.
+     *
+     * @defaultValue binary
+     */
+    encoding = "binary", { signal } = {}) => this.#send({
+        type: FFMessageType.READ_FILE,
+        data: { path, encoding },
+    }, undefined, signal);
+    /**
+     * Delete a file.
+     *
+     * @category File System
+     */
+    deleteFile = (path, { signal } = {}) => this.#send({
+        type: FFMessageType.DELETE_FILE,
+        data: { path },
+    }, undefined, signal);
+    /**
+     * Rename a file or directory.
+     *
+     * @category File System
+     */
+    rename = (oldPath, newPath, { signal } = {}) => this.#send({
+        type: FFMessageType.RENAME,
+        data: { oldPath, newPath },
+    }, undefined, signal);
+    /**
+     * Create a directory.
+     *
+     * @category File System
+     */
+    createDir = (path, { signal } = {}) => this.#send({
+        type: FFMessageType.CREATE_DIR,
+        data: { path },
+    }, undefined, signal);
+    /**
+     * List directory contents.
+     *
+     * @category File System
+     */
+    listDir = (path, { signal } = {}) => this.#send({
+        type: FFMessageType.LIST_DIR,
+        data: { path },
+    }, undefined, signal);
+    /**
+     * Delete an empty directory.
+     *
+     * @category File System
+     */
+    deleteDir = (path, { signal } = {}) => this.#send({
+        type: FFMessageType.DELETE_DIR,
+        data: { path },
+    }, undefined, signal);
+}
+
+return {FFmpeg};
+})();
+</script>
+<script type="text/plain" id="ffw">
+const MIME_TYPE_JAVASCRIPT = "text/javascript";
+const MIME_TYPE_WASM = "application/wasm";
+const CORE_VERSION = "0.12.9";
+const CORE_URL = `https://unpkg.com/@ffmpeg/core@${CORE_VERSION}/dist/umd/ffmpeg-core.js`;
+var FFMessageType;
+(function (FFMessageType) {
+    FFMessageType["LOAD"] = "LOAD";
+    FFMessageType["EXEC"] = "EXEC";
+    FFMessageType["FFPROBE"] = "FFPROBE";
+    FFMessageType["WRITE_FILE"] = "WRITE_FILE";
+    FFMessageType["READ_FILE"] = "READ_FILE";
+    FFMessageType["DELETE_FILE"] = "DELETE_FILE";
+    FFMessageType["RENAME"] = "RENAME";
+    FFMessageType["CREATE_DIR"] = "CREATE_DIR";
+    FFMessageType["LIST_DIR"] = "LIST_DIR";
+    FFMessageType["DELETE_DIR"] = "DELETE_DIR";
+    FFMessageType["ERROR"] = "ERROR";
+    FFMessageType["DOWNLOAD"] = "DOWNLOAD";
+    FFMessageType["PROGRESS"] = "PROGRESS";
+    FFMessageType["LOG"] = "LOG";
+    FFMessageType["MOUNT"] = "MOUNT";
+    FFMessageType["UNMOUNT"] = "UNMOUNT";
+})(FFMessageType || (FFMessageType = {}));
+
+const ERROR_UNKNOWN_MESSAGE_TYPE = new Error("unknown message type");
+const ERROR_NOT_LOADED = new Error("ffmpeg is not loaded, call `await ffmpeg.load()` first");
+const ERROR_TERMINATED = new Error("called FFmpeg.terminate()");
+const ERROR_IMPORT_FAILURE = new Error("failed to import ffmpeg-core.js");
+
+let ffmpeg;
+const load = async ({ coreURL: _coreURL, wasmURL: _wasmURL, workerURL: _workerURL, }) => {
+    const first = !ffmpeg;
+    try {
+        if (!_coreURL)
+            _coreURL = CORE_URL;
+        // when web worker type is `classic`.
+        importScripts(_coreURL);
+    }
+    catch {
+        if (!_coreURL || _coreURL === CORE_URL)
+            _coreURL = CORE_URL.replace('/umd/', '/esm/');
+        // when web worker type is `module`.
+        self.createFFmpegCore = (await import(
+        /* @vite-ignore */ _coreURL)).default;
+        if (!self.createFFmpegCore) {
+            throw ERROR_IMPORT_FAILURE;
+        }
+    }
+    const coreURL = _coreURL;
+    const wasmURL = _wasmURL ? _wasmURL : _coreURL.replace(/.js$/g, ".wasm");
+    const workerURL = _workerURL
+        ? _workerURL
+        : _coreURL.replace(/.js$/g, ".worker.js");
+    ffmpeg = await self.createFFmpegCore({
+        // Fix `Overload resolution failed.` when using multi-threaded ffmpeg-core.
+        // Encoded wasmURL and workerURL in the URL as a hack to fix locateFile issue.
+        mainScriptUrlOrBlob: `${coreURL}#${btoa(JSON.stringify({ wasmURL, workerURL }))}`,
+    });
+    ffmpeg.setLogger((data) => self.postMessage({ type: FFMessageType.LOG, data }));
+    ffmpeg.setProgress((data) => self.postMessage({
+        type: FFMessageType.PROGRESS,
+        data,
+    }));
+    return first;
+};
+const exec = ({ args, timeout = -1 }) => {
+    ffmpeg.setTimeout(timeout);
+    ffmpeg.exec(...args);
+    const ret = ffmpeg.ret;
+    ffmpeg.reset();
+    return ret;
+};
+const ffprobe = ({ args, timeout = -1 }) => {
+    ffmpeg.setTimeout(timeout);
+    ffmpeg.ffprobe(...args);
+    const ret = ffmpeg.ret;
+    ffmpeg.reset();
+    return ret;
+};
+const writeFile = ({ path, data }) => {
+    ffmpeg.FS.writeFile(path, data);
+    return true;
+};
+const readFile = ({ path, encoding }) => ffmpeg.FS.readFile(path, { encoding });
+// TODO: check if deletion works.
+const deleteFile = ({ path }) => {
+    ffmpeg.FS.unlink(path);
+    return true;
+};
+const rename = ({ oldPath, newPath }) => {
+    ffmpeg.FS.rename(oldPath, newPath);
+    return true;
+};
+// TODO: check if creation works.
+const createDir = ({ path }) => {
+    ffmpeg.FS.mkdir(path);
+    return true;
+};
+const listDir = ({ path }) => {
+    const names = ffmpeg.FS.readdir(path);
+    const nodes = [];
+    for (const name of names) {
+        const stat = ffmpeg.FS.stat(`${path}/${name}`);
+        const isDir = ffmpeg.FS.isDir(stat.mode);
+        nodes.push({ name, isDir });
+    }
+    return nodes;
+};
+// TODO: check if deletion works.
+const deleteDir = ({ path }) => {
+    ffmpeg.FS.rmdir(path);
+    return true;
+};
+const mount = ({ fsType, options, mountPoint }) => {
+    const str = fsType;
+    const fs = ffmpeg.FS.filesystems[str];
+    if (!fs)
+        return false;
+    ffmpeg.FS.mount(fs, options, mountPoint);
+    return true;
+};
+const unmount = ({ mountPoint }) => {
+    ffmpeg.FS.unmount(mountPoint);
+    return true;
+};
+self.onmessage = async ({ data: { id, type, data: _data }, }) => {
+    const trans = [];
+    let data;
+    try {
+        if (type !== FFMessageType.LOAD && !ffmpeg)
+            throw ERROR_NOT_LOADED; // eslint-disable-line
+        switch (type) {
+            case FFMessageType.LOAD:
+                data = await load(_data);
+                break;
+            case FFMessageType.EXEC:
+                data = exec(_data);
+                break;
+            case FFMessageType.FFPROBE:
+                data = ffprobe(_data);
+                break;
+            case FFMessageType.WRITE_FILE:
+                data = writeFile(_data);
+                break;
+            case FFMessageType.READ_FILE:
+                data = readFile(_data);
+                break;
+            case FFMessageType.DELETE_FILE:
+                data = deleteFile(_data);
+                break;
+            case FFMessageType.RENAME:
+                data = rename(_data);
+                break;
+            case FFMessageType.CREATE_DIR:
+                data = createDir(_data);
+                break;
+            case FFMessageType.LIST_DIR:
+                data = listDir(_data);
+                break;
+            case FFMessageType.DELETE_DIR:
+                data = deleteDir(_data);
+                break;
+            case FFMessageType.MOUNT:
+                data = mount(_data);
+                break;
+            case FFMessageType.UNMOUNT:
+                data = unmount(_data);
+                break;
+            default:
+                throw ERROR_UNKNOWN_MESSAGE_TYPE;
+        }
+    }
+    catch (e) {
+        self.postMessage({
+            id,
+            type: FFMessageType.ERROR,
+            data: e.toString(),
+        });
+        return;
+    }
+    if (data instanceof Uint8Array) {
+        trans.push(data.buffer);
+    }
+    self.postMessage({ id, type, data }, trans);
+};
+
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
@@ -1404,14 +1930,20 @@ function bootPC(){
   function getFF(){
     if(ffP)return ffP;
     ffP=(async()=>{
-      let FFmpeg;try{({FFmpeg}=await import('./vendor/ffmpeg/index.js'))}catch(e){const x=new Error('A pasta "vendor" do aplicativo não foi encontrada no servidor. Publique a pasta completa do app.');x.stage='load';throw x}
-      let err;
-      for(const base of ['vendor/ffmpeg-core/','https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm/','https://unpkg.com/@ffmpeg/core@0.12.10/dist/esm/']){
-        try{const u=new URL(base,location.href).href;
-          if(!/^https?:/.test(base)){const r=await fetch(u+'ffmpeg-core.wasm',{method:'HEAD'}).catch(()=>null);if(!r||!r.ok)continue}
-          const ff=new FFmpeg();await ff.load({coreURL:u+'ffmpeg-core.js',wasmURL:u+'ffmpeg-core.wasm'});return ff}catch(e){err=e}
+      const tries=[],wURL=URL.createObjectURL(new Blob([$('#ffw').textContent],{type:'text/javascript'}));
+      for(const[nm,base]of[['pasta local','vendor/ffmpeg-core/'],['jsDelivr','https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd/'],['unpkg','https://unpkg.com/@ffmpeg/core@0.12.10/dist/umd/']]){
+        const u=new URL(base,location.href).href;let ff=null;
+        try{
+          if(nm==='pasta local'){
+            const r=await fetch(u+'ffmpeg-core.wasm',{method:'HEAD',cache:'no-store'}).catch(()=>null),ct=(r&&r.headers.get('content-type'))||'';
+            if(!r||!r.ok||/html/i.test(ct)){tries.push(`${nm}: ${r?'HTTP '+r.status+(/html/i.test(ct)?' (o servidor devolveu uma página no lugar do arquivo)':''):'sem resposta'}`);continue}
+          }
+          ff=new FFmpegLib.FFmpeg();
+          await Promise.race([ff.load({classWorkerURL:wURL,coreURL:u+'ffmpeg-core.js',wasmURL:u+'ffmpeg-core.wasm'}),new Promise((_,rj)=>setTimeout(()=>rj(new Error('tempo esgotado')),180000))]);
+          return ff;
+        }catch(e){tries.push(`${nm}: ${(e&&e.message)||e}`);try{ff&&ff.terminate()}catch(_){}}
       }
-      ffP=null;const x=new Error('Não foi possível carregar o conversor ('+((err&&err.message)||'sem resposta')+'). Verifique se a pasta "vendor/ffmpeg-core" foi publicada ou se há internet.');x.stage='load';throw x;
+      ffP=null;const x=new Error('Não foi possível carregar o conversor — '+tries.join(' · '));x.stage='load';throw x;
     })();
     return ffP;
   }
