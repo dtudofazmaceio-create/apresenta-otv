@@ -100,7 +100,11 @@ dialog h3{margin:0 0 6px}#code{font-size:22px;letter-spacing:.3em;text-align:cen
 /* TV */
 #tv{position:fixed;inset:0;background:#000;overflow:hidden;cursor:none;color:#fff}
 #stage,.media{position:absolute;inset:0}.media{overflow:hidden}
-#stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+#stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:transparent}
+#mbg{position:absolute;inset:0;overflow:hidden;display:none}#tv.msys #mbg{display:block}
+#mbg i{position:absolute;inset:-4%;background:center/cover no-repeat}#mbg b{position:absolute;inset:0}
+#tv.msys .media .bl{display:none}#tv.mblack .media .bl{display:none}
+#tv.msys .media img,#tv.msys #stage video{filter:drop-shadow(0 1.2vw 3vw rgba(0,0,0,.5))}
 .bl{position:absolute;inset:-6%;background-size:cover;background-position:center;filter:blur(32px) brightness(.5)}
 .media img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 #stage.cover video,#stage.cover .media img{object-fit:cover}
@@ -511,6 +515,9 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
         <div class="seg" data-k="tr"><button data-v="fade">Suave</button><button data-v="slide">Deslizar</button><button data-v="zoom">Zoom</button><button data-v="none">Nenhuma</button></div>
         <label class="l">Imagens</label>
         <div class="seg" data-k="fit"><button data-v="contain">Ajustar</button><button data-v="cover">Preencher</button></div>
+        <label class="l">Fundo de fotos e vídeos verticais</label>
+        <div class="seg" data-k="mbg"><button data-v="sys">Fundo do sistema</button><button data-v="blur">Desfoque</button><button data-v="black">Preto</button></div>
+        <p class="mu" style="font-size:12px;margin:8px 0 0">"Fundo do sistema" usa o tema e o plano de fundo escolhidos em <b>Aparência</b> (ícone de paleta no topo).</p>
         <div class="row" style="justify-content:space-between;margin-top:16px"><span class="sec" style="font-size:14px;color:var(--tx)"><i data-i="clock"></i>Relógio na tela</span><label class="sw"><input type="checkbox" id="clk"><span></span></label></div>
         <label class="l">Faixa rolante (rodapé)</label>
         <input id="tickIn" placeholder="Ex.: Reunião geral hoje às 15h — sala 2">
@@ -673,7 +680,7 @@ const TPL=[
 {n:'Natureza',c1:'#064e3b',c2:'#22c55e',fg:'#f0fff4',font:'arredondada',al:'center'},
 {n:'Pôr do sol',c1:'#f97316',c2:'#be123c',fg:'#fff7ed',font:'arredondada',al:'left'},
 {n:'Noite',c1:'#0f172a',c2:'#3730a3',fg:'#e0e7ff',font:'mono',al:'left'}];
-const DEF={tr:'fade',fit:'contain',clock:false,tick:'',vol:.4,mute:false,loop:true};
+const DEF={tr:'fade',fit:'contain',mbg:'sys',clock:false,tick:'',vol:.4,mute:false,loop:true};
 function slide(r){
   const d=document.createElement('div'),f=FONTS[r.font]||FONTS.moderna,k={P:.75,M:1,G:1.3,X:1.6}[r.size]||1;
   d.className='slide';
@@ -1074,7 +1081,11 @@ const UIBG={
 };
 const UIDEF={theme:'noite',bg:'none',blur:0,dim:.25,acc:'',view:'list'};
 function uiGet(){try{return{...UIDEF,...JSON.parse(localStorage.ui||'{}')}}catch(e){return{...UIDEF}}}
-function uiSet(o){localStorage.ui=JSON.stringify({...uiGet(),...o});applyUI()}
+function uiSet(o){localStorage.ui=JSON.stringify({...uiGet(),...o});applyUI();dispatchEvent(new Event('uichange'))}
+function stageBg(){
+  const u=uiGet(),th=UITH[u.theme]||UITH.noite,img=u.bg==='foto'&&localStorage.uiImg||null;
+  return{img,css:img?null:(UIBG[u.bg]||[])[1]||`radial-gradient(90% 100% at 15% 10%,${th.p},${th.bg} 70%)`,blur:img||UIBG[u.bg]?u.blur:0,dim:u.bg==='none'?0:u.dim,color:th.bg};
+}
 const shade=(h,k)=>'#'+[1,3,5].map(i=>Math.max(0,Math.min(255,Math.round(parseInt(h.slice(i,i+2),16)*(1+k))))).map(v=>v.toString(16).padStart(2,'0')).join('');
 function applyUI(){
   if(mode==='tv'||mode==='play'||mode==='cast')return;
@@ -1400,7 +1411,7 @@ function bootPC(){
     conn=c;acks={};
     c.on('open',()=>{
       if(conn!==c)return;setConn('on',info.name);toast('Conectado a '+info.name);
-      c.send({t:'cfg',cfg});syncUI();renderDevs();sync();
+      c.send({t:'cfg',cfg});c.send({t:'stbg',bg:stageBg()});syncUI();renderDevs();sync();
     });
     c.on('close',()=>{
       if(c!==conn)return;conn=null;curId=null;tvPlaying=false;Object.values(acks).forEach(f=>f());acks={};syncUI();renderDevs();
@@ -1552,6 +1563,7 @@ function bootPC(){
   $('#bPrev').onclick=()=>ctl({t:'cmd',c:'prev'});
   $('#bClear').onclick=()=>{if(confirm('Remover todo o conteúdo da TV? (a biblioteca do computador é mantida)'))send({t:'clear'})};
   /* aparência */
+  let stT;addEventListener('uichange',()=>{clearTimeout(stT);stT=setTimeout(()=>{bc.postMessage({t:'stbg'});if(conn&&conn.open)conn.send({t:'stbg',bg:stageBg()})},700)});
   function renderUI(){
     const u=uiGet();
     $('#uiTh').innerHTML=Object.entries(UITH).map(([k,t])=>`<button class="uit${u.theme===k?' on':''}" data-t="${k}"><i style="background:${t.bg}"><span style="background:${t.p}"></span><span style="background:${t.p}"></span><span style="background:${t.p}"></span><em style="background:${t.ac}"></em></i>${t.n}</button>`).join('');
@@ -1579,7 +1591,7 @@ function bootPC(){
   const setView=v=>{uiSet({view:v});document.querySelectorAll('#uiView button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));render()};
   $('#uiView').onclick=e=>{const b=e.target.closest('button');if(b)setView(b.dataset.v)};
   $('#viewSeg').onclick=e=>{const b=e.target.closest('button');if(b)setView(b.dataset.v)};
-  $('#uiReset').onclick=()=>{localStorage.removeItem('ui');localStorage.removeItem('uiImg');applyUI();renderUI();render();toast('Aparência restaurada')};
+  $('#uiReset').onclick=()=>{localStorage.removeItem('ui');localStorage.removeItem('uiImg');applyUI();dispatchEvent(new Event('uichange'));renderUI();render();toast('Aparência restaurada')};
 
   /* navegação do celular */
   const pcEl=$('#pc');
@@ -1630,6 +1642,14 @@ function bootTV(kind){
   let sUrls=[],busyBy=null,lob=null,lobSt='w',peerOk=false,netErr=false,myCode=null;
   const stage=$('#stage'),bgA=new Audio(),bc=local?new BroadcastChannel('apres'):null;
   if(kind==='net')try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
+  let SB=null;try{SB=local?stageBg():JSON.parse(localStorage.stbg||'null')}catch(e){}
+  function applyBg(){
+    let m=$('#mbg');if(!m){m=document.createElement('div');m.id='mbg';m.innerHTML='<i></i><b></b>';$('#tv').insertBefore(m,stage)}
+    const sb=SB||{css:'radial-gradient(90% 100% at 15% 10%,#121830,#0b0f1d 70%)',color:'#0b0f1d',dim:0,blur:0};
+    m.firstChild.style.background=sb.img?`url(${sb.img}) center/cover no-repeat`:sb.css;m.firstChild.style.filter=sb.blur?`blur(${sb.blur}px)`:'';
+    m.lastChild.style.background=sb.color;m.lastChild.style.opacity=sb.dim||0;
+  }
+  applyBg();
   const badge=t=>{const b=$('#badge');b.textContent=t;b.classList.add('show');clearTimeout(badge.t);badge.t=setTimeout(()=>b.classList.remove('show'),3500)};
   const persist=()=>{localStorage.pl=JSON.stringify(pl);localStorage.bg=JSON.stringify(bg);localStorage.tvcfg=JSON.stringify(cfg)};
   const vid=()=>stage.querySelector('video')||aud;
@@ -1637,6 +1657,7 @@ function bootTV(kind){
 
   function applyCfg(){
     stage.classList.toggle('cover',cfg.fit==='cover');
+    const tv=$('#tv');tv.classList.toggle('msys',(cfg.mbg||'sys')==='sys');tv.classList.toggle('mblack',cfg.mbg==='black');
     $('#clock').hidden=!cfg.clock;
     const t=$('#tick');t.hidden=!cfg.tick;
     if(cfg.tick){const s=t.firstChild;s.textContent=cfg.tick;s.style.animationDuration=Math.max(14,cfg.tick.length*.22)+'s'}
@@ -1709,6 +1730,7 @@ function bootTV(kind){
     pl=a.filter(x=>x.kind!=='bg').sort((x,y)=>x.order-y.order).map(x=>({id:x.id,dur:x.dur}));
     bg=a.filter(x=>x.kind==='bg').sort((x,y)=>x.order-y.order).map(x=>x.id);
     cfg={...DEF,...JSON.parse(localStorage.cfg||'{}')};
+    SB=stageBg();applyBg();
     await refresh(...prev);
   }
   async function onData(d){
@@ -1731,6 +1753,7 @@ function bootTV(kind){
       playing=true;await refresh(curId,wasEmpty,oldBg);
       badge('Conteúdo atualizado');
     }else if(d.t==='cfg'){cfg={...DEF,...d.cfg};persist();applyCfg();bgSync()}
+    else if(d.t==='stbg'){if(d.bg){SB=d.bg;try{localStorage.stbg=JSON.stringify(SB)}catch(e){}}else if(local)SB=stageBg();applyBg()}
     else if(d.t==='cmd'){
       if(d.c==='play'){playing=true;show(idx)}
       else if(d.c==='pause'){playing=false;clearTimeout(timer);const m=vid();m&&m.pause();bgSync();report()}

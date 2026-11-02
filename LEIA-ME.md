@@ -41,6 +41,7 @@ Clique no ícone de **paleta** no topo:
 - **Plano de fundo:** cor lisa do tema, 6 gradientes (Aurora, Pôr do sol, Mar, Noturno, Dourado e Pastel) ou **sua própria foto**. Ajuste o desfoque e a suavização para manter tudo legível. Os painéis ficam translúcidos sobre o fundo.
 - **Cor de destaque** personalizada (por exemplo, a cor da sua marca).
 - **Programação em Lista ou Grade**, com miniaturas grandes. Também há um atalho nos ícones ao lado de "Programação". Na grade, dá para arrastar os cartões para reordenar.
+- **Fotos e vídeos verticais na TV** usam o plano de fundo do sistema nas laterais, em vez de faixas pretas, com uma sombra suave em volta da mídia. Na aba **Tela › Fundo de fotos e vídeos verticais** você pode trocar para "Desfoque" (a própria foto desfocada) ou "Preto". Quando você muda a aparência, a TV conectada se atualiza sozinha.
 - As escolhas ficam salvas no aparelho. "Restaurar padrão" volta ao visual original.
 
 ## Recursos do app
