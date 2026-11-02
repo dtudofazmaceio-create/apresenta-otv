@@ -259,6 +259,39 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 .o-junina .cnt{top:57%}
 .L-promo .phi{position:absolute;left:50%;top:50%;width:18em;height:18em;transform:translate(-50%,-50%);color:var(--ac);opacity:.22}.L-promo .phi svg{width:100%;height:100%}
 .L-promo .side{background-color:var(--bg2)}
+
+/* pessoas: fotos e instagram */
+.tpl .ig{display:inline-flex;align-items:center;gap:.45em;font-size:calc(1.35em*var(--k));font-weight:600;color:var(--fg);opacity:.92;margin-top:.55em;white-space:nowrap}
+.tpl .ig svg{width:1.15em;height:1.15em;color:var(--ac);flex:none}
+.tpl .cc>.ig{margin:.7em 0 .1em}
+.L-aniver1 .cc>.ig{margin:0 0 .2em}
+.tpl .rav{width:10em;height:10em;border-radius:50%;background:var(--bg2) center/cover no-repeat;border:.35em solid;position:relative;margin-bottom:.9em;box-shadow:0 1em 2.5em rgba(0,0,0,.4)}
+.tpl .pc.p1 .rav{width:12.5em;height:12.5em}
+.tpl .mb{position:absolute;right:-.3em;bottom:-.1em;width:3.2em;height:3.2em;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#1b1b1b;font-weight:800;font-size:1.15em;box-shadow:0 .4em 1em rgba(0,0,0,.4)}
+.tpl .pc .ig{font-size:calc(1.15em*var(--k));margin-top:.45em}
+.tpl .rest .ra{display:inline-block;width:1.7em;height:1.7em;border-radius:50%;background:center/cover no-repeat;vertical-align:middle;margin-right:.5em}
+.tpl .rest em{font-style:normal;color:var(--ac);font-size:.85em}
+.tpl .cav{width:9em;height:9em;border-radius:50%;background:var(--bg2) center/cover no-repeat;border:.3em solid var(--ac);margin:0 auto 1.3em;display:flex;align-items:center;justify-content:center;flex:none}
+.tpl .cav.ini span{font-family:var(--tf);font-weight:var(--tw);font-size:3em;color:var(--fg)}
+.tpl .card2 .ig{font-size:calc(1.1em*var(--k));margin-top:.55em}
+.tpl .cards.tall{top:18.5em}
+.L-aniversario .hd2.hi{top:5em}
+.tpl .cards.hor{top:18em;left:12em;right:8em;display:grid;grid-template-columns:1fr 1fr;gap:2.4em 5em;justify-content:stretch}.tpl .cards.hor.r4{top:16.5em;gap:1.3em 5em}
+.tpl .card3{display:flex;align-items:center;gap:1.8em;text-align:left}
+.tpl .card3 .cav{width:8.5em;height:8.5em;margin:0;border-width:.3em}.tpl .r4 .card3 .cav{width:6.4em;height:6.4em;border-width:.25em}.tpl .card3 .cav.ini span{font-size:2.2em}
+.tpl .card3 b{display:block;font-size:calc(2em*var(--k));font-weight:700;line-height:1.2}
+.tpl .card3 span{display:block;font-family:var(--tf);color:var(--ac);font-size:calc(1.45em*var(--k));font-weight:var(--tw)}
+.tpl .card3 .ig{margin-top:.25em;font-size:calc(1.1em*var(--k))}.tpl .card3 .ig span{font-family:var(--bf);color:var(--fg);font-size:1em;font-weight:600;display:inline}
+.tpl .card2 .ig span{display:inline;margin:0;font-size:1em}
+#stage .tpl .card3{animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
+.L-aniver1 .tx{max-width:30em}
+/* editor de pessoas */
+.prow{display:flex;gap:10px;align-items:center;padding:8px;border:1px solid var(--ln);border-radius:12px;background:#0f1530;margin-bottom:8px}
+.pph{width:58px;height:58px;border-radius:50%;flex:none;background:var(--p2) center/cover no-repeat;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--mu);border:2px dashed var(--ln)}
+.pph.has{border:2px solid var(--ac)}.pph:hover{border-color:var(--ac)}
+.pin{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}.pin input{padding:7px 9px}
+.pn{display:flex;align-items:center;gap:6px}.pos{color:var(--ac);font-size:13px;min-width:24px}
+.pac{display:flex;flex-direction:column;gap:4px}.pac .ic{padding:5px}.pac .ic .i{width:15px;height:15px}
 /* editor de modelos */
 .lcat{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px}.lcat button{font-size:11.5px;padding:8px 2px}.lcat button.on{background:var(--ac);color:#fff;outline:0}
 .lays{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -552,6 +585,7 @@ sliders:'<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"
 clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
 layout:'<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>',
 layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+'chev-up':'<polyline points="18 15 12 9 6 15"/>',
 refresh:'<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
 download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
 list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
@@ -625,10 +659,10 @@ const LAYOUTS={
     s:{eyebrow:'Comunicado interno',title:'Novo horário de atendimento',text:'A partir de 1º de dezembro, o atendimento ao público será das 8h às 18h, de segunda a sexta-feira.',foot:'Recursos Humanos · 02/11/2026'}},
   evento:{n:'Evento',cat:'i',f:{big:'Data (ex.: 28/11)',eyebrow:'Etiqueta',title:'Nome do evento',text:'Detalhes (um por linha)',foot:F.ft},
     s:{big:'28/11',eyebrow:'Evento',title:'Confraternização de fim de ano',text:'Sexta-feira, às 19h\nEspaço Villa Garden\nConfirme presença até 20/11',foot:'Contamos com você!'}},
-  pessoa:{n:'Boas-vindas',cat:'i',f:{eyebrow:F.eb,title:'Nome',text:'Cargo / setor',foot:'Mensagem'},
-    s:{eyebrow:'Seja bem-vinda',title:'Mariana Costa',text:'Corretora de Imóveis · Equipe Zona Sul',foot:'Desejamos muito sucesso nesta nova jornada!'}},
-  aniversario:{n:'Aniversariantes',cat:'i',f:{eyebrow:F.eb,title:F.t,text:'Nomes (um por linha: Nome — dia)',foot:F.ft},
-    s:{eyebrow:'Parabéns!',title:'Aniversariantes de novembro',text:'Ana Souza — 03/11\nCarlos Lima — 12/11\nFernanda Alves — 21/11\nRoberto Dias — 27/11',foot:'Muitas felicidades a todos!'}},
+  pessoa:{n:'Boas-vindas',cat:'i',f:{eyebrow:F.eb,title:'Nome',ig:'Instagram (opcional)',text:'Cargo / setor',foot:'Mensagem'},
+    s:{eyebrow:'Seja bem-vinda',title:'Mariana Costa',ig:'@marianacosta.imoveis',text:'Corretora de Imóveis · Equipe Zona Sul',foot:'Desejamos muito sucesso nesta nova jornada!'}},
+  aniversario:{n:'Aniversariantes',cat:'i',f:{eyebrow:F.eb,title:F.t,people:'Aniversariantes (até 8)',foot:F.ft},
+    s:{eyebrow:'Parabéns!',title:'Aniversariantes de novembro',people:[{n:'Ana Souza',v:'03/11',ig:'@anasouza'},{n:'Carlos Lima',v:'12/11',ig:'@carloslima'},{n:'Fernanda Alves',v:'21/11',ig:''},{n:'Roberto Dias',v:'27/11',ig:'@robertodias'}],foot:'Muitas felicidades a todos!'}},
   urgente:{n:'Aviso importante',cat:'i',f:{eyebrow:'Etiqueta',title:F.t,text:F.tx,foot:F.ft},
     s:{eyebrow:'Atenção',title:'Manutenção na rede elétrica',text:'Na quinta-feira, das 14h às 16h, não haverá energia no 2º andar. Salve seus trabalhos com antecedência.',foot:'Facilities · Ramal 2040'}},
   meta:{n:'Meta / progresso',cat:'i',f:{eyebrow:F.eb,title:F.t,big:'Percentual atingido (ex.: 78%)',text:'Detalhe',foot:F.ft},
@@ -646,6 +680,8 @@ const KITS=[
   {n:'Informativo da semana',d:'comunicado, evento, aniversariantes, boas-vindas e aviso',
    s:[['comunicado'],['evento'],['aniversario'],['pessoa'],['urgente']]}
 ];
+const IGI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor" stroke="none"/></svg>';
+const igH=v=>{let s=String(v||'').trim();if(!s)return'';const m=/instagram\.com\/([A-Za-z0-9._]+)/i.exec(s);if(m)s=m[1];s=s.replace(/^@+/,'').replace(/[^A-Za-z0-9._]/g,'');return s?'@'+s:''};
 const MESES=['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
 function tpl(r,urls){
   const L=LAYOUTS[r.layout]?r.layout:'livre',O=L==='data'?(OCC[r.occ]||OCC.natal):null;
@@ -666,6 +702,11 @@ function tpl(r,urls){
   const rule=c=>r.text?`<div class="rule ${c||''}"></div>`:'';
   const ft=r.foot?`<div class="ft"><i class="mk"></i><span>${e(r.foot)}</span></div>`:'';
   const note=r.foot?`<div class="note">${e(r.foot)}</div>`:'';
+  const U=b=>{const u=URL.createObjectURL(b);urls&&urls.push(u);return u};
+  const ini=n=>String(n||'').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase();
+  const avt=(x,c)=>x.ph instanceof Blob?`<div class="${c}" style="background-image:url(${U(x.ph)})"></div>`:`<div class="${c} ini"><span>${e(ini(x.n))}</span></div>`;
+  const igt=v=>{const h=igH(v);return h?`<div class="ig">${IGI}<span>${e(h)}</span></div>`:''};
+  const ppl=()=>Array.isArray(r.people)&&r.people.some(x=>x&&(x.n||x.ph))?r.people.filter(x=>x&&(x.n||x.ph)):ln(r.text).map(x=>{const q=x.split(/\s+[—–-]\s+|\s*[;|]\s*/);return{n:q[0],v:q.slice(1).join(' ')}});
   let h='';
   switch(L){
     case 'capa':h=`<div class="bar"></div><div class="frame"></div><div class="cnt bot">${eb}${t('xl')}${rule()}${p}</div>${ft}`;break;
@@ -682,19 +723,21 @@ function tpl(r,urls){
     case 'evento':{const m=/^(\d{1,2})\s*[\/.\-]\s*(\d{1,2})/.exec(r.big||'');
       h=`<div class="cal"><b>${m?m[1].padStart(2,'0'):e(r.big)}</b>${m&&MESES[+m[2]-1]?`<span>${MESES[+m[2]-1]}</span>`:''}</div><div class="cnt ev">${eb}${t('lg')}<ul class="det">${ln(r.text).map(x=>`<li>${e(x)}</li>`).join('')}</ul></div>${ft}`;break}
     case 'pessoa':{const ini=String(r.title||'').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase();
-      h=`<div class="cnt cc"><div class="av"${ph?` style="background-image:url(${ph})"`:''}>${ph?'':`<span>${e(ini)}</span>`}</div>${eb}${t('lg')}${p}${note}</div>`;break}
-    case 'aniversario':{h=deco('confetti',[ac,'#ffffff'],'an');const it=ln(r.text).slice(0,8).map(x=>{const q=x.split(/\s+[—–-]\s+|\s*[,;]\s*/);return{n:q[0],d:q[1]||''}});
-      h+=`<div class="hd2 c">${eb}${t('lg')}</div><div class="cards">${it.map(x=>`<div class="card2">${x.d?`<b>${e(x.d)}</b>`:''}<span>${e(x.n)}</span></div>`).join('')}</div>${ft}`;break}
+      h=`<div class="cnt cc"><div class="av"${ph?` style="background-image:url(${ph})"`:''}>${ph?'':`<span>${e(ini)}</span>`}</div>${eb}${t('lg')}${igt(r.ig)}${p}${note}</div>`;break}
+    case 'aniversario':{h=deco('confetti',[ac,'#ffffff'],'an');const it=ppl().slice(0,8),hp=it.some(x=>x.ph instanceof Blob),hor=hp&&it.length>4;
+      h+=`<div class="hd2 c${hor?' hi':''}">${eb}${t('lg')}</div><div class="cards${hor?' hor'+(it.length>6?' r4':''):hp?' tall':''}">${it.map(x=>hor
+        ?`<div class="card3">${avt(x,'cav')}<div><b>${e(x.n)}</b>${x.v?`<span>${e(x.v)}</span>`:''}${igt(x.ig)}</div></div>`
+        :`<div class="card2">${hp?avt(x,'cav'):''}${x.v?`<b>${e(x.v)}</b>`:''}<span>${e(x.n)}</span>${igt(x.ig)}</div>`).join('')}</div>${ft}`;break}
     case 'urgente':h=`<div class="band"><span class="ex"><i>!</i></span><span class="bt">${e(r.eyebrow||'Aviso importante')}</span></div><div class="cnt ml low">${t('lg')}${p}</div>${ft}`;break;
     case 'premio':{const ini=String(r.title||'').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase();
-      h=deco('stars',[ac,'#ffffff'],'premio'+r.title)+`<div class="glow"></div><div class="cnt cc"><div class="wreath">${laurel()}<div class="av"${ph?` style="background-image:url(${ph})"`:''}>${ph?'':`<i class="tro">${emb('trophy')}</i>`}</div></div>${eb}${t('lg')}${r.big?`<div class="ach">${e(r.big)}</div>`:''}${p}${note}</div>`;break}
-    case 'ranking':{const it=ln(r.text).map(x=>{const q=x.split(/\s+[—–-]\s+|\s*[;|]\s*/);return{n:q[0],v:q.slice(1).join(' ')}});
-      const top=[it[1],it[0],it[2]],H=[12,17,8],M=['#cfd6de','#e6c068','#cd8a52'],pos=[2,1,3];
-      h=`<div class="glow"></div><div class="hd2 c">${eb}${t('md')}</div><div class="pod${it.length>3?' up':''}">${top.map((x,i)=>x?`<div class="pc${i===1?' p1':''}"><div class="medal" style="background:${M[i]}">${pos[i]}º</div><b>${e(x.n)}</b>${x.v?`<span>${e(x.v)}</span>`:''}<div class="blk" style="height:${H[i]}em"></div></div>`:'').join('')}</div>`
-        +(it.length>3?`<div class="rest">${it.slice(3,6).map((x,i)=>`<span><b>${i+4}º</b>${e(x.n)}${x.v?` · ${e(x.v)}`:''}</span>`).join('')}</div>`:ft);break}
+      h=deco('stars',[ac,'#ffffff'],'premio'+r.title)+`<div class="glow"></div><div class="cnt cc"><div class="wreath">${laurel()}<div class="av"${ph?` style="background-image:url(${ph})"`:''}>${ph?'':`<i class="tro">${emb('trophy')}</i>`}</div></div>${eb}${t('lg')}${igt(r.ig)}${r.big?`<div class="ach">${e(r.big)}</div>`:''}${p}${note}</div>`;break}
+    case 'ranking':{const it=ppl().slice(0,5),hp=it.slice(0,3).some(x=>x.ph instanceof Blob),hi=it.slice(0,3).some(x=>igH(x.ig));
+      const top=[it[1],it[0],it[2]],H=hp?(hi?[8,12,5]:[9,13,6]):(hi?[10,15,6]:[12,17,8]),M=['#cfd6de','#e6c068','#cd8a52'],pos=[2,1,3];
+      h=`<div class="glow"></div><div class="hd2 c">${eb}${t('md')}</div><div class="pod${it.length>3?' up':''}">${top.map((x,i)=>x?`<div class="pc${i===1?' p1':''}">${x.ph instanceof Blob?`<div class="rav" style="background-image:url(${U(x.ph)});border-color:${M[i]}"><span class="mb" style="background:${M[i]}">${pos[i]}º</span></div>`:`<div class="medal" style="background:${M[i]}">${pos[i]}º</div>`}<b>${e(x.n)}</b>${x.v?`<span>${e(x.v)}</span>`:''}${igt(x.ig)}<div class="blk" style="height:${H[i]}em"></div></div>`:'').join('')}</div>`
+        +(it.length>3?`<div class="rest">${it.slice(3).map((x,i)=>`<span>${x.ph instanceof Blob?`<i class="ra" style="background-image:url(${U(x.ph)})"></i>`:''}<b>${i+4}º</b>${e(x.n)}${x.v?` · ${e(x.v)}`:''}${igH(x.ig)?` <em>${e(igH(x.ig))}</em>`:''}</span>`).join('')}</div>`:ft);break}
     case 'aniver1':
       h=deco('balloons',[ac,'#ef476f','#ffd166','#06d6a0','#4cc9f0'],'b'+r.title)+deco('confetti',[ac,'#ffffff','#ef476f','#ffd166','#4cc9f0'],'c'+r.title)
-        +`<div class="cnt cc">${ph?`<div class="av sm" style="background-image:url(${ph})"></div>`:''}${eb}${r.title?`<h1 class="t scr">${e(r.title)}</h1>`:''}${r.big?`<div class="pill">${e(r.big)}</div>`:''}${p}${note}</div>`;break;
+        +`<div class="cnt cc">${ph?`<div class="av sm" style="background-image:url(${ph})"></div>`:''}${eb}${r.title?`<h1 class="t scr">${e(r.title)}</h1>`:''}${igt(r.ig)}${r.big?`<div class="pill">${e(r.big)}</div>`:''}${p}${note}</div>`;break;
     case 'data':
       h=deco(O.dk,O.dc,r.occ)+`<div class="cnt cc">${O.em?`<div class="emb">${emb(O.em)}</div>`:''}${eb}${r.title?`<h1 class="t ${O.tf==='script'?'scr':'xl'}">${e(r.title)}</h1>`:''}${r.big?`<div class="yr">${e(r.big)}</div>`:''}${rule('c')}${p}${note}</div>`;break;
     case 'promo':{const n=x=>{const v=parseFloat(String(x||'').replace(/[^\d,]/g,'').replace(',','.'));return isNaN(v)?0:v},a=n(r.old),b=n(r.big),off=a>b&&b>0?Math.round((1-b/a)*100):0;
@@ -746,7 +789,7 @@ function deco(k,C,seed){
     const P=t=>[-40+1680*t,(1-t)*(1-t)*y0+2*(1-t)*t*(y0+dip*2)+t*t*y0];
     b+=`<path d="M-40 ${y0}Q800 ${y0+dip*2} 1640 ${y0}" stroke="#ffffff" stroke-opacity=".5" stroke-width="2" fill="none"/>`;
     for(let i=0;i<28;i++){const[a,ay]=P(i/28),[c2,cy]=P((i+.8)/28),mx=(a+c2)/2,my=(ay+cy)/2;b+=`<path d="M${f(a)} ${f(ay)}L${f(c2)} ${f(cy)}L${f(mx)} ${f(my+62)}Z" fill="${C[i%C.length]}" opacity="${o}"/>`}}
-  if(k==='balloons')for(const[x,y,s]of[[150,640,1.3],[270,760,1],[90,820,.9],[1450,620,1.25],[1330,760,1],[1520,800,.9]]){
+  if(k==='balloons')for(const[x,y,s]of[[120,640,1.3],[235,770,1],[70,820,.9],[1480,620,1.25],[1365,770,1],[1535,800,.9]]){
     const c=pick(C);b+=`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 48Q-10 90 6 140" stroke="#ffffff" stroke-opacity=".5" stroke-width="2" fill="none"/><ellipse rx="40" ry="50" fill="${c}"/><path d="M-6 48H6L0 57Z" fill="${c}"/><ellipse cx="-13" cy="-19" rx="8" ry="14" fill="#fff" opacity=".28"/></g>`}
   return `<svg class="deco" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">${b}</svg>`;
 }
@@ -802,12 +845,12 @@ const OCC={
 const occText=k=>{const o=OCC[k]||OCC.natal;return{occ:k,eyebrow:o.e||o.dt,title:o.t,big:o.big||'',text:o.x,foot:o.f||''}};
 function nextOcc(){const d=new Date(),k=(d.getMonth()+1)*100+d.getDate(),l=Object.entries(OCC).sort((a,b)=>a[1].md-b[1].md);return(l.find(([,o])=>o.md>=k)||l[0])[0]}
 Object.assign(LAYOUTS,{
-  premio:{n:'Premiação',cat:'c',f:{eyebrow:'Chamada (ex.: Destaque do mês)',title:'Nome do premiado',big:'Conquista',text:'Detalhes',foot:'Mensagem'},
-    s:{eyebrow:'Destaque do mês · Outubro',title:'Ricardo Almeida',big:'Corretor que mais vendeu',text:'12 imóveis vendidos · R$ 6,3 mi em VGV',foot:'Parabéns pela dedicação e pelos resultados!'}},
-  ranking:{n:'Ranking / pódio',cat:'c',f:{eyebrow:F.eb,title:F.t,text:'Classificação (um por linha: Nome — resultado)',foot:F.ft},
-    s:{eyebrow:'Ranking de vendas',title:'Top corretores de outubro',text:'Ricardo Almeida — R$ 6,3 mi\nJuliana Martins — R$ 5,1 mi\nPaulo Henrique — R$ 4,4 mi\nCamila Rocha — R$ 3,2 mi\nThiago Nunes — R$ 2,9 mi'}},
-  aniver1:{n:'Aniversariante do dia',cat:'c',f:{eyebrow:'Chamada',title:'Nome do aniversariante',big:'Data',text:'Mensagem',foot:'Assinatura'},
-    s:{eyebrow:'Feliz aniversário',title:'Juliana Martins',big:'Hoje · 14 de novembro',text:'Que seu novo ciclo seja repleto de saúde, alegrias e muitas conquistas!',foot:'Com carinho, toda a equipe'}},
+  premio:{n:'Premiação',cat:'c',f:{eyebrow:'Chamada (ex.: Destaque do mês)',title:'Nome do premiado',ig:'Instagram (opcional)',big:'Conquista',text:'Detalhes',foot:'Mensagem'},
+    s:{eyebrow:'Destaque do mês · Outubro',title:'Ricardo Almeida',ig:'@ricardo.imoveis',big:'Corretor que mais vendeu',text:'12 imóveis vendidos · R$ 6,3 mi em VGV',foot:'Parabéns pela dedicação e pelos resultados!'}},
+  ranking:{n:'Ranking / pódio',cat:'c',f:{eyebrow:F.eb,title:F.t,people:'Classificação (na ordem: 1º, 2º, 3º…)',foot:F.ft},
+    s:{eyebrow:'Ranking de vendas',title:'Top corretores de outubro',people:[{n:'Ricardo Almeida',v:'R$ 6,3 mi',ig:'@ricardo.imoveis'},{n:'Juliana Martins',v:'R$ 5,1 mi',ig:'@jumartins.corretora'},{n:'Paulo Henrique',v:'R$ 4,4 mi',ig:'@paulohenrique'},{n:'Camila Rocha',v:'R$ 3,2 mi',ig:''},{n:'Thiago Nunes',v:'R$ 2,9 mi',ig:''}]}},
+  aniver1:{n:'Aniversariante do dia',cat:'c',f:{eyebrow:'Chamada',title:'Nome do aniversariante',ig:'Instagram (opcional)',big:'Data',text:'Mensagem',foot:'Assinatura'},
+    s:{eyebrow:'Feliz aniversário',title:'Juliana Martins',ig:'@jumartins.corretora',big:'Hoje · 14 de novembro',text:'Que seu novo ciclo seja repleto de saúde, alegrias e muitas conquistas!',foot:'Com carinho, toda a equipe'}},
   data:{n:'Data comemorativa',cat:'c',f:{occ:'Data comemorativa',eyebrow:'Linha pequena (acima do título)',title:F.t,big:'Destaque opcional (ex.: ano)',text:'Mensagem',foot:'Assinatura'},s:{}},
   promo:{n:'Promoção / oferta',cat:'p',f:{eyebrow:'Etiqueta',title:'Produto ou imóvel',old:'Preço "de" (opcional)',big:'Preço "por"',text:'Detalhes',foot:'Condições / validade'},
     s:{eyebrow:'Oferta especial',title:'Apartamento 3 dormitórios no Jardim Europa',old:'R$ 689.000',big:'R$ 599.000',text:'92 m² · 2 vagas · varanda gourmet',foot:'Válido até 30/11 ou enquanto durarem as unidades'}},
@@ -1000,18 +1043,19 @@ function bootPC(){
   $('#bMute').onclick=()=>{cfg.mute=!cfg.mute;saveCfg()};
 
   /* ---------- editor de modelos ---------- */
-  const KEYS=['eyebrow','title','big','old','when','text','foot'];
-  let lcat='a',pvUrls=[],layUrls=[],kitUrls=[];
+  const KEYS=['eyebrow','title','ig','big','old','when','text','foot'];
+  let lcat='a',pvUrls=[],layUrls=[],kitUrls=[],pplUrls=[];
   function newDraft(){
     const th=dr.theme||localStorage.lastTheme||'executivo';
     for(const k in dr)delete dr[k];
     Object.assign(dr,{layout:'capa',theme:th,pair:'',acc:'',size:'M',dur:10,ov:.55,img:null,imgName:'',snd:null,sndName:'',untilEnd:false});
     sample('capa');editId=null;
   }
-  function sample(L){if(L==='data'&&!OCC[dr.occ])dr.occ=nextOcc();const S=L==='data'?occText(dr.occ):LAYOUTS[L].s;KEYS.forEach(k=>dr[k]=S[k]||'');dr.sampled=true}
-  function pickLayout(L){dr.layout=L;if(dr.sampled||!KEYS.some(k=>(dr[k]||'').trim()))sample(L);fillForm()}
-  async function shrink(f){
-    try{const bm=await createImageBitmap(f),k=Math.min(1,1920/Math.max(bm.width,bm.height));if(k===1&&f.size<1.5e6)return f;
+  function sample(L){if(L==='data'&&!OCC[dr.occ])dr.occ=nextOcc();const S=L==='data'?occText(dr.occ):LAYOUTS[L].s;KEYS.forEach(k=>dr[k]=S[k]||'');dr.people=(S.people||[]).map(x=>({...x}));dr.sampled=true}
+  function pickLayout(L){dr.layout=L;if(dr.sampled||!KEYS.some(k=>(dr[k]||'').trim())&&!(dr.people||[]).length)sample(L);else if(LAYOUTS[L].f.people&&!(dr.people||[]).length&&dr.text)dr.people=ppl0(dr.text);fillForm()}
+  const ppl0=t=>String(t||'').split('\n').map(x=>x.trim()).filter(Boolean).map(x=>{const q=x.split(/\s+[—–-]\s+|\s*[;|]\s*/);return{n:q[0],v:q.slice(1).join(' '),ig:''}});
+  async function shrink(f,max=1920){
+    try{const bm=await createImageBitmap(f),k=Math.min(1,max/Math.max(bm.width,bm.height));if(k===1&&f.size<1.5e6)return f;
       const c=document.createElement('canvas');c.width=Math.round(bm.width*k);c.height=Math.round(bm.height*k);c.getContext('2d').drawImage(bm,0,0,c.width,c.height);
       return await new Promise(r=>c.toBlob(r,'image/jpeg',.86))||f}catch(e){return f}
   }
@@ -1029,11 +1073,33 @@ function bootPC(){
   }
   function renderFields(){
     const L=LAYOUTS[dr.layout];
-    $('#fields').innerHTML=Object.entries(L.f).map(([k,lbl])=>`<label class="l">${esc(lbl)}</label>`+(k==='occ'?`<select data-f="occ">${Object.entries(OCC).sort((a,b)=>a[1].md-b[1].md).map(([c,o])=>`<option value="${c}">${esc(o.n)} · ${esc(o.dt)}</option>`).join('')}</select>`:k==='text'?`<textarea data-f="${k}" rows="${/linha/.test(lbl)?4:3}" style="resize:vertical"></textarea>`:`<input data-f="${k}">`)).join('');
+    $('#fields').innerHTML=Object.entries(L.f).map(([k,lbl])=>`<label class="l">${esc(lbl)}</label>`+(k==='people'?`<div id="ppl"></div><div class="row" style="justify-content:space-between"><button id="pAdd"><i class="i-plus"></i>Adicionar pessoa</button><span class="mu" id="pMax" style="font-size:12px"></span></div><p class="mu" style="font-size:12px;margin:8px 0 0">Toque no círculo para escolher a foto de cada pessoa.</p>`:k==='occ'?`<select data-f="occ">${Object.entries(OCC).sort((a,b)=>a[1].md-b[1].md).map(([c,o])=>`<option value="${c}">${esc(o.n)} · ${esc(o.dt)}</option>`).join('')}</select>`:k==='text'?`<textarea data-f="${k}" rows="${/linha/.test(lbl)?4:3}" style="resize:vertical"></textarea>`:`<input data-f="${k}">`)).join('');
     const S=dr.layout==='data'?occText(dr.occ):L.s;
     $('#fields').querySelectorAll('[data-f]').forEach(x=>{x.value=dr[x.dataset.f]||'';if(x.dataset.f!=='occ')x.placeholder=S[x.dataset.f]||''});
     $('#thBox').hidden=dr.layout==='data'||dr.layout==='blackfriday';
+    if(L.f.people)renderPeople();
   }
+  function renderPeople(){
+    pplUrls.forEach(u=>URL.revokeObjectURL(u));pplUrls=[];
+    const rk=dr.layout==='ranking',P=dr.people||(dr.people=[]),max=rk?5:8;
+    $('#ppl').innerHTML=P.map((x,i)=>{let u='';if(x.ph instanceof Blob){u=URL.createObjectURL(x.ph);pplUrls.push(u)}
+      return `<div class="prow" data-i="${i}"><label class="pph${u?' has':''}" title="Escolher foto"${u?` style="background-image:url(${u})"`:''}>${u?'':ic('image')}<input type="file" accept="image/*" hidden data-pf="${i}"></label>
+      <div class="pin"><div class="pn">${rk?`<b class="pos">${i+1}º</b>`:''}<input data-p="n" placeholder="Nome" value="${esc(x.n||'')}"></div>
+      <div class="row" style="gap:6px;flex-wrap:nowrap"><input data-p="v" placeholder="${rk?'Resultado (ex.: R$ 6,3 mi)':'Data (ex.: 03/11)'}" value="${esc(x.v||'')}"><input data-p="ig" placeholder="@instagram" value="${esc(x.ig||'')}"></div></div>
+      <div class="pac"><button class="ic" data-pa="up" title="Subir uma posição"${i?'':' disabled'}>${ic('chev-up')}</button>${u?`<button class="ic" data-pa="noph" title="Remover foto">${ic('x')}</button>`:''}<button class="ic dg" data-pa="rm" title="Remover pessoa">${ic('trash')}</button></div></div>`}).join('');
+    $('#pAdd').innerHTML=ic('plus')+'Adicionar pessoa';$('#pAdd').disabled=P.length>=max;$('#pMax').textContent=`${P.length} de ${max}`;
+  }
+  $('#fields').addEventListener('input',e=>{const k=e.target.dataset.p;if(!k)return;const i=+e.target.closest('.prow').dataset.i;dr.people[i][k]=e.target.value;dr.sampled=false;drawPv()});
+  $('#fields').addEventListener('change',e=>{const t=e.target;if(t.dataset.p==='ig'||t.dataset.f==='ig'){const h=igH(t.value);if(h!==t.value){t.value=h;t.dispatchEvent(new Event('input',{bubbles:true}))}}});
+  $('#fields').addEventListener('change',async e=>{const i=e.target.dataset.pf;if(i===undefined)return;const f=e.target.files[0];e.target.value='';if(!f)return;
+    dr.people[+i].ph=await shrink(f,800);dr.sampled=false;renderPeople();drawPv()});
+  $('#fields').addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    if(b.id==='pAdd'){(dr.people=dr.people||[]).push({n:'',v:'',ig:''});dr.sampled=false;renderPeople();const r=$('#ppl').lastElementChild;r&&r.querySelector('[data-p=n]').focus();drawPv();return}
+    const a=b.dataset.pa;if(!a)return;const i=+b.closest('.prow').dataset.i,P=dr.people;
+    if(a==='up'&&i>0)[P[i-1],P[i]]=[P[i],P[i-1]];else if(a==='rm')P.splice(i,1);else if(a==='noph')delete P[i].ph;
+    dr.sampled=false;renderPeople();drawPv();
+  });
   function drawPv(){
     pvUrls.forEach(u=>URL.revokeObjectURL(u));pvUrls=[];
     const pv=$('#pv');pv.innerHTML='';const s=tpl(dr,pvUrls);pv.appendChild(s);fit(s);syncUI();
@@ -1053,7 +1119,7 @@ function bootPC(){
   $('#lcat').onclick=e=>{const b=e.target.closest('button');if(!b)return;lcat=b.dataset.c;renderLays()};
   $('#lays').onclick=e=>{const b=e.target.closest('.lay');if(b)pickLayout(b.dataset.l)};
   $('#themes').onclick=e=>{const b=e.target.closest('.thm');if(!b)return;dr.theme=b.dataset.th;dr.acc='';localStorage.lastTheme=dr.theme;fillForm()};
-  $('#fields').oninput=e=>{const k=e.target.dataset.f;if(!k)return;
+  $('#fields').oninput=e=>{const k=e.target.dataset.f;if(!k||e.target.dataset.p)return;
     if(k==='occ'){dr.occ=e.target.value;if(dr.sampled)sample('data');renderFields();drawPv();return}
     dr[k]=e.target.value;dr.sampled=false;drawPv()};
   $('#pair').onchange=e=>{dr.pair=e.target.value;renderLays();drawPv()};
@@ -1080,6 +1146,7 @@ function bootPC(){
     newDraft();
     if(it.layout)Object.assign(dr,it);else Object.assign(dr,{layout:'livre',title:it.title||'',text:it.text||'',eyebrow:'',big:'',foot:'',dur:it.dur});
     ['id','kind','type','name','order'].forEach(k=>delete dr[k]);dr.sampled=false;editId=it.id;
+    dr.people=Array.isArray(it.people)&&it.people.length?it.people.map(x=>({...x})):LAYOUTS[dr.layout]&&LAYOUTS[dr.layout].f.people?ppl0(it.text):[];
   }
 
   /* apresentações prontas */
@@ -1093,7 +1160,7 @@ function bootPC(){
   $('#kitThemes').onclick=e=>{const b=e.target.closest('.thm');if(!b)return;dr.theme=b.dataset.th;dr.acc='';localStorage.lastTheme=dr.theme;renderKits();fillForm()};
   $('#kits').onclick=async e=>{
     const b=e.target.closest('[data-kit]');if(!b)return;const k=KITS[b.dataset.kit];let o=Date.now();
-    for(const[L,ov]of k.s){const S={...(L==='data'?occText(nextOcc()):LAYOUTS[L].s),...ov};
+    for(const[L,ov]of k.s){const S={...(L==='data'?occText(nextOcc()):LAYOUTS[L].s),...ov};if(S.people)S.people=S.people.map(x=>({...x}));
       await put({...S,layout:L,theme:dr.theme,pair:'',acc:'',size:'M',ov:.55,dur:10,id:uid(),kind:'item',type:'text',name:S.title||S.eyebrow||LAYOUTS[L].n,order:o++})}
     $('#kitDlg').close();load();view('list');toast(`${k.s.length} slides criados. Use o lápis para personalizar cada um.`);
   };
@@ -1376,6 +1443,7 @@ function bootPC(){
         if(it.blob){m.mime=it.blob.type;m.data=await it.blob.arrayBuffer()}
         if(it.img instanceof Blob){m.imgMime=it.img.type;m.imgData=await it.img.arrayBuffer()}
         if(it.snd instanceof Blob){m.sndMime=it.snd.type;m.sndData=await it.snd.arrayBuffer()}
+        if(Array.isArray(it.people)){m.people=it.people.map(({ph,...x})=>x);for(const[i,x]of it.people.entries())if(x.ph instanceof Blob){m['pp'+i+'Mime']=x.ph.type;m['pp'+i+'Data']=await x.ph.arrayBuffer()}}
         await new Promise(r=>{acks[it.id]=r;c.send(m)});
       }
       if(c.open&&conn===c){c.send({t:'playlist',list:items.map(x=>({id:x.id,dur:x.dur})),bg:bgs.map(x=>x.id),cfg});$('#msg').textContent=items.length?'Programação na TV atualizada ✓':'Conectado — adicione itens à programação'}
@@ -1530,6 +1598,7 @@ function bootTV(kind){
       const B=(x,t)=>x instanceof Blob?x:new Blob([x],{type:t||''});
       const rec={...d};['t','data','imgData','sndData'].forEach(k=>delete rec[k]);
       if(d.data)rec.blob=B(d.data,d.mime);if(d.imgData)rec.img=B(d.imgData,d.imgMime);if(d.sndData)rec.snd=B(d.sndData,d.sndMime);
+      for(const k of Object.keys(rec)){const q=/^pp(\d+)(Data|Mime)$/.exec(k);if(!q)continue;if(q[2]==='Data'&&rec.people&&rec.people[q[1]])rec.people[q[1]].ph=B(d[k],d['pp'+q[1]+'Mime']);delete rec[k]}
       await put(rec);conn.send({t:'ack',id:d.id});
     }else if(d.t==='playlist'){
       const curId=cur&&cur.id,wasEmpty=!pl.length,oldBg=JSON.stringify(bg);
