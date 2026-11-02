@@ -20,6 +20,17 @@
 - **iPhone/iPad (Safari):** toque em Compartilhar › **Adicionar à Tela de Início**. O botão Instalar dentro do app mostra esse passo a passo.
 - **TV:** abra `https://seu-endereco/#tv` no navegador da TV. Em TVs Android/Google TV dá para instalar também.
 
+## Modelos de apresentação e informativos
+Na aba **Modelos**:
+- **14 layouts profissionais:**
+  - **Apresentação:** Capa, Tópicos, Divisor de seção, Indicador, Destaque com foto, Citação, Encerramento e Texto simples.
+  - **Informativo:** Comunicado, Evento, Boas-vindas, Aniversariantes, Aviso importante e Meta/progresso.
+- **8 temas:** Executivo, Corporativo, Grafite, Esmeralda, Bordô, Areia, Oceano e Ametista. Você também pode usar a **cor da sua marca** em "Cor de destaque".
+- **Foto de fundo** em qualquer modelo, com controle de escurecimento para o texto ficar legível. No "Boas-vindas", a foto vira o retrato da pessoa.
+- **Música por slide:** toca enquanto aquele slide está na tela e pausa a trilha de fundo. Marque "Ficar até a música terminar" para o slide durar o tempo da música.
+- **Apresentação pronta:** cria de uma vez uma *Apresentação institucional*, uma *Reunião de resultados* ou um *Informativo da semana* completos, no tema escolhido. Depois é só editar.
+- Na TV, os slides entram com animação suave e a foto de fundo tem um leve movimento de zoom.
+
 ## Recursos do app
 - O app abre direto no último modo usado (controle ou TV). Para trocar, clique no logotipo.
 - **Funciona sem internet** para montar a programação. Para conectar a uma TV é preciso internet.
