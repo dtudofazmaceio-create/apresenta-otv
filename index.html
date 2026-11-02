@@ -311,7 +311,7 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 .L-aniver1 .tx{max-width:30em}
 /* conversão */
 .conv{display:flex;gap:12px;align-items:center;padding:10px;border:1px dashed var(--ac);border-radius:12px;margin-bottom:8px;background:var(--it)}
-.conv.wait{border-color:var(--ln);opacity:.75}
+.conv.wait{border-color:var(--ln);opacity:.75}.conv.bad{border-color:var(--er)}.conv.bad .cic{color:var(--er)}.conv.bad small{color:var(--tx);opacity:.85;word-break:break-word}
 .conv .cic{width:42px;height:42px;border-radius:10px;background:var(--p2);display:flex;align-items:center;justify-content:center;color:var(--ac);flex:none}
 .conv:not(.wait) .cic{animation:pulse 1.4s ease-in-out infinite}@keyframes pulse{50%{opacity:.45}}
 .conv small{color:var(--mu)}.cbar{height:6px;border-radius:6px;background:var(--p2);margin-top:6px;overflow:hidden}.cbar i{display:block;height:100%;background:var(--g);transition:width .3s}
@@ -589,6 +589,12 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
 </div>
 <div id="toast"></div>
 <div id="upd" hidden><i data-i="refresh"></i><span>Nova versão disponível</span><button class="pri" id="bUpd">Atualizar</button></div>
+<dialog id="logDlg" style="width:min(94vw,720px)">
+  <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><h3 style="margin:0">Detalhes da conversão</h3><button class="ic" onclick="this.closest('dialog').close()"><i data-i="x"></i></button></div>
+  <p class="mu" style="font-size:13px">Se o problema continuar, copie este texto e envie para o suporte.</p>
+  <pre id="logPre" style="background:var(--in);border:1px solid var(--ln);border-radius:10px;padding:12px;max-height:50vh;overflow:auto;font-size:11px;white-space:pre-wrap;word-break:break-all"></pre>
+  <div class="row" style="justify-content:flex-end"><button class="pri" onclick="navigator.clipboard.writeText(document.getElementById('logPre').textContent).then(()=>toast('Copiado'))">Copiar</button></div>
+</dialog>
 <dialog id="uiDlg" style="width:min(94vw,640px)">
   <div class="row" style="justify-content:space-between;align-items:flex-start;flex-wrap:nowrap"><div><h3 style="margin:0">Aparência</h3><span class="mu" style="font-size:13px">Personalize o visual do sistema. Fica salvo neste aparelho.</span></div><button class="ic" onclick="this.closest('dialog').close()"><i data-i="x"></i></button></div>
   <label class="l">Tema da interface</label><div class="uith" id="uiTh"></div>
@@ -1398,23 +1404,26 @@ function bootPC(){
   function getFF(){
     if(ffP)return ffP;
     ffP=(async()=>{
-      const {FFmpeg}=await import('./vendor/ffmpeg/index.js');let err;
+      let FFmpeg;try{({FFmpeg}=await import('./vendor/ffmpeg/index.js'))}catch(e){const x=new Error('A pasta "vendor" do aplicativo não foi encontrada no servidor. Publique a pasta completa do app.');x.stage='load';throw x}
+      let err;
       for(const base of ['vendor/ffmpeg-core/','https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm/','https://unpkg.com/@ffmpeg/core@0.12.10/dist/esm/']){
         try{const u=new URL(base,location.href).href;
           if(!/^https?:/.test(base)){const r=await fetch(u+'ffmpeg-core.wasm',{method:'HEAD'}).catch(()=>null);if(!r||!r.ok)continue}
           const ff=new FFmpeg();await ff.load({coreURL:u+'ffmpeg-core.js',wasmURL:u+'ffmpeg-core.wasm'});return ff}catch(e){err=e}
       }
-      ffP=null;throw err||new Error('conversor indisponível');
+      ffP=null;const x=new Error('Não foi possível carregar o conversor ('+((err&&err.message)||'sem resposta')+'). Verifique se a pasta "vendor/ffmpeg-core" foi publicada ou se há internet.');x.stage='load';throw x;
     })();
     return ffP;
   }
-  async function convertMedia(file,kind,onProg){
+  const resetFF=async()=>{const p=ffP;ffP=null;if(p)try{(await p).terminate()}catch(e){}};
+  async function convertMedia(file,kind,onProg,safe){
     const ff=await getFF(),ext=((file.name.match(/\.[A-Za-z0-9]+$/)||['.bin'])[0]).toLowerCase(),outN=kind==='audio'?'out.m4a':'out.mp4';
     let inN='in'+ext,mounted=false;
     try{try{await ff.createDir('/in')}catch(e){}
       const fx=new File([file],'entrada'+ext,{type:file.type});if(await ff.mount('WORKERFS',{files:[fx]},'/in')){inN='/in/entrada'+ext;mounted=true}}catch(e){}
     if(!mounted){if(file.size>1.8e9)throw new Error('Arquivo grande demais para converter neste navegador');await ff.writeFile(inN,new Uint8Array(await file.arrayBuffer()))}
     let log='';const lg=({message})=>{log+=message+'\n'};ff.on('log',lg);
+    window.__convLog=[`mounted=${mounted} size=${file.size}`];const lg2=({message})=>{const L=window.__convLog;L.push(message);if(L.length>400)L.splice(1,100)};ff.on('log',lg2);
     try{await ff.exec(['-hide_banner','-i',inN])}catch(e){}
     ff.off('log',lg);
     const v=/Stream #[^\n]*Video: (\w+)[^\n]*/.exec(log),a=/Stream #[^\n]*Audio: (\w+)/.exec(log),vc=v&&v[1],ac=a&&a[1];
@@ -1428,32 +1437,46 @@ function bootPC(){
         if(!vc)throw new Error('sem vídeo');
         const dm=/, (\d{2,5})x(\d{2,5})/.exec(v[0]),big=dm&&Math.max(+dm[1],+dm[2])>1920;
         if(vc==='h264'&&!big&&/yuv420p[\s,(]/.test(v[0])&&!/High 10|High 4:2|High 4:4/.test(v[0]))ok=await run(['-i',inN,'-map','0:v:0','-map','0:a:0?','-c:v','copy',...aac,'-movflags','+faststart','-y',outN]);
-        if(!ok)ok=await run(['-i',inN,'-map','0:v:0','-map','0:a:0?','-c:v','libx264','-preset','ultrafast','-crf','22','-pix_fmt','yuv420p',
-          '-vf',"scale='if(gte(iw,ih),trunc(min(1920,iw)/2)*2,-2)':'if(gte(iw,ih),-2,trunc(min(1920,ih)/2)*2)'",
+        const M=safe?1280:1920;
+        if(!ok)ok=await run(['-i',inN,'-map','0:v:0','-map','0:a:0?','-c:v','libx264','-preset','ultrafast','-crf',safe?'25':'22','-maxrate',safe?'5M':'10M','-bufsize',safe?'10M':'20M','-pix_fmt','yuv420p',...(safe?['-threads','1']:[]),
+          '-vf',`scale='if(gte(iw,ih),trunc(min(${M},iw)/2)*2,-2)':'if(gte(iw,ih),-2,trunc(min(${M},ih)/2)*2)'`,
           ...(ac?['-c:a','aac','-b:a','160k','-ac','2']:['-an']),'-movflags','+faststart','-y',outN]);
       }
-      if(!ok)throw new Error('falha na conversão');
+      if(!ok){const L=(window.__convLog||[]).filter(x=>!/^frame=|^\s|Aborted|^\[libx264|^\[aac/.test(x)).slice(-4).join(' · ');const x=new Error(L||'falha na conversão');x.log=(window.__convLog||[]).slice(-60).join('\n');throw x}
       const data=await ff.readFile(outN);
       return new File([data],file.name.replace(/\.[^.]+$/,'')+(kind==='audio'?'.m4a':'.mp4'),{type:kind==='audio'?'audio/mp4':'video/mp4'});
-    }finally{ff.off('progress',pr);try{await ff.deleteFile(outN)}catch(e){}if(mounted){try{await ff.unmount('/in')}catch(e){}}else try{await ff.deleteFile(inN)}catch(e){}}
+    }finally{ff.off('progress',pr);ff.off('log',lg2);try{await ff.deleteFile(outN)}catch(e){}if(mounted){try{await ff.unmount('/in')}catch(e){}}else try{await ff.deleteFile(inN)}catch(e){}}
   }
-  const convQ=[];let convBusy=false;
+  const convQ=[],convFail=[];let convBusy=false;
   function convUI(){
-    $('#convBox').innerHTML=convQ.map((j,i)=>`<div class="conv${i?' wait':''}"><span class="cic">${ic(j.kind==='audio'?'music':'video')}</span><div class="nm"><b>${esc(j.f.name)}</b><small>${esc(j.st)}</small><div class="cbar"><i style="width:${Math.round(j.p*100)}%"></i></div></div></div>`).join('');
+    $('#convBox').innerHTML=convFail.map((j,i)=>`<div class="conv bad" data-f="${i}"><span class="cic">${ic('x')}</span><div class="nm"><b>${esc(j.f.name)}</b><small>Não foi possível converter: ${esc(j.err)}</small>
+      <div class="row" style="gap:6px;margin-top:8px"><button data-ca="retry">${ic('refresh')}Tentar de novo</button><button data-ca="log">Detalhes</button><button class="dg" data-ca="rm">${ic('trash')}Descartar</button></div></div></div>`).join('')+convQ.map((j,i)=>`<div class="conv${i?' wait':''}"><span class="cic">${ic(j.kind==='audio'?'music':'video')}</span><div class="nm"><b>${esc(j.f.name)}</b><small>${esc(j.st)}</small><div class="cbar"><i style="width:${Math.round(j.p*100)}%"></i></div></div></div>`).join('');
   }
+  $('#convBox').onclick=e=>{const b=e.target.closest('[data-ca]');if(!b)return;const i=+b.closest('.conv').dataset.f,j=convFail[i];
+    if(b.dataset.ca==='rm')convFail.splice(i,1);
+    else if(b.dataset.ca==='retry'){convFail.splice(i,1);queueConv(j.f,j.kind,j.rec);return}
+    else if(b.dataset.ca==='log'){$('#logPre').textContent=`Arquivo: ${j.f.name} (${(j.f.size/1048576).toFixed(1)} MB)\nMotivo: ${j.err}\nNavegador: ${navigator.userAgent}\n\n${j.log||''}`;$('#logDlg').showModal();return}
+    convUI()};
   function queueConv(f,kind,rec){convQ.push({f,kind,rec,p:0,st:'Na fila para conversão…'});convUI();runConv()}
   window.__probe=async f=>{const i=await probeMp4(f);return{i,why:needsConv(i)}};
   async function runConv(){
     if(convBusy)return;convBusy=true;
     while(convQ.length){
       const j=convQ[0];
+      const prog=lbl=>p=>{j.p=p;j.st=`${lbl} · ${Math.round(p*100)}%`;convUI()};
       try{
-        j.st=ffP?'Convertendo…':'Preparando o conversor (na primeira vez pode levar alguns segundos)…';convUI();
-        const out=await convertMedia(j.f,j.kind,p=>{j.p=p;j.st=`Convertendo para ${j.kind==='audio'?'M4A':'MP4'} · ${Math.round(p*100)}%`;convUI()});
+        j.st=ffP?'Convertendo…':'Preparando o conversor (na primeira vez pode levar alguns segundos)…';j.p=0;convUI();
+        let out;
+        try{out=await convertMedia(j.f,j.kind,prog(`Convertendo para ${j.kind==='audio'?'M4A':'MP4'}`))}
+        catch(e1){if(e1.stage==='load'||j.kind==='audio')throw e1;console.warn(e1);await resetFF();
+          j.p=0;j.st='Tentando de novo em modo leve (720p)…';convUI();
+          out=await convertMedia(j.f,j.kind,prog('Convertendo em modo leve (720p)'),true)}
         await put({...j.rec,blob:out,conv:1});
         if(j.rec.replace){await del(j.rec.replace);delete j.rec.replace}
         toast(`"${j.f.name}" convertido ✓`);load();
-      }catch(e){console.error(e);toast(`Não foi possível converter "${j.f.name}"${e&&/grande|sem /.test(e.message)?': '+e.message:'. Verifique a internet e tente de novo.'}`)}
+      }catch(e){console.error(e);await resetFF();
+        convFail.push({...j,err:e.message||String(e),log:e.log||(window.__convLog||[]).slice(-60).join('\n')});
+        toast(`Não foi possível converter "${j.f.name}". Veja o motivo na programação.`)}
       convQ.shift();convUI();
     }
     convBusy=false;

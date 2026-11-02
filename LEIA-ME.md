@@ -50,7 +50,9 @@ Clique no ícone de **paleta** no topo:
 - Vídeos que já estavam na programação também são verificados e convertidos sozinhos.
 - Se um vídeo "tocar" na TV sem imagem (tela preta), a TV detecta, avisa o computador e o vídeo é convertido e reenviado. Se a **TV** não conseguir reproduzir algum vídeo, ela avisa o computador, que converte e reenvia automaticamente.
 - Cada vídeo ou áudio tem um botão ⟳ para converter manualmente.
-- O conversor (cerca de 31 MB) é baixado só na primeira conversão e fica guardado. Para usá-lo sem internet, coloque os arquivos `ffmpeg-core.js` e `ffmpeg-core.wasm` (pacote `@ffmpeg/core` 0.12.10, pasta `dist/esm`) em `vendor/ffmpeg-core/`.
+- O conversor já vem dentro da pasta `vendor/` (cerca de 31 MB), então não depende de sites externos. **Publique a pasta completa**, incluindo `vendor/ffmpeg` e `vendor/ffmpeg-core`.
+- Se uma conversão falhar, o app tenta de novo sozinho em modo leve (720p). Se ainda assim não der certo, aparece um cartão com o motivo e os botões **Tentar de novo**, **Detalhes** (texto para enviar ao suporte) e **Descartar**.
+- Mantenha o app aberto enquanto converte. Vídeos 4K longos podem levar alguns minutos.
 - Arquivos muito longos podem demorar para converter. O limite é cerca de 1,8 GB por arquivo.
 
 ## Recursos do app
