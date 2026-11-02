@@ -85,6 +85,28 @@ dialog h3{margin:0 0 6px}#code{font-size:22px;letter-spacing:.3em;text-align:cen
 #tick{position:absolute;left:0;right:0;bottom:0;height:5vw;background:#000c;overflow:hidden;display:flex;align-items:center}
 #tick span{white-space:nowrap;font-size:2.4vw;font-weight:600;padding-left:100vw;animation:tk 20s linear infinite}
 @keyframes tk{to{transform:translateX(-100%)}}
+/* seletor de TVs */
+dialog#dlg{width:min(94vw,580px);max-height:90vh}
+.dev{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--ln);border-radius:14px;background:#0f1530;margin-top:8px;transition:.15s;animation:fa .3s}
+.dev:hover{border-color:#3a4a85}.dev.cur{border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.dev .di{width:42px;height:42px;border-radius:12px;background:var(--p2);display:grid;place-items:center;color:var(--ac);flex:none}
+.dev .nm small{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.dev.hint{justify-content:center;color:var(--mu);border-style:dashed;font-size:13px;text-align:center}
+.scan{display:flex;align-items:center;gap:10px;color:var(--mu);font-size:13px;margin:6px 0 2px}
+.radar{width:12px;height:12px;border-radius:50%;background:var(--ac);position:relative;flex:none;margin:0 3px}
+.radar:before,.radar:after{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid var(--ac);animation:rd 2s infinite}
+.radar:after{animation-delay:1s}@keyframes rd{to{transform:scale(2.8);opacity:0}}
+.radar.off{background:var(--mu)}.radar.off:before,.radar.off:after{display:none}
+.sect{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin:20px 0 4px}
+.tag{font-size:11px;padding:2px 8px;border-radius:99px;background:#fbbf2422;color:#fbbf24;font-weight:700}.tag.ok{background:#34d39922;color:var(--ok)}
+details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}details.more summary{cursor:pointer;color:var(--mu);font-weight:600}
+.ghost{background:transparent;border:1px dashed var(--ln);width:100%;margin-top:8px;color:var(--mu)}
+.spin .i{animation:sp .8s linear}@keyframes sp{to{transform:rotate(360deg)}}
+#idle .dot{display:inline-block;width:1vw;height:1vw;margin-right:.8vw;vertical-align:middle}
+#idle #tvStat{font-size:1.6vw;color:var(--tx)}
+.mc{margin-top:3vw;display:flex;align-items:center;gap:1.4vw;background:#ffffff0d;border:1px solid #ffffff1f;border-radius:1vw;padding:.8vw 1.8vw}
+.mc span{font-size:1vw;color:var(--mu);text-transform:uppercase;letter-spacing:.12em}.mc b{font-size:2.2vw;letter-spacing:.35em;color:#8fb0ff}
+#idle .keys{position:absolute;bottom:2vw}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.hc{grid-template-columns:1fr}.it{flex-wrap:wrap}}
 </style>
 </head>
@@ -96,14 +118,14 @@ dialog h3{margin:0 0 6px}#code{font-size:22px;letter-spacing:.3em;text-align:cen
   <p class="mu">Fotos, vídeos, PDFs, avisos de texto e música de fundo.</p>
   <div class="hc">
     <a href="#pc"><i data-i="monitor"></i><b>Sou o computador</b><span class="mu">Monta a programação e controla a TV</span></a>
-    <a href="#tv"><i data-i="tv"></i><b>Sou a TV</b><span class="mu">Abra este link no navegador da TV</span></a>
+    <a href="#tv"><i data-i="tv"></i><b>Sou a TV</b><span class="mu">Abra este link no navegador da TV — ela aparece sozinha no computador</span></a>
   </div>
 </div>
 
 <div id="pc" hidden>
   <header class="top">
     <div class="brand"><span><i data-i="tv"></i></span>Apresentação na TV</div>
-    <div class="chip"><span class="dot" id="dot"></span><span id="cTxt">Sem TV</span><button id="bConn"><i data-i="monitor"></i>Mostrar na TV</button></div>
+    <div class="chip"><span class="dot" id="dot"></span><span id="cTxt">Nenhuma TV conectada</span><button class="ic dg" id="bDisc" title="Desconectar" hidden><i data-i="power"></i></button><button id="bConn"><i data-i="tv"></i><span>Conectar TV</span></button></div>
   </header>
   <div class="grid">
     <section class="card">
@@ -170,27 +192,30 @@ dialog h3{margin:0 0 6px}#code{font-size:22px;letter-spacing:.3em;text-align:cen
     <button class="ic" id="bMute" title="Sem som na TV"></button>
     <div id="msg" class="mu"></div>
     <button class="dg" id="bClear" hidden><i data-i="trash"></i>Limpar TV</button>
-    <button id="bSync" hidden><i data-i="cast"></i>Enviar para a TV</button>
-    <button class="pri" id="bOpenDock"><i data-i="monitor"></i>Apresentar</button>
+    <button id="bSync" hidden><i data-i="refresh"></i>Atualizar TV</button>
+    <button class="pri" id="bOpenDock"></button>
   </div></footer>
 
   <dialog id="dlg">
-    <div class="row" style="justify-content:space-between"><h3 style="margin:0">Mostrar na TV</h3><button class="ic" id="dX"><i data-i="x"></i></button></div>
-    <div class="opt">
-      <div class="oh"><i data-i="monitor"></i><b>Transmitir pela rede</b><em>nada para instalar na TV</em></div>
-      <ol class="steps">
-        <li>Clique em <b>Abrir tela de apresentação</b>.</li>
-        <li>Procure a TV na rede: <b>Windows</b> Win+K · <b>Chrome</b> menu ⋮ › Salvar, compartilhar e transmitir › Transmitir · <b>Mac</b> Central de Controle › Espelhamento de tela.</li>
-        <li>No Windows, escolha <b>Estender</b>: a janela abre direto na TV. No espelhamento, ela aparece duplicada.</li>
-        <li>Clique na janela e aperte <b>Enter</b> para tela cheia.</li>
+    <div class="row" style="justify-content:space-between;align-items:flex-start"><div><h3 style="margin:0">Conectar a uma TV</h3><span class="mu" style="font-size:13px">Escolha onde a apresentação vai passar</span></div><button class="ic" id="dX"><i data-i="x"></i></button></div>
+    <div class="sect">TVs na sua rede</div>
+    <div class="scan"><span class="radar" id="radar"></span><span id="scanTxt">Procurando TVs…</span><button class="ic" id="bRescan" title="Procurar de novo" style="margin-left:auto"><i data-i="refresh"></i></button></div>
+    <div id="devs"></div>
+    <div id="castBox" hidden>
+      <div class="sect">Transmissão</div>
+      <div class="dev"><div class="di"><i data-i="cast"></i></div><div class="nm"><b>Chromecast / Google TV</b><small class="mu" id="castTxt">Busca pelos dispositivos de transmissão do navegador</small></div><button class="pri" id="bCast">Procurar</button></div>
+    </div>
+    <div class="sect">Telas ligadas a este computador</div>
+    <div id="scrs"></div>
+    <details class="more"><summary>Minha TV não aparece na lista</summary>
+      <ol class="steps" style="margin-top:12px">
+        <li>No navegador da TV, abra: <b id="tvUrl" style="word-break:break-all"></b></li>
+        <li>O computador e a TV precisam estar na <b>mesma rede</b> (mesmo Wi-Fi/roteador). A TV aparece aqui em poucos segundos.</li>
+        <li>Se ainda não aparecer, digite o código mostrado na tela da TV:</li>
       </ol>
-      <button class="pri" id="bOpen"><i data-i="monitor"></i>Abrir tela de apresentação</button>
-    </div>
-    <div class="opt">
-      <div class="oh"><i data-i="tv"></i><b>TV com navegador</b><em>opcional</em></div>
-      <p class="mu" style="margin:0 0 10px;font-size:13px">Abra este endereço com <b>#tv</b> no navegador da TV e digite o código.</p>
       <div class="row"><input id="code" maxlength="6" placeholder="······" autocomplete="off"><button class="pri" id="dOk">Conectar</button></div>
-    </div>
+      <p class="mu" style="font-size:12px;margin:12px 0 0">TV sem navegador? Use o espelhamento do sistema (Windows: Win+K · Mac: Central de Controle › Espelhamento de tela) e escolha <b>Janela de apresentação</b> acima.</p>
+    </details>
   </dialog>
 </div>
 
@@ -198,10 +223,11 @@ dialog h3{margin:0 0 6px}#code{font-size:22px;letter-spacing:.3em;text-align:cen
   <div id="stage"></div>
   <div id="idle">
     <div class="lg"><i data-i="tv"></i></div>
-    <h1>Pronta para receber</h1>
-    <div class="cd" id="tvCode"></div>
-    <p>No computador, abra este endereço com <b>#pc</b> e digite o código</p>
-    <small>OK/Enter: tela cheia · ◀ ▶ trocar · Espaço pausar</small>
+    <h1 id="tvName">Pronta para receber</h1>
+    <p id="tvStat"><span class="dot w"></span>Iniciando…</p>
+    <p>No computador, clique em <b>Conectar TV</b> e escolha esta tela na lista.</p>
+    <div class="mc"><span>Código manual</span><b id="tvCode">······</b></div>
+    <small class="keys">OK/Enter: tela cheia · ◀ ▶ trocar · Espaço pausar</small>
   </div>
   <div id="clock" hidden></div>
   <div id="tick" hidden><span></span></div>
@@ -217,7 +243,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 const PREFIX='apresdj-';
-const mode=location.hash==='#tv'?'tv':location.hash==='#pc'?'pc':location.hash==='#play'?'play':'';
+const mode={'#tv':'tv','#pc':'pc','#play':'play','#cast':'cast'}[location.hash]||'';
 addEventListener('hashchange',()=>location.reload());
 
 /* ---------- ícones vetoriais ---------- */
@@ -243,6 +269,8 @@ eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy=
 upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>',
 sliders:'<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
 clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+refresh:'<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
+power:'<path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/>',
 wifi:'<path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>',
 grip:'<circle cx="9" cy="6" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="18" r="1"/>',
 'align-left':'<line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/>',
@@ -283,11 +311,104 @@ async function tx(m,fn){const d=await dbp;return new Promise((ok,err)=>{const t=
 const put=o=>tx('readwrite',s=>s.put(o)),del=id=>tx('readwrite',s=>s.delete(id)),get=id=>tx('readonly',s=>s.get(id)),all=()=>tx('readonly',s=>s.getAll()),clr=()=>tx('readwrite',s=>s.clear());
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),3200)}
 
+/* ---------- descoberta automática de TVs ---------- */
+function devName(){
+  const u=navigator.userAgent;
+  const m=[[/Tizen/i,'Samsung Smart TV'],[/Web0S|webOS|NetCast/i,'LG Smart TV'],[/AFT\w/,'Fire TV'],[/BRAVIA/i,'Sony Bravia'],[/Philips|NETTV/i,'Philips Smart TV'],
+    [/Hisense|VIDAA/i,'Hisense Smart TV'],[/TCL/i,'TCL Smart TV'],[/Roku/i,'Roku TV'],[/CrKey/i,'Chromecast'],[/Android TV|GoogleTV|AndroidTV|; ?TV\b/i,'Android TV'],
+    [/SmartTV|SMART-TV|HbbTV|Opera TV/i,'Smart TV'],[/Xbox/i,'Xbox'],[/PlayStation/i,'PlayStation'],[/Windows/,'Computador Windows'],[/Macintosh/,'Mac'],
+    [/CrOS/,'Chromebook'],[/iPad/,'iPad'],[/Android/,'Android'],[/Linux/,'Computador Linux']];
+  for(const[r,n]of m)if(r.test(u))return n;return 'Tela';
+}
+const fnv=s=>{let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return(h>>>0).toString(36)};
+/* IP público da rede (igual para todos os aparelhos do mesmo roteador) — via STUN, com reserva HTTP */
+async function publicIP(){
+  try{
+    const pc=new RTCPeerConnection({iceServers:[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302']}]});
+    pc.createDataChannel('x');
+    const ip=await new Promise(async res=>{
+      const t=setTimeout(()=>res(null),5000);
+      pc.onicecandidate=e=>{if(!e.candidate){clearTimeout(t);res(null);return}
+        const m=/ (\d{1,3}(?:\.\d{1,3}){3}) \d+ typ srflx/.exec(e.candidate.candidate);if(m){clearTimeout(t);res(m[1])}};
+      await pc.setLocalDescription(await pc.createOffer());
+    });
+    pc.close();if(ip)return ip;
+  }catch(e){}
+  try{return(await(await fetch('https://api.ipify.org?format=json')).json()).ip}catch(e){}
+  return null;
+}
+/* Sala da rede: o primeiro aparelho a chegar vira o "anfitrião" e mantém a lista de TVs;
+   os demais se registram (TVs) ou assinam a lista (computadores). Se o anfitrião sair, outro assume. */
+function startLobby(getPeer,me,onList,onStat){
+  let id=null,host=null,cli=null,lastRx=0,pendAt=0;
+  const reg=new Map(),subs=new Set(),st=s=>onStat&&onStat(s);
+  const strip=v=>{const{seen,...r}=v;return r};
+  function list(){const t=Date.now();if(me){const s=me();if(s.code)reg.set(s.code,{...s,seen:t})}for(const[k,v]of reg)if(t-v.seen>30000)reg.delete(k);return[...reg.values()].map(strip)}
+  function bcast(){const tvs=list();onList&&onList(tvs);subs.forEach(c=>{try{c.open&&c.send({t:'list',tvs})}catch(e){}})}
+  function claim(){
+    if(!id||host||cli)return;pendAt=Date.now();
+    const h=new Peer(id);let ok=false;
+    h.on('open',()=>{ok=true;pendAt=0;host=h;if(cli){const c=cli;cli=null;try{c.close()}catch(e){}}st('on');bcast()});
+    h.on('connection',c=>{
+      c.on('data',d=>{
+        if(d.t==='reg'&&d.tv&&d.tv.code){
+          const o=reg.get(d.tv.code);c._code=d.tv.code;reg.set(d.tv.code,{...d.tv,seen:Date.now()});
+          if(!o||JSON.stringify(strip(o))!==JSON.stringify(d.tv))bcast();else c.send({t:'list',tvs:list()});
+        }else if(d.t==='sub'){subs.add(c);c.send({t:'list',tvs:list()})}
+      });
+      c.on('close',()=>{subs.delete(c);if(c._code&&reg.has(c._code)){reg.delete(c._code);bcast()}});
+    });
+    h.on('disconnected',()=>{if(!h.destroyed)setTimeout(()=>!h.destroyed&&h.reconnect(),1500)});
+    h.on('error',e=>{
+      if(e.type==='unavailable-id'){h.destroy();if(host===h){host=null;subs.clear();reg.clear()}pendAt=0;join()}
+      else if(!ok){h.destroy();pendAt=0}
+    });
+  }
+  function join(){
+    if(!id||host||cli)return;pendAt=Date.now();
+    getPeer(p=>{
+      if(host||cli)return;pendAt=0;
+      const c=cli=p.connect(id,{reliable:true});lastRx=Date.now();
+      const to=setTimeout(()=>{if(!c.open)drop(c)},8000);
+      c.on('open',()=>{clearTimeout(to);lastRx=Date.now();st('on');ping()});
+      c.on('data',d=>{lastRx=Date.now();if(d.t==='list'&&onList)onList(d.tvs)});
+      c.on('close',()=>drop(c));c.on('error',()=>drop(c));
+    });
+  }
+  function drop(c){if(cli!==c)return;cli=null;try{c.close()}catch(e){}setTimeout(claim,300+Math.random()*2000)}
+  function ping(){try{cli&&cli.open&&cli.send(me?{t:'reg',tv:me()}:{t:'sub'})}catch(e){}}
+  setInterval(()=>{
+    if(host)bcast();
+    else if(cli){if(cli.open&&Date.now()-lastRx>25000)drop(cli);else ping()}
+    else if(id&&(!pendAt||Date.now()-pendAt>15000))claim();
+  },8000);
+  (async()=>{st('w');const ip=await publicIP();if(!ip)return st('off');id=PREFIX+'net-'+fnv(ip);claim()})();
+  return{update(){host?bcast():ping()}};
+}
+/* Adaptador: PresentationConnection (Chromecast) com a mesma interface da conexão PeerJS */
+function link(pc){
+  const h={},emit=(e,x)=>(h[e]||[]).forEach(f=>f(x)),CH=262144;let pend=null,parts=[];
+  pc.binaryType='arraybuffer';
+  pc.onmessage=e=>{
+    if(typeof e.data==='string'){const m=JSON.parse(e.data);if(m._bin){pend=m;parts=[]}else emit('data',m)}
+    else if(pend){parts.push(e.data);if(parts.length>=pend._bin){const m=pend;pend=null;delete m._bin;m.blob=new Blob(parts,{type:m.mime||''});emit('data',m)}}
+  };
+  pc.onconnect=()=>emit('open');pc.onclose=pc.onterminate=()=>emit('close');
+  const L={get open(){return pc.state==='connected'},on(e,f){(h[e]=h[e]||[]).push(f);return L},
+    close(){try{pc.terminate()}catch(e){try{pc.close()}catch(e){}}},
+    send(m){
+      if(m.data instanceof ArrayBuffer){const b=m.data,n=Math.max(1,Math.ceil(b.byteLength/CH)),{data,...meta}=m;
+        pc.send(JSON.stringify({...meta,_bin:n}));for(let i=0;i<n;i++)pc.send(b.slice(i*CH,(i+1)*CH))}
+      else pc.send(JSON.stringify(m));
+    }};
+  if(pc.state==='connected')setTimeout(()=>emit('open'));
+  return L;
+}
+
 paint();
 if(!mode)$('#home').hidden=false;
 else if(mode==='pc'){$('#pc').hidden=false;bootPC()}
-else if(mode==='play'){$('#tv').hidden=false;bootTV(true)}
-else{$('#tv').hidden=false;bootTV()}
+else{$('#tv').hidden=false;bootTV({play:'local',cast:'cast'}[mode]||'net')}
 
 /* ================= COMPUTADOR ================= */
 function bootPC(){
@@ -316,7 +437,10 @@ function bootPC(){
     $('#bLoop').classList.toggle('on',cfg.loop);$('#bMute').classList.toggle('on',cfg.mute);
     $('#bMute').innerHTML=ic(cfg.mute?'volume-x':'volume-2');$('#clk').checked=cfg.clock;
     $('#bPlay').innerHTML=ic(tvPlaying?'pause':'play');
-    $('#bSync').hidden=$('#bClear').hidden=!(conn&&conn.open);
+    const on=!!(conn&&conn.open);
+    $('#bSync').hidden=$('#bClear').hidden=!on;
+    $('#bOpenDock').innerHTML=on?ic('play')+'Do início':ic('cast')+'Apresentar';
+    $('#bDisc').hidden=!on;$('#bConn span').textContent=on?'Trocar TV':'Conectar TV';
   }
   function saveCfg(){localStorage.cfg=JSON.stringify(cfg);syncUI();bc.postMessage({t:'reload'});if(conn&&conn.open)conn.send({t:'cfg',cfg})}
   document.addEventListener('click',e=>{
@@ -360,6 +484,7 @@ function bootPC(){
     items=a.filter(x=>x.kind!=='bg').sort((x,y)=>x.order-y.order);
     bgs=a.filter(x=>x.kind==='bg').sort((x,y)=>x.order-y.order);
     render();bc.postMessage({t:'reload'});
+    if(conn&&conn.open)autoSync();
   }
   function render(){
     urls.forEach(u=>URL.revokeObjectURL(u));urls=[];
@@ -387,7 +512,7 @@ function bootPC(){
     else if(a==='show'){if(conn&&conn.open)await sync();ctl({t:'cmd',c:'show',id});return}
     load();
   };
-  $('#list').onchange=async e=>{const id=e.target.dataset.dur;if(!id)return;const it=items.find(x=>x.id===id);it.dur=Math.max(2,+e.target.value||8);await put(it)};
+  $('#list').onchange=async e=>{const id=e.target.dataset.dur;if(!id)return;const it=items.find(x=>x.id===id);it.dur=Math.max(2,+e.target.value||8);await put(it);if(conn&&conn.open)autoSync()};
   $('#bgList').onclick=async e=>{const b=e.target.closest('[data-bg]');if(b){await del(b.dataset.bg);load()}};
 
   /* reordenar arrastando */
@@ -446,89 +571,204 @@ function bootPC(){
   addEventListener('drop',e=>{if(e.dataTransfer.files.length){e.preventDefault();addFiles(e.dataTransfer.files)}});
   addEventListener('paste',e=>{const f=[...(e.clipboardData?.files||[])];if(f.length)addFiles(f)});
 
-  /* conexão com a TV */
+  /* ---------- conexão com a TV ---------- */
+  const PCNAME=devName();
+  let tvs=[],lobSt='w',target=null,screens=null,retryT,localOn=false,syncing=false,again=false,autoT;
+  const isOn=()=>!!(conn&&conn.open);
   const setConn=(s,t)=>{$('#dot').className='dot '+s;$('#cTxt').textContent=t};
-  const send=m=>{if(!conn||!conn.open){toast('Conecte à TV primeiro');return false}conn.send(m);return true};
-  const ctl=m=>{bc.postMessage(m);if(conn&&conn.open)conn.send(m)};
+  function idleChip(){
+    if(isOn()||want)return;
+    if(localOn)return setConn('on','Apresentando nesta tela');
+    const n=tvs.length;setConn('',n?`Nenhuma TV conectada · ${n} na rede`:'Nenhuma TV conectada');
+  }
+  const send=m=>{if(!isOn()){toast('Conecte uma TV primeiro');return false}conn.send(m);return true};
+  const ctl=m=>{bc.postMessage(m);if(isOn())conn.send(m)};
   function onState(d){curId=d.id;tvPlaying=d.playing;syncUI();document.querySelectorAll('#list .it').forEach(x=>x.classList.toggle('now',x.dataset.id===curId))}
   bc.onmessage=e=>{
     const d=e.data;
-    if(d.t==='state'){onState(d);if(!(conn&&conn.open))setConn('on','Apresentando na tela local')}
-    else if(d.t==='closed'){curId=null;tvPlaying=false;syncUI();if(!(conn&&conn.open))setConn('','Sem TV')}
+    if(d.t==='state'){onState(d);localOn=true;idleChip()}
+    else if(d.t==='closed'){localOn=false;if(!isOn()){curId=null;tvPlaying=false;syncUI()}idleChip()}
   };
+
   function ensurePeer(cb){
-    if(peer&&!peer.destroyed){peer.open?cb():peer.once('open',cb);return}
+    if(peer&&!peer.destroyed){peer.open?cb(peer):peer.once('open',()=>cb(peer));return}
     peer=new Peer();
-    peer.on('open',cb);
-    peer.on('disconnected',()=>peer.reconnect());
+    peer.on('open',()=>cb(peer));
+    peer.on('disconnected',()=>{if(!peer.destroyed)setTimeout(()=>!peer.destroyed&&peer.reconnect(),1500)});
     peer.on('error',e=>{
-      setConn('',e.type==='peer-unavailable'?'TV não encontrada — está aberta?':'Erro de conexão ('+e.type+')');
-      if(want&&localStorage.last)setTimeout(()=>connect(localStorage.last),5000);
+      if(e.type==='peer-unavailable'){
+        if(/net-/.test(e.message||''))return; // sala da rede ainda não existe: tratado pela descoberta
+        if(want&&target){setConn('w',`${target.name} não respondeu — tentando de novo…`);clearTimeout(retryT);retryT=setTimeout(()=>want&&connectTV(target),5000)}
+      }else if(['network','server-error','socket-error','socket-closed'].includes(e.type))setConn('','Sem conexão com a internet');
     });
   }
-  function connect(code){
-    code=(code||'').trim().toUpperCase();if(!code)return;
-    localStorage.last=code;want=true;setConn('w','Conectando…');
-    ensurePeer(()=>{
-      if(conn){try{conn.close()}catch(e){}}
-      const c=conn=peer.connect(PREFIX+code,{reliable:true});
-      c.on('open',()=>{setConn('on','TV conectada · '+code);toast('TV conectada');c.send({t:'cfg',cfg});syncUI()});
-      c.on('close',()=>{if(c!==conn)return;setConn('','Sem TV');curId=null;tvPlaying=false;syncUI();Object.values(acks).forEach(f=>f());if(want)setTimeout(()=>want&&connect(code),4000)});
-      c.on('data',d=>{
-        if(d.t==='has')tvHas=d.ids;
-        else if(d.t==='ack'&&acks[d.id]){acks[d.id]();delete acks[d.id]}
-        else if(d.t==='state')onState(d);
-      });
+
+  function attach(c,info,net){
+    if(conn&&conn!==c){const o=conn;conn=null;try{o.close()}catch(e){}}
+    conn=c;acks={};
+    c.on('open',()=>{
+      if(conn!==c)return;setConn('on',info.name);toast('Conectado a '+info.name);
+      c.send({t:'cfg',cfg});syncUI();renderDevs();sync();
+    });
+    c.on('close',()=>{
+      if(c!==conn)return;conn=null;curId=null;tvPlaying=false;Object.values(acks).forEach(f=>f());acks={};syncUI();renderDevs();
+      if(net&&want){setConn('w','Reconectando a '+info.name+'…');clearTimeout(retryT);retryT=setTimeout(()=>want&&connectTV(info),4000)}
+      else{want=false;idleChip()}
+    });
+    c.on('data',d=>{
+      if(d.t==='has')tvHas=d.ids;
+      else if(d.t==='ack'&&acks[d.id]){acks[d.id]();delete acks[d.id]}
+      else if(d.t==='state')onState(d);
     });
   }
-  function openPlayer(){
-    if(playerWin&&!playerWin.closed){playerWin.focus();return}
-    playerWin=window.open(location.href.split('#')[0]+'#play','apres-player','popup,width=1280,height=720');
+  function connectTV(t){
+    target={code:t.code,name:t.name||('TV '+t.code)};localStorage.last=JSON.stringify(target);want=true;
+    setConn('w','Conectando a '+target.name+'…');
+    ensurePeer(p=>{if(want&&target&&target.code===t.code)attach(p.connect(PREFIX+t.code,{reliable:true}),target,true)});
+  }
+  function disconnect(){
+    want=false;target=null;clearTimeout(retryT);localStorage.removeItem('last');
+    const c=conn;conn=null;curId=null;tvPlaying=false;Object.values(acks).forEach(f=>f());acks={};
+    if(c)try{c.close()}catch(e){}
+    syncUI();renderDevs();idleChip();toast('TV desconectada');
+  }
+
+  /* lista de TVs encontradas automaticamente */
+  const lobby=startLobby(ensurePeer,null,l=>{tvs=(l||[]).sort((a,b)=>a.name.localeCompare(b.name));renderDevs()},s=>{lobSt=s;renderDevs()});
+  function renderDevs(){
+    const on=isOn(),cc=on&&target&&target.code,n=tvs.length;
+    $('#radar').className='radar'+(lobSt==='off'?' off':'');
+    $('#scanTxt').textContent=lobSt==='off'?'A busca automática não funcionou nesta rede — use o código (abaixo)'
+      :n?`${n} ${n>1?'TVs encontradas':'TV encontrada'} · procurando outras…`:'Procurando TVs na rede…';
+    $('#devs').innerHTML=tvs.map(t=>{
+      const me=cc===t.code,busy=!me&&t.busy;
+      return `<div class="dev${me?' cur':''}" data-code="${esc(t.code)}"><div class="di">${ic('tv')}</div>
+      <div class="nm"><b>${esc(t.name)}</b><small class="mu">${me?'<span class="tag ok">Conectada</span>':busy?`<span class="tag">Em uso · ${esc(t.busy)}</span>`:''}${esc([t.name!==t.model&&t.model,t.res].filter(Boolean).join(' · '))}</small></div>
+      ${me?`<button class="ic" data-a="ren" title="Renomear esta TV">${ic('edit')}</button><button data-a="off">Desconectar</button>`:`<button class="pri" data-a="go">${busy?'Assumir':'Conectar'}</button>`}</div>`;
+    }).join('')||(lobSt==='off'?'':`<div class="dev hint">Nenhuma TV ainda. Abra o endereço da TV no navegador dela (veja abaixo) — ela aparece aqui automaticamente.</div>`);
+    if(on&&target){const t=tvs.find(x=>x.code===target.code);if(t&&t.name!==target.name){target.name=t.name;localStorage.last=JSON.stringify(target);setConn('on',t.name)}}
+    idleChip();
+  }
+  $('#devs').onclick=e=>{
+    const b=e.target.closest('button');if(!b)return;
+    const t=tvs.find(x=>x.code===b.closest('.dev').dataset.code);if(!t)return;
+    if(b.dataset.a==='go'){if(t.busy&&!confirm(`${t.name} está sendo usada por ${t.busy}. Assumir o controle?`))return;$('#dlg').close();connectTV(t)}
+    else if(b.dataset.a==='off')disconnect();
+    else if(b.dataset.a==='ren'){
+      const n=(prompt('Nome desta TV (ex.: TV da Recepção)',t.name)||'').trim().slice(0,40);
+      if(n&&send({t:'name',name:n})){t.name=target.name=n;localStorage.last=JSON.stringify(target);setConn('on',n);renderDevs()}
+    }
+  };
+  $('#bRescan').onclick=e=>{const b=e.currentTarget;b.classList.remove('spin');void b.offsetWidth;b.classList.add('spin');lobby.update()};
+
+  /* Chromecast / Google TV (busca nativa do navegador) */
+  let castReq=null;
+  try{if('PresentationRequest' in window&&/^https?:/.test(location.protocol))castReq=new PresentationRequest([location.href.split('#')[0]+'#cast'])}catch(e){}
+  if(castReq){
+    $('#castBox').hidden=false;
+    castReq.getAvailability().then(a=>{const f=()=>$('#castTxt').textContent=a.value?'Dispositivos de transmissão encontrados na rede':'Busca pelos dispositivos de transmissão do navegador';a.onchange=f;f()}).catch(()=>{});
+    $('#bCast').onclick=async()=>{
+      try{
+        const pc=await castReq.start();
+        want=false;target={code:null,name:'Chromecast'};clearTimeout(retryT);$('#dlg').close();
+        setConn('w','Conectando ao Chromecast…');attach(link(pc),target,false);
+      }catch(e){
+        if(e.name==='NotFoundError')toast('Nenhum Chromecast/Google TV encontrado na rede');
+        else if(e.name!=='AbortError'&&e.name!=='NotAllowedError')toast('Não foi possível transmitir: '+e.message);
+      }
+    };
+  }
+
+  /* telas ligadas ao computador (HDMI, Miracast estendido) */
+  async function loadScreens(ask){
+    if(!('getScreenDetails' in window))return renderScr();
+    try{
+      if(!ask){
+        let p;try{p=await navigator.permissions.query({name:'window-management'})}catch(e){p=await navigator.permissions.query({name:'window-placement'})}
+        if(p.state!=='granted')return renderScr();
+      }
+      const d=await getScreenDetails();screens=d.screens;d.onscreenschange=()=>{screens=d.screens;renderScr()};
+    }catch(e){if(ask)toast('Permissão negada para detectar telas')}
+    renderScr();
+  }
+  const extScreens=()=>(screens||[]).filter(s=>!s.isPrimary);
+  function renderScr(){
+    const ext=extScreens();
+    $('#scrs').innerHTML=ext.map((s,i)=>`<div class="dev"><div class="di">${ic('monitor')}</div><div class="nm"><b>${esc(s.label||'Tela '+(i+2))}</b><small class="mu">Tela estendida · ${s.width}×${s.height}</small></div><button class="pri" data-s="${i}">Apresentar</button></div>`).join('')
+      +`<div class="dev"><div class="di">${ic('copy')}</div><div class="nm"><b>Janela de apresentação</b><small class="mu">Abre nesta tela · para espelhar com Win+K ou AirPlay</small></div><button data-s="w">Abrir</button></div>`
+      +(('getScreenDetails' in window)&&!screens?`<button class="ghost" data-s="ask">${ic('monitor')}Detectar monitores e TVs ligados por cabo</button>`:'')
+      +(screens&&!ext.length?'<p class="mu" style="font-size:12px;margin:8px 2px 0">Nenhuma tela extra ligada a este computador.</p>':'');
+  }
+  $('#scrs').onclick=e=>{
+    const b=e.target.closest('button');if(!b)return;
+    if(b.dataset.s==='ask')return loadScreens(true);
+    $('#dlg').close();openPlayer(b.dataset.s==='w'?null:extScreens()[+b.dataset.s]);
+  };
+  function openPlayer(s){
+    if(playerWin&&!playerWin.closed){if(s){try{playerWin.moveTo(s.availLeft,s.availTop);playerWin.resizeTo(s.availWidth,s.availHeight)}catch(e){}}playerWin.focus();return}
+    const f=s?`popup,left=${s.availLeft},top=${s.availTop},width=${s.availWidth},height=${s.availHeight},fullscreen`:'popup,width=1280,height=720';
+    playerWin=window.open(location.href.split('#')[0]+'#play','apres-player',f);
     if(!playerWin)return toast('O navegador bloqueou a janela. Permita pop-ups para este site.');
-    toast('Tela aberta. Transmita esta janela para a TV (Win+K) e aperte Enter nela para tela cheia.');
-    (async()=>{try{
-      if(!window.getScreenDetails)return;
-      const s=(await getScreenDetails()).screens.find(x=>!x.isPrimary);
-      if(s&&!playerWin.closed){playerWin.moveTo(s.availLeft,s.availTop);playerWin.resizeTo(s.availWidth,s.availHeight)}
-    }catch(e){}})();
+    toast(s?'Apresentação aberta na outra tela. Se não estiver em tela cheia, clique nela e aperte Enter.':'Janela aberta. Espelhe-a na TV (Win+K / AirPlay) e aperte Enter nela para tela cheia.');
   }
-  $('#bConn').onclick=()=>{$('#code').value=localStorage.last||'';$('#dlg').showModal()};
+
+  function openPicker(){
+    $('#tvUrl').textContent=location.href.split('#')[0]+'#tv';$('#code').value='';
+    renderDevs();renderScr();loadScreens(false);lobby.update();$('#dlg').showModal();
+  }
+  $('#bConn').onclick=openPicker;
+  $('#bDisc').onclick=disconnect;
   $('#dX').onclick=()=>$('#dlg').close();
-  $('#bOpen').onclick=()=>{$('#dlg').close();openPlayer()};
-  $('#bOpenDock').onclick=openPlayer;
-  $('#dOk').onclick=()=>{$('#dlg').close();connect($('#code').value)};
+  $('#bOpenDock').onclick=()=>{
+    if(!isOn())return openPicker();
+    if(!items.length)return toast('Adicione itens à programação primeiro');
+    ctl({t:'cmd',c:'show',id:items[0].id});
+  };
+  $('#dOk').onclick=()=>{const c=$('#code').value.trim().toUpperCase();if(c.length<4)return toast('Digite o código mostrado na TV');$('#dlg').close();connectTV({code:c,name:'TV '+c})};
   $('#code').onkeydown=e=>{if(e.key==='Enter')$('#dOk').click()};
 
+  /* envio da programação (automático ao conectar e a cada alteração) */
+  const autoSync=()=>{clearTimeout(autoT);autoT=setTimeout(sync,1200)};
   async function sync(){
-    if(!send({t:'hello'}))return;
-    tvHas=null;for(let i=0;i<50&&!tvHas;i++)await sleep(100);
-    const has=new Set(tvHas||[]),todo=[...items,...bgs].filter(x=>!has.has(x.id));
-    $('#bSync').disabled=true;let n=0;
-    for(const it of todo){
-      n++;$('#msg').textContent=`Enviando ${n}/${todo.length}: ${it.name}`;
-      const m={t:'item',id:it.id,kind:it.kind,name:it.name,type:it.type,title:it.title,text:it.text,c1:it.c1,c2:it.c2,fg:it.fg,font:it.font,al:it.al,up:it.up,size:it.size};
-      if(it.blob){m.mime=it.blob.type;m.data=await it.blob.arrayBuffer()}
-      await new Promise(r=>{acks[it.id]=r;conn.send(m)});
-      if(!conn.open)break;
+    if(!isOn())return;
+    if(syncing){again=true;return}
+    syncing=true;$('#bSync').disabled=true;
+    try{
+      const c=conn;c.send({t:'hello',from:PCNAME});
+      tvHas=null;for(let i=0;i<50&&!tvHas&&c.open;i++)await sleep(100);
+      const has=new Set(tvHas||[]),todo=[...items,...bgs].filter(x=>!has.has(x.id));let n=0;
+      for(const it of todo){
+        if(!c.open||conn!==c)break;
+        n++;$('#msg').textContent=`Enviando ${n}/${todo.length}: ${it.name}`;
+        const m={t:'item',id:it.id,kind:it.kind,name:it.name,type:it.type,title:it.title,text:it.text,c1:it.c1,c2:it.c2,fg:it.fg,font:it.font,al:it.al,up:it.up,size:it.size};
+        if(it.blob){m.mime=it.blob.type;m.data=await it.blob.arrayBuffer()}
+        await new Promise(r=>{acks[it.id]=r;c.send(m)});
+      }
+      if(c.open&&conn===c){c.send({t:'playlist',list:items.map(x=>({id:x.id,dur:x.dur})),bg:bgs.map(x=>x.id),cfg});$('#msg').textContent=items.length?'Programação na TV atualizada ✓':'Conectado — adicione itens à programação'}
+      else $('#msg').textContent='';
+    }finally{
+      syncing=false;$('#bSync').disabled=false;
+      if(again){again=false;sync()}
     }
-    $('#bSync').disabled=false;
-    if(conn.open){conn.send({t:'playlist',list:items.map(x=>({id:x.id,dur:x.dur})),bg:bgs.map(x=>x.id),cfg});$('#msg').textContent='Enviado — a TV já está exibindo ✓'}
   }
   $('#bSync').onclick=sync;
   $('#bPlay').onclick=()=>ctl({t:'cmd',c:tvPlaying?'pause':'play'});
   $('#bNext').onclick=()=>ctl({t:'cmd',c:'next'});
   $('#bPrev').onclick=()=>ctl({t:'cmd',c:'prev'});
   $('#bClear').onclick=()=>{if(confirm('Remover todo o conteúdo da TV? (a biblioteca do computador é mantida)'))send({t:'clear'})};
-  fillForm();syncUI();load();
-  if(localStorage.last)connect(localStorage.last);
-  else if(!localStorage.seen){localStorage.seen=1;$('#dlg').showModal()}
+  fillForm();syncUI();load();renderDevs();renderScr();
+  let last=null;try{last=JSON.parse(localStorage.last||'null')}catch(e){if(localStorage.last)last={code:localStorage.last}}
+  if(last&&last.code)connectTV(last);
+  else if(!localStorage.seen){localStorage.seen=1;openPicker()}
 }
 
 /* ================= TV ================= */
-function bootTV(local){
+function bootTV(kind){
+  const local=kind==='local';
   let pl=[],bg=[],cfg={...DEF},idx=0,timer,playing=true,url=null,skip=0,peer,conn,tries=0,aud=null,cur=null,bgi=0,bgUrl=null;
+  let busyBy=null,lob=null,lobSt='w',peerOk=false,netErr=false,myCode=null;
   const stage=$('#stage'),bgA=new Audio(),bc=local?new BroadcastChannel('apres'):null;
-  if(!local)try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
+  if(kind==='net')try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
   const badge=t=>{const b=$('#badge');b.textContent=t;b.classList.add('show');clearTimeout(badge.t);badge.t=setTimeout(()=>b.classList.remove('show'),3500)};
   const persist=()=>{localStorage.pl=JSON.stringify(pl);localStorage.bg=JSON.stringify(bg);localStorage.tvcfg=JSON.stringify(cfg)};
   const vid=()=>stage.querySelector('video')||aud;
@@ -603,7 +843,11 @@ function bootTV(local){
     await refresh(...prev);
   }
   async function onData(d){
-    if(d.t==='hello')conn.send({t:'has',ids:(await all()).map(x=>x.id)});
+    if(d.t==='hello'){
+      if(d.from&&d.from!==busyBy){busyBy=d.from;lob&&lob.update();stat()}
+      conn.send({t:'has',ids:(await all()).map(x=>x.id)});
+    }
+    else if(d.t==='name'){localStorage.tvname=d.name;lob&&lob.update();stat();badge('Nome da TV: '+d.name)}
     else if(d.t==='item'){
       const rec={...d};delete rec.t;delete rec.data;
       if(d.data)rec.blob=new Blob([d.data],{type:d.mime});
@@ -625,26 +869,47 @@ function bootTV(local){
     }else if(d.t==='clear'){await clr();pl=[];bg=[];persist();bgA.pause();bgA.removeAttribute('src');show(0)}
   }
 
+  /* identidade e status da TV na rede */
+  const tvName=()=>localStorage.tvname||devName();
+  const me=()=>({code:myCode,name:tvName(),model:devName(),res:`${Math.round(screen.width*devicePixelRatio)}×${Math.round(screen.height*devicePixelRatio)}`,busy:busyBy});
+  function stat(){
+    const s=$('#tvStat'),n=$('#tvName');if(!s)return;
+    n.textContent=tvName();
+    let d='w',t='Conectando ao serviço…';
+    if(conn&&conn.open)d='on',t=`Conectada a ${busyBy||'um computador'} · aguardando conteúdo`;
+    else if(netErr)d='',t='Sem conexão com a internet — tentando de novo…';
+    else if(peerOk)d='on',t=lobSt==='on'?'Pronta · aparece automaticamente nos computadores desta rede':lobSt==='off'?'Pronta · conecte usando o código abaixo':'Pronta · anunciando na rede…';
+    s.innerHTML=`<span class="dot ${d}"></span>${esc(t)}`;
+  }
+  const getPeer=cb=>{if(peer&&peer.open&&!peer.destroyed)cb(peer);else setTimeout(()=>getPeer(cb),1000)};
   function startPeer(){
     const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     let code=localStorage.tvcode;
     if(!code){code=Array.from({length:6},()=>A[Math.random()*A.length|0]).join('');localStorage.tvcode=code}
-    $('#tvCode').innerHTML=[...code].map(c=>`<span>${c}</span>`).join('');
+    myCode=code;$('#tvCode').textContent=code;stat();
     peer=new Peer(PREFIX+code);
-    peer.on('open',()=>{tries=0;badge('Pronta para conectar')});
+    peer.on('open',()=>{tries=0;peerOk=true;netErr=false;stat();
+      if(!lob)lob=startLobby(getPeer,me,null,s=>{lobSt=s;stat()});else lob.update()});
     peer.on('connection',c=>{
-      if(conn)conn.close();conn=c;
-      c.on('open',()=>{badge('Computador conectado');report()});
+      if(conn&&conn!==c){const o=conn;conn=null;o.close()}conn=c;
+      c.on('open',()=>{badge('Computador conectado');report();stat()});
       c.on('data',onData);
-      c.on('close',()=>badge('Computador desconectado'));
+      c.on('close',()=>{if(conn!==c)return;conn=null;busyBy=null;lob&&lob.update();stat();badge('Computador desconectado')});
     });
-    peer.on('disconnected',()=>setTimeout(()=>peer.reconnect(),2000));
+    peer.on('disconnected',()=>{peerOk=false;stat();setTimeout(()=>!peer.destroyed&&peer.reconnect(),2000)});
     peer.on('error',e=>{
-      if(e.type==='unavailable-id'){peer.destroy();if(++tries>4){localStorage.removeItem('tvcode');tries=0}setTimeout(startPeer,3000)}
-      else if(['network','server-error','socket-error','socket-closed'].includes(e.type))setTimeout(()=>{peer.destroyed?startPeer():peer.reconnect()},5000);
+      if(e.type==='unavailable-id'){peer.destroy();peerOk=false;if(++tries>4){localStorage.removeItem('tvcode');tries=0}setTimeout(startPeer,3000)}
+      else if(['network','server-error','socket-error','socket-closed'].includes(e.type)){netErr=true;peerOk=false;stat();setTimeout(()=>{peer.destroyed?startPeer():peer.reconnect()},5000)}
     });
   }
-  if(!local)startPeer();
+  if(kind==='net')startPeer();
+  if(kind==='cast'){
+    $('#idle').innerHTML=`<div class="lg">${ic('cast')}</div><h1>Transmissão iniciada</h1><p>Recebendo a programação do computador…</p>`;
+    navigator.presentation.receiver.connectionList.then(l=>{
+      const use=pc=>{const c=link(pc);conn=c;c.on('data',onData);c.on('open',report)};
+      l.connections.forEach(use);l.onconnectionavailable=e=>use(e.connection);
+    });
+  }
 
   const fs=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{});
   addEventListener('keydown',e=>{
