@@ -28,6 +28,9 @@ Na aba **Modelos**:
 - **8 temas:** Executivo, Corporativo, Grafite, Esmeralda, Bordô, Areia, Oceano e Ametista. Você também pode usar a **cor da sua marca** em "Cor de destaque".
 - **Foto de fundo** em qualquer modelo, com controle de escurecimento para o texto ficar legível. No "Boas-vindas", a foto vira o retrato da pessoa.
 - **Música por slide:** toca enquanto aquele slide está na tela e pausa a trilha de fundo. Marque "Ficar até a música terminar" para o slide durar o tempo da música.
+- **Celebrações:** Premiação (com coroa de louros e foto), Ranking/pódio (1º, 2º e 3º lugar + 4º e 5º), Aniversariante do dia (balões e confete), Aniversariantes do mês e **Data comemorativa**.
+- **Datas comemorativas (17):** Ano Novo, Carnaval, Dia da Mulher, Páscoa, Dia do Trabalhador, Dia das Mães, Dia dos Namorados, Festa Junina, Dia dos Pais, Dia do Corretor de Imóveis, Independência, Dia do Cliente, Dia das Crianças, Outubro Rosa, Novembro Azul, Consciência Negra e Natal. Cada uma tem cores, ilustração e texto próprios, e o app já sugere a próxima data do calendário.
+- **Promoções:** Promoção/oferta (preço "de/por" com selo de desconto calculado sozinho) e **Black Friday** (com contagem regressiva automática: "Faltam 12 dias", "É amanhã!", "É hoje!").
 - **Apresentação pronta:** cria de uma vez uma *Apresentação institucional*, uma *Reunião de resultados* ou um *Informativo da semana* completos, no tema escolhido. Depois é só editar.
 - Na TV, os slides entram com animação suave e a foto de fundo tem um leve movimento de zoom.
 
