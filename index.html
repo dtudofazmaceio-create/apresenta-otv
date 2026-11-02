@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apresentação na TV</title>
+<style>
+:root{--bg:#0f1320;--card:#181e30;--line:#2a3350;--tx:#e8ecf8;--mut:#8b95b5;--ac:#4f8cff;--ok:#3ddc97;--er:#ff6b6b}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
+[hidden]{display:none!important}
+button,input,textarea{font:inherit;color:inherit}
+button{background:var(--ac);border:0;border-radius:8px;padding:9px 14px;cursor:pointer;font-weight:600}
+button.sec{background:#26304e}button.dan{background:#5a2a34}
+button:disabled{opacity:.4;cursor:default}
+input,textarea{background:#10152a;border:1px solid var(--line);border-radius:8px;padding:9px;width:100%}
+.wrap{max-width:900px;margin:0 auto;padding:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:15px;margin:0 0 10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row>input{flex:1;min-width:120px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--er);display:inline-block}
+.dot.on{background:var(--ok)}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:26px;text-align:center;color:var(--mut);cursor:pointer}
+.drop.over{border-color:var(--ac);color:var(--tx)}
+.it{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:10px;margin-top:8px;background:#141a2e}
+.th{width:96px;height:60px;border-radius:6px;object-fit:cover;background:#000;flex:none;display:flex;align-items:center;justify-content:center;font-size:26px;overflow:hidden}
+.th img,.th video{width:100%;height:100%;object-fit:cover}
+.nm{flex:1;min-width:0}.nm b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm small{color:var(--mut)}
+.it input[type=number]{width:64px}
+.it button{padding:6px 10px}
+.home{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.home a{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px}
+.home a:hover{border-color:var(--ac)}.home b{font-size:20px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#26304e;padding:10px 18px;border-radius:999px;opacity:0;transition:.3s;pointer-events:none}
+#toast.show{opacity:1}
+/* TV */
+#tv{position:fixed;inset:0;background:#000;overflow:hidden;cursor:none}
+#stage,#stage>*{position:absolute;inset:0;width:100%;height:100%}
+#stage img,#stage video{object-fit:contain;background:#000}
+.txt{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6vw;color:#fff}
+.txt h1{font-size:6vw;margin:0 0 3vw}.txt p{font-size:3.4vw;margin:0;white-space:pre-wrap;line-height:1.3}
+#idle{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:radial-gradient(circle at 50% 40%,#1b2750,#0a0d1a)}
+#idle .cd{font-size:9vw;font-weight:800;letter-spacing:.25em;margin:2vw 0;color:var(--ac)}
+#idle p{font-size:2vw;color:var(--mut);margin:.3em}
+#badge{position:absolute;top:2vw;right:2vw;background:#000a;color:#fff;padding:.6vw 1.4vw;border-radius:999px;font-size:1.6vw;opacity:0;transition:.4s}
+#badge.show{opacity:1}
+@media(max-width:600px){.home{grid-template-columns:1fr}.it{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+
+<div id="home" class="wrap" hidden>
+  <h1>Apresentação na TV</h1>
+  <p style="color:var(--mut)">Envie imagens, vídeos e avisos do computador para a TV smart, sem cabos.</p>
+  <div class="home">
+    <a href="#pc"><b>💻 Sou o computador</b><p style="color:var(--mut)">Monta a lista de mídias e envia para a TV.</p></a>
+    <a href="#tv"><b>📺 Sou a TV</b><p style="color:var(--mut)">Abra este link no navegador da TV. Ele mostrará um código.</p></a>
+  </div>
+</div>
+
+<div id="pc" class="wrap" hidden>
+  <h1>📤 Controle da apresentação</h1>
+  <div class="card">
+    <h2>1. Conectar à TV</h2>
+    <div class="row">
+      <span class="dot" id="dot"></span>
+      <input id="code" placeholder="Código mostrado na TV" maxlength="6" style="text-transform:uppercase;max-width:220px">
+      <button id="bConn">Conectar</button>
+      <span id="st" style="color:var(--mut)">Desconectado</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>2. Mídias</h2>
+    <div class="drop" id="drop">Arraste fotos, vídeos, PDFs, áudios ou textos (.txt) aqui, cole com Ctrl+V ou clique para escolher</div>
+    <input type="file" id="file" multiple accept="image/*,video/*,audio/*,.pdf,.txt" hidden>
+    <div class="row" style="margin-top:12px">
+      <input id="tTitle" placeholder="Título do aviso" style="flex:1 1 180px">
+      <input id="tText" placeholder="Texto do aviso" style="flex:2 1 260px">
+      <input type="color" id="tBg" value="#0b3d91" style="width:50px;padding:2px">
+      <button class="sec" id="bText">+ Aviso de texto</button>
+    </div>
+    <div id="list"></div>
+  </div>
+  <div class="card">
+    <h2>3. Enviar e controlar</h2>
+    <div class="row">
+      <button id="bSync">📡 Enviar para a TV</button>
+      <button class="sec" id="bPrev">⏮</button>
+      <button class="sec" id="bPlay">▶</button>
+      <button class="sec" id="bPause">⏸</button>
+      <button class="sec" id="bNext">⏭</button>
+      <label><input type="checkbox" id="loop" checked style="width:auto"> repetir</label>
+      <label><input type="checkbox" id="mute" style="width:auto"> sem som</label>
+      <button class="dan" id="bClear">Limpar TV</button>
+    </div>
+    <p style="color:var(--mut);font-size:13px;margin:10px 0 0">A TV guarda o conteúdo no próprio navegador e continua exibindo mesmo se o computador for desligado.</p>
+  </div>
+</div>
+
+<div id="tv" hidden>
+  <div id="stage"></div>
+  <div id="idle">
+    <p>📺 Aguardando conteúdo</p>
+    <div class="cd" id="tvCode">······</div>
+    <p>No computador, abra este mesmo link com <b>#pc</b> e digite o código</p>
+    <p style="font-size:1.4vw">Enter/OK = tela cheia · ◀ ▶ = trocar · Espaço = pausar</p>
+  </div>
+  <div id="badge"></div>
+</div>
+<div id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const PREFIX='apresdj-';
+const mode=location.hash==='#tv'?'tv':location.hash==='#pc'?'pc':'';
+addEventListener('hashchange',()=>location.reload());
+
+/* ---------- IndexedDB ---------- */
+const dbp=new Promise((ok,err)=>{
+  const r=indexedDB.open('apresentacao-'+(mode||'home'),1);
+  r.onupgradeneeded=()=>r.result.createObjectStore('m',{keyPath:'id'});
+  r.onsuccess=()=>ok(r.result);r.onerror=()=>err(r.error);
+});
+async function tx(m,fn){
+  const d=await dbp;
+  return new Promise((ok,err)=>{
+    const t=d.transaction('m',m);const r=fn(t.objectStore('m'));
+    t.oncomplete=()=>ok(r&&r.result);t.onerror=()=>err(t.error);
+  });
+}
+const put=o=>tx('readwrite',s=>s.put(o));
+const del=id=>tx('readwrite',s=>s.delete(id));
+const get=id=>tx('readonly',s=>s.get(id));
+const all=()=>tx('readonly',s=>s.getAll());
+const clr=()=>tx('readwrite',s=>s.clear());
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),2500)}
+
+if(!mode){$('#home').hidden=false}
+else if(mode==='pc'){$('#pc').hidden=false;bootPC()}
+else{$('#tv').hidden=false;bootTV()}
+
+/* ================= COMPUTADOR ================= */
+function bootPC(){
+  let items=[],peer,conn,tvHas=null,acks={},urls=[];
+  const setSt=(t,on)=>{$('#st').textContent=t;if(on!==undefined)$('#dot').classList.toggle('on',on)};
+  $('#code').value=localStorage.lastCode||'';
+
+  async function load(){items=(await all()).sort((a,b)=>a.order-b.order);render()}
+  function render(){
+    urls.forEach(u=>URL.revokeObjectURL(u));urls=[];
+    $('#list').innerHTML=items.map((it,i)=>{
+      let th='📝';
+      if(it.type==='audio')th='🎵';
+      else if(it.blob){const u=URL.createObjectURL(it.blob);urls.push(u);th=it.type==='video'?`<video src="${u}#t=0.5" muted preload="metadata"></video>`:`<img src="${u}">`}
+      const own=it.type==='video'||it.type==='audio';
+      const dur=own?'<small>toca até o fim</small>':`<input type="number" min="2" max="600" value="${it.dur}" data-act="dur" data-id="${it.id}" title="segundos">`;
+      return `<div class="it"><div class="th" style="${it.type==='text'?'background:'+esc(it.bg):''}">${th}</div>
+      <div class="nm"><b>${esc(it.name)}</b><small>${{video:'Vídeo',audio:'Áudio',image:'Imagem',text:'Texto'}[it.type]}${own?'':' · segundos:'}</small></div>${dur}
+      <button class="sec" data-act="show" data-id="${it.id}" title="Mostrar agora">📺</button>
+      <button class="sec" data-act="up" data-id="${it.id}" ${i?'':'disabled'}>↑</button>
+      <button class="sec" data-act="dn" data-id="${it.id}" ${i<items.length-1?'':'disabled'}>↓</button>
+      <button class="dan" data-act="rm" data-id="${it.id}">✕</button></div>`}).join('')||'<p style="color:var(--mut)">Nenhuma mídia ainda.</p>';
+  }
+  async function addPdf(f,next){
+    pdfjsLib.GlobalWorkerOptions.workerSrc=URL.createObjectURL(new Blob(['importScripts("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js")']));
+    const pdf=await pdfjsLib.getDocument({data:await f.arrayBuffer()}).promise;
+    for(let p=1;p<=pdf.numPages;p++){
+      toast(`Convertendo ${f.name}: página ${p}/${pdf.numPages}`);
+      const pg=await pdf.getPage(p),v0=pg.getViewport({scale:1});
+      const vp=pg.getViewport({scale:Math.min(4,Math.min(1920/v0.width,1080/v0.height)*1.5)});
+      const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;
+      const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);
+      await pg.render({canvasContext:x,viewport:vp}).promise;
+      const blob=await new Promise(r=>c.toBlob(r,'image/jpeg',.88));
+      await put({id:uid(),name:`${f.name} — pág. ${p}`,type:'image',dur:10,order:next(),blob});
+    }
+  }
+  async function addFiles(files){
+    let o=Date.now();const skipped=[];
+    for(const f of files){
+      const n=f.name.toLowerCase();
+      try{
+        if(f.type==='application/pdf'||n.endsWith('.pdf')){await addPdf(f,()=>o++);continue}
+        if(f.type.startsWith('text/')||n.endsWith('.txt')){
+          const t=(await f.text()).trim();
+          if(t)await put({id:uid(),name:f.name,type:'text',title:f.name.replace(/\.[^.]+$/,''),text:t.slice(0,1500),bg:'#0b3d91',dur:12,order:o++});
+          continue;
+        }
+        const type=f.type.startsWith('video')?'video':f.type.startsWith('audio')?'audio':f.type.startsWith('image')?'image':null;
+        if(!type){skipped.push(f.name);continue}
+        await put({id:uid(),name:f.name,type,dur:8,order:o++,blob:f});
+      }catch(e){skipped.push(f.name)}
+    }
+    if(skipped.length)toast('Não suportado: '+skipped.join(', ')+'. Exporte para PDF ou imagem.');
+    load();
+  }
+  addEventListener('paste',e=>{const f=[...(e.clipboardData?.files||[])];if(f.length)addFiles(f)});
+  $('#drop').onclick=()=>$('#file').click();
+  $('#file').onchange=e=>{addFiles(e.target.files);e.target.value=''};
+  $('#drop').ondragover=e=>{e.preventDefault();$('#drop').classList.add('over')};
+  $('#drop').ondragleave=()=>$('#drop').classList.remove('over');
+  $('#drop').ondrop=e=>{e.preventDefault();$('#drop').classList.remove('over');addFiles(e.dataTransfer.files)};
+  $('#bText').onclick=async()=>{
+    const title=$('#tTitle').value.trim(),text=$('#tText').value.trim();
+    if(!title&&!text)return toast('Digite título ou texto');
+    await put({id:uid(),name:title||text.slice(0,30),type:'text',title,text,bg:$('#tBg').value,dur:10,order:Date.now()});
+    $('#tTitle').value='';$('#tText').value='';load();
+  };
+  $('#list').onclick=async e=>{
+    const b=e.target.closest('button');if(!b)return;
+    const id=b.dataset.id,i=items.findIndex(x=>x.id===id),a=b.dataset.act;
+    if(a==='rm'){await del(id)}
+    else if(a==='up'||a==='dn'){
+      const j=a==='up'?i-1:i+1;if(!items[j])return;
+      const t=items[i].order;items[i].order=items[j].order;items[j].order=t;
+      await put(items[i]);await put(items[j]);
+    }else if(a==='show'){await sync();send({t:'cmd',c:'show',id});return}
+    load();
+  };
+  $('#list').onchange=async e=>{
+    const el=e.target;if(el.dataset.act!=='dur')return;
+    const it=items.find(x=>x.id===el.dataset.id);it.dur=Math.max(2,+el.value||8);await put(it);
+  };
+
+  /* conexão */
+  function send(m){if(!conn||!conn.open){toast('Conecte à TV primeiro');return false}conn.send(m);return true}
+  function connect(){
+    const c=$('#code').value.trim().toUpperCase();if(!c)return toast('Digite o código da TV');
+    localStorage.lastCode=c;setSt('Conectando…',false);
+    if(conn)conn.close();
+    conn=peer.connect(PREFIX+c,{reliable:true});
+    conn.on('open',()=>{setSt('Conectado à TV',true);toast('Conectado!')});
+    conn.on('close',()=>{setSt('Desconectado',false);Object.values(acks).forEach(f=>f())});
+    conn.on('data',d=>{
+      if(d.t==='has')tvHas=d.ids;
+      if(d.t==='ack'&&acks[d.id]){acks[d.id]();delete acks[d.id]}
+    });
+  }
+  peer=new Peer();
+  peer.on('error',e=>setSt(e.type==='peer-unavailable'?'Código não encontrado — a TV está aberta?':'Erro: '+e.type,false));
+  peer.on('open',()=>{if(localStorage.lastCode&&!conn)setSt('Pronto — clique em Conectar')});
+  $('#bConn').onclick=connect;
+  $('#code').onkeydown=e=>{if(e.key==='Enter')connect()};
+
+  async function sync(){
+    if(!send({t:'hello'}))return;
+    tvHas=null;
+    for(let i=0;i<50&&!tvHas;i++)await sleep(100);
+    const has=new Set(tvHas||[]);
+    const todo=items.filter(x=>!has.has(x.id));
+    $('#bSync').disabled=true;
+    let n=0;
+    for(const it of todo){
+      n++;setSt(`Enviando ${n}/${todo.length}: ${it.name}`,true);
+      const m={t:'item',id:it.id,name:it.name,type:it.type,title:it.title,text:it.text,bg:it.bg};
+      if(it.blob){m.mime=it.blob.type;m.data=await it.blob.arrayBuffer()}
+      await new Promise(r=>{acks[it.id]=r;conn.send(m)});
+      if(!conn.open)break;
+    }
+    $('#bSync').disabled=false;
+    if(conn.open){
+      conn.send({t:'playlist',list:items.map(x=>({id:x.id,dur:x.dur})),loop:$('#loop').checked});
+      setSt('Enviado e exibindo na TV ✓',true);
+    }
+  }
+  $('#bSync').onclick=sync;
+  $('#bPlay').onclick=()=>send({t:'cmd',c:'play'});
+  $('#bPause').onclick=()=>send({t:'cmd',c:'pause'});
+  $('#bNext').onclick=()=>send({t:'cmd',c:'next'});
+  $('#bPrev').onclick=()=>send({t:'cmd',c:'prev'});
+  $('#mute').onchange=e=>send({t:'cmd',c:'mute',v:e.target.checked});
+  $('#loop').onchange=e=>send({t:'cmd',c:'loop',v:e.target.checked});
+  $('#bClear').onclick=()=>{if(confirm('Remover todo o conteúdo da TV?'))send({t:'clear'})};
+  load();
+}
+
+/* ================= TV ================= */
+function bootTV(){
+  let aud=null,pl=[],idx=0,timer,playing=true,loop=true,muted=false,url=null,skip=0,peer,conn,tries=0;
+  const stage=$('#stage');
+  try{pl=JSON.parse(localStorage.pl||'[]');loop=localStorage.loop!=='0'}catch(e){}
+
+  const badge=t=>{const b=$('#badge');b.textContent=t;b.classList.add('show');clearTimeout(badge.t);badge.t=setTimeout(()=>b.classList.remove('show'),3500)};
+  const save=()=>{localStorage.pl=JSON.stringify(pl);localStorage.loop=loop?'1':'0'};
+
+  async function show(i){
+    clearTimeout(timer);
+    if(aud){aud.pause();aud=null}
+    if(!pl.length){stage.innerHTML='';$('#idle').hidden=false;return}
+    idx=((i%pl.length)+pl.length)%pl.length;
+    const p=pl[idx],r=await get(p.id);
+    if(!r){if(++skip<pl.length)return show(idx+1);skip=0;$('#idle').hidden=false;return}
+    skip=0;$('#idle').hidden=true;
+    if(url){URL.revokeObjectURL(url);url=null}
+    stage.innerHTML='';
+    let el;
+    if(r.type==='text'){
+      el=document.createElement('div');el.className='txt';el.style.background=r.bg||'#0b3d91';
+      el.innerHTML=`<h1>${esc(r.title)}</h1><p>${esc(r.text)}</p>`;
+    }else if(r.type==='audio'){
+      el=document.createElement('div');el.className='txt';el.style.background='#1b1f3a';
+      el.innerHTML=`<h1>🎵</h1><p>${esc(r.name.replace(/\.[^.]+$/,''))}</p>`;
+      url=URL.createObjectURL(r.blob);
+      aud=new Audio(url);aud.muted=muted;aud.loop=pl.length===1&&loop;aud.onended=advance;aud.onerror=advance;
+      if(playing)aud.play().catch(()=>{});
+    }else{
+      url=URL.createObjectURL(r.blob);
+      el=document.createElement(r.type==='video'?'video':'img');el.src=url;
+      if(r.type==='video'){
+        el.muted=muted;el.playsInline=true;el.loop=pl.length===1&&loop;
+        el.onended=advance;el.onerror=advance;
+        if(playing)el.play().catch(()=>{el.muted=true;el.play().catch(()=>{})});
+      }
+    }
+    stage.appendChild(el);
+    if(playing&&r.type!=='video'&&r.type!=='audio'&&pl.length>1)timer=setTimeout(advance,(p.dur||8)*1000);
+  }
+  function advance(){
+    if(!loop&&idx>=pl.length-1){playing=false;return}
+    show(idx+1);
+  }
+  const vid=()=>stage.querySelector('video')||aud;
+
+  async function onData(d){
+    if(d.t==='hello'){
+      const ids=(await all()).map(x=>x.id);conn.send({t:'has',ids});
+    }else if(d.t==='item'){
+      const rec={id:d.id,name:d.name,type:d.type,title:d.title,text:d.text,bg:d.bg};
+      if(d.data){rec.mime=d.mime;rec.blob=new Blob([d.data],{type:d.mime})}
+      await put(rec);conn.send({t:'ack',id:d.id});
+    }else if(d.t==='playlist'){
+      const cur=pl[idx]&&pl[idx].id,wasEmpty=!pl.length;
+      pl=d.list;loop=d.loop;save();
+      const keep=new Set(pl.map(x=>x.id));
+      for(const x of await all())if(!keep.has(x.id))await del(x.id);
+      const k=pl.findIndex(x=>x.id===cur);
+      playing=true;
+      if(wasEmpty||k<0)show(0);else idx=k;
+      badge('Conteúdo atualizado');
+    }else if(d.t==='cmd'){
+      if(d.c==='play'){playing=true;show(idx)}
+      else if(d.c==='pause'){playing=false;clearTimeout(timer);vid()&&vid().pause()}
+      else if(d.c==='next')show(idx+1);
+      else if(d.c==='prev')show(idx-1);
+      else if(d.c==='show'){const k=pl.findIndex(x=>x.id===d.id);if(k>=0){playing=true;show(k)}}
+      else if(d.c==='mute'){muted=d.v;vid()&&(vid().muted=muted)}
+      else if(d.c==='loop'){loop=d.v;save()}
+    }else if(d.t==='clear'){
+      await clr();pl=[];save();show(0);
+    }
+  }
+
+  function startPeer(){
+    const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code=localStorage.tvcode;
+    if(!code){code=Array.from({length:6},()=>A[Math.random()*A.length|0]).join('');localStorage.tvcode=code}
+    $('#tvCode').textContent=code;
+    peer=new Peer(PREFIX+code);
+    peer.on('open',()=>{tries=0;badge('Pronta para conectar')});
+    peer.on('connection',c=>{
+      if(conn)conn.close();conn=c;
+      c.on('open',()=>badge('Computador conectado'));
+      c.on('data',onData);
+      c.on('close',()=>badge('Computador desconectado'));
+    });
+    peer.on('disconnected',()=>setTimeout(()=>peer.reconnect(),2000));
+    peer.on('error',e=>{
+      if(e.type==='unavailable-id'){
+        peer.destroy();
+        if(++tries>4){localStorage.removeItem('tvcode');tries=0}
+        setTimeout(startPeer,3000);
+      }else if(['network','server-error','socket-error','socket-closed'].includes(e.type)){
+        setTimeout(()=>{peer.destroyed?startPeer():peer.reconnect()},5000);
+      }
+    });
+  }
+  startPeer();
+
+  const fs=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{});
+  addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key==='f')fs();
+    else if(e.key==='ArrowRight')show(idx+1);
+    else if(e.key==='ArrowLeft')show(idx-1);
+    else if(e.key===' '){playing=!playing;playing?show(idx):(clearTimeout(timer),vid()&&vid().pause())}
+  });
+  addEventListener('click',fs);
+  show(0);
+}
+</script>
+</body>
+</html>
