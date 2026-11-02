@@ -309,6 +309,12 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 .tpl .card2 .ig span{display:inline;margin:0;font-size:1em}
 #stage .tpl .card3{animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
 .L-aniver1 .tx{max-width:30em}
+/* conversão */
+.conv{display:flex;gap:12px;align-items:center;padding:10px;border:1px dashed var(--ac);border-radius:12px;margin-bottom:8px;background:var(--it)}
+.conv.wait{border-color:var(--ln);opacity:.75}
+.conv .cic{width:42px;height:42px;border-radius:10px;background:var(--p2);display:flex;align-items:center;justify-content:center;color:var(--ac);flex:none}
+.conv:not(.wait) .cic{animation:pulse 1.4s ease-in-out infinite}@keyframes pulse{50%{opacity:.45}}
+.conv small{color:var(--mu)}.cbar{height:6px;border-radius:6px;background:var(--p2);margin-top:6px;overflow:hidden}.cbar i{display:block;height:100%;background:var(--g);transition:width .3s}
 /* editor de pessoas */
 .prow{display:flex;gap:10px;align-items:center;padding:8px;border:1px solid var(--ln);border-radius:12px;background:var(--it);margin-bottom:8px}
 .pph{width:58px;height:58px;border-radius:50%;flex:none;background:var(--p2) center/cover no-repeat;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--mu);border:2px dashed var(--ln)}
@@ -460,7 +466,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
   <div class="grid">
     <section class="card">
       <div class="hd"><h2>Programação</h2><div class="row" style="gap:10px;flex-wrap:nowrap"><span class="mu" id="cnt"></span><div class="vseg" id="viewSeg"><button class="ic" data-v="list" title="Ver em lista"><i data-i="list"></i></button><button class="ic" data-v="grid" title="Ver em grade"><i data-i="grid"></i></button></div></div></div>
-      <div id="list"></div>
+      <div id="convBox"></div><div id="list"></div>
     </section>
     <aside class="card" style="align-self:start">
       <div class="tabs">
@@ -472,8 +478,8 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
 
       <div id="p-files">
         <label class="drop" id="drop"><i data-i="upload"></i><br><b class="desk">Solte arquivos aqui</b><b class="mob">Toque para escolher</b><br>fotos, vídeos, PDFs, áudios e .txt<br><small class="desk">ou clique para escolher · Ctrl+O · Ctrl+V cola imagens</small><small class="mob">da galeria, da câmera ou dos arquivos</small>
-          <input type="file" id="file" multiple accept="image/*,video/*,audio/*,.pdf,.txt" hidden></label>
-        <p class="mu" style="font-size:12px">PDFs viram um slide por página. Áudios entram como itens da programação; para música de fundo use a aba Música.</p>
+          <input type="file" id="file" multiple accept="image/*,video/*,audio/*,.pdf,.txt,.mp4,.m4v,.mov,.webm,.mkv,.avi,.wmv,.asf,.flv,.f4v,.mpg,.mpeg,.m2v,.ts,.m2ts,.mts,.3gp,.3g2,.vob,.ogv,.divx,.rm,.rmvb,.hevc,.mxf,.dv,.mp3,.m4a,.aac,.wav,.ogg,.oga,.opus,.flac,.wma,.ac3,.aiff,.aif,.amr,.mka" hidden></label>
+        <p class="mu" style="font-size:12px">Vídeos e áudios em <b>qualquer formato</b> (AVI, MKV, WMV, MOV, FLV, MPEG, 3GP, HEVC, WMA, FLAC…) são convertidos automaticamente para um formato que toca em qualquer TV. PDFs viram um slide por página. Áudios entram como itens da programação; para música de fundo use a aba Música.</p>
       </div>
 
       <div id="p-text" hidden>
@@ -503,7 +509,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
 
       <div id="p-music" hidden>
         <label class="drop" style="padding:18px"><i data-i="music"></i><br><b>Adicionar músicas</b><br><small>MP3, M4A, WAV…</small>
-          <input type="file" id="bgFile" multiple accept="audio/*" hidden></label>
+          <input type="file" id="bgFile" multiple accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.oga,.opus,.flac,.wma,.ac3,.aiff,.aif,.amr,.mka" hidden></label>
         <div id="bgList" style="margin-top:12px"></div>
         <label class="l">Volume da música</label>
         <div class="row"><i data-i="volume-2"></i><input type="range" id="vol" min="0" max="100" style="flex:1"></div>
@@ -517,6 +523,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
         <div class="seg" data-k="fit"><button data-v="contain">Ajustar</button><button data-v="cover">Preencher</button></div>
         <label class="l">Fundo de fotos e vídeos verticais</label>
         <div class="seg" data-k="mbg"><button data-v="sys">Fundo do sistema</button><button data-v="blur">Desfoque</button><button data-v="black">Preto</button></div>
+        <div class="attach" style="margin-top:10px"><span id="stPv" style="width:64px;height:36px;border-radius:6px;flex:none;background:#000 center/cover;border:1px solid var(--ln)"></span><span class="nm mu" style="flex:1;white-space:normal;font-size:12px">Fundo deste aparelho</span><button id="bStBg" style="font-size:12px;padding:8px 10px"><i data-i="cast"></i>Enviar à TV</button></div>
         <p class="mu" style="font-size:12px;margin:8px 0 0">"Fundo do sistema" usa o tema e o plano de fundo escolhidos em <b>Aparência</b> (ícone de paleta no topo).</p>
         <div class="row" style="justify-content:space-between;margin-top:16px"><span class="sec" style="font-size:14px;color:var(--tx)"><i data-i="clock"></i>Relógio na tela</span><label class="sw"><input type="checkbox" id="clk"><span></span></label></div>
         <label class="l">Faixa rolante (rodapé)</label>
@@ -617,7 +624,53 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
-const PREFIX='apresdj-';
+const PREFIX='apresdj-',APPV='9';
+/* leitura do codec de arquivos MP4/MOV (sem decodificar) */
+async function probeMp4(file){
+  try{
+    const rd=async(o,n)=>new DataView(await file.slice(o,o+n).arrayBuffer()),cc=(dv,p)=>String.fromCharCode(dv.getUint8(p),dv.getUint8(p+1),dv.getUint8(p+2),dv.getUint8(p+3));
+    let off=0,moov=null;
+    for(let i=0;i<200&&off+8<=file.size;i++){
+      const h=await rd(off,16);let sz=h.getUint32(0);const ty=cc(h,4);
+      if(sz===1)sz=Number(h.getBigUint64(8));else if(sz===0)sz=file.size-off;
+      if(sz<8)break;
+      if(ty==='moov'){if(sz>80e6)return null;moov=await rd(off,sz);break}
+      off+=sz;
+    }
+    if(!moov)return null;
+    const info={};let hd='';
+    const walk=(dv,s,e)=>{for(let p=s;p+8<=e;){
+      let sz=dv.getUint32(p),hs=8;const ty=cc(dv,p+4);
+      if(sz===1){sz=Number(dv.getBigUint64(p+8));hs=16}else if(sz===0)sz=e-p;
+      if(sz<8||p+sz>e)break;
+      if(ty==='trak')hd='';
+      if(['moov','trak','mdia','minf','stbl'].includes(ty))walk(dv,p+hs,p+sz);
+      else if(ty==='hdlr'&&p+hs+12<=e){const t=cc(dv,p+hs+8);if(t==='vide'||t==='soun')hd=t}
+      else if(ty==='stsd'&&p+hs+16<=p+sz){const q=p+hs+8,esz=dv.getUint32(q),et=cc(dv,q+4);
+        if(hd==='vide'&&!info.vc){info.vc=et;info.w=dv.getUint16(q+32);info.h=dv.getUint16(q+34);
+          for(let c=q+86;c+8<=q+esz;){const cs=dv.getUint32(c),ct=cc(dv,c+4);if(cs<8)break;
+            if(ct==='avcC'){info.prof=dv.getUint8(c+9);info.lvl=dv.getUint8(c+11)}
+            if(ct==='hvcC')info.prof=dv.getUint8(c+9)&31;c+=cs}}
+        else if(hd==='soun'&&!info.ac)info.ac=et}
+      p+=sz}};
+    walk(moov,8,moov.byteLength);
+    return info.vc||info.ac?info:null;
+  }catch(e){return null}
+}
+function needsConv(i){
+  if(!i)return false;
+  if(i.vc){
+    if(!['avc1','avc3'].includes(i.vc))return 'vídeo '+(/^(hvc1|hev1|dvh)/.test(i.vc)?'HEVC/H.265':/^ai/.test(i.vc)?'AVC-Intra':/^ap/.test(i.vc)?'ProRes':/^av01/.test(i.vc)?'AV1':/^vp0/.test(i.vc)?'VP9':i.vc.trim().toUpperCase());
+    if(i.prof&&![66,77,88,100].includes(i.prof))return 'H.264 '+({110:'10 bits',122:'4:2:2',244:'4:4:4'}[i.prof]||'perfil '+i.prof);
+    if(Math.max(i.w||0,i.h||0)>1920)return `resolução ${i.w}×${i.h}`;
+  }
+  if(i.ac&&!['mp4a','.mp3','mp3 '].includes(i.ac))return 'áudio '+i.ac.trim().toUpperCase();
+  return false;
+}
+const VEXT=/\.(mp4|m4v|mov|webm|mkv|avi|wmv|asf|flv|f4v|mpg|mpeg|m2v|ts|m2ts|mts|3gp|3g2|vob|ogv|divx|xvid|rm|rmvb|hevc|h264|h265|mxf|dv)$/i,AEXT=/\.(mp3|m4a|aac|wav|ogg|oga|opus|flac|wma|ac3|eac3|aiff|aif|amr|mka|caf)$/i;
+const kv=(()=>{const p=new Promise(ok=>{try{const r=indexedDB.open('apres-kv',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>ok(r.result);r.onerror=()=>ok(null)}catch(e){ok(null)}});
+  return{get:async k=>{const d=await p;if(!d)return null;return new Promise(ok=>{const t=d.transaction('kv').objectStore('kv').get(k);t.onsuccess=()=>ok(t.result);t.onerror=()=>ok(null)})},
+    set:async(k,v)=>{const d=await p;if(!d)return;return new Promise(ok=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=ok;t.onerror=ok})}}})();
 const BASE=location.href.split(/[?#]/)[0];
 const STANDALONE=matchMedia('(display-mode: standalone),(display-mode: window-controls-overlay),(display-mode: fullscreen)').matches||navigator.standalone===true;
 const IOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
@@ -1081,10 +1134,10 @@ const UIBG={
 };
 const UIDEF={theme:'noite',bg:'none',blur:0,dim:.25,acc:'',view:'list'};
 function uiGet(){try{return{...UIDEF,...JSON.parse(localStorage.ui||'{}')}}catch(e){return{...UIDEF}}}
-function uiSet(o){localStorage.ui=JSON.stringify({...uiGet(),...o});applyUI();dispatchEvent(new Event('uichange'))}
+function uiSet(o){const ts=Object.keys(o).some(k=>k!=='view')?{ts:Date.now()}:{};localStorage.ui=JSON.stringify({...uiGet(),...o,...ts});applyUI();if(ts.ts)dispatchEvent(new Event('uichange'))}
 function stageBg(){
   const u=uiGet(),th=UITH[u.theme]||UITH.noite,img=u.bg==='foto'&&localStorage.uiImg||null;
-  return{img,css:img?null:(UIBG[u.bg]||[])[1]||`radial-gradient(90% 100% at 15% 10%,${th.p},${th.bg} 70%)`,blur:img||UIBG[u.bg]?u.blur:0,dim:u.bg==='none'?0:u.dim,color:th.bg};
+  return{img,css:img?null:(UIBG[u.bg]||[])[1]||`radial-gradient(90% 100% at 15% 10%,${th.p},${th.bg} 70%)`,blur:img||UIBG[u.bg]?u.blur:0,dim:u.bg==='none'?0:u.dim,color:th.bg,ts:u.ts||0};
 }
 const shade=(h,k)=>'#'+[1,3,5].map(i=>Math.max(0,Math.min(255,Math.round(parseInt(h.slice(i,i+2),16)*(1+k))))).map(v=>v.toString(16).padStart(2,'0')).join('');
 function applyUI(){
@@ -1275,7 +1328,7 @@ function bootPC(){
     const a=await all();
     items=a.filter(x=>x.kind!=='bg').sort((x,y)=>x.order-y.order);
     bgs=a.filter(x=>x.kind==='bg').sort((x,y)=>x.order-y.order);
-    render();bc.postMessage({t:'reload'});
+    render();bc.postMessage({t:'reload'});setTimeout(scanOld,500);
     if(conn&&conn.open)autoSync();
   }
   function render(){
@@ -1289,9 +1342,9 @@ function bootPC(){
       const own=it.type==='video'||it.type==='audio';
       return `<div class="it${it.id===curId?' now':''}" data-id="${it.id}"><span class="grip">${ic('grip')}</span>
       <div class="th">${th}<b class="ty">${ic(ICON[it.type])}</b></div>
-      <div class="nm"><b>${esc(it.name)}</b><small>${it.type==='text'&&LAYOUTS[it.layout]?LAYOUTS[it.layout].n:LBL[it.type]}${it.snd?' · com música':''}${own||(it.snd&&it.untilEnd)?' · toca até o fim':''}</small></div>
+      <div class="nm"><b>${esc(it.name)}</b><small>${it.type==='text'&&LAYOUTS[it.layout]?LAYOUTS[it.layout].n:LBL[it.type]}${it.snd?' · com música':''}${it.conv?' · convertido':''}${own||(it.snd&&it.untilEnd)?' · toca até o fim':''}</small></div>
       ${own?'':`<span class="sec">${ic('clock')}<input type="number" min="2" max="600" value="${it.dur}" data-dur="${it.id}" title="segundos"></span>`}
-      <div class="ac"><button class="ic" data-a="show" title="Mostrar agora na TV">${ic('eye')}</button>${it.type==='text'?`<button class="ic" data-a="edit" title="Editar">${ic('edit')}</button>`:''}<button class="ic" data-a="dup" title="Duplicar">${ic('copy')}</button><button class="ic dg" data-a="rm" title="Remover">${ic('trash')}</button></div></div>`}).join('')
+      <div class="ac"><button class="ic" data-a="show" title="Mostrar agora na TV">${ic('eye')}</button>${it.type==='text'?`<button class="ic" data-a="edit" title="Editar">${ic('edit')}</button>`:''}${own&&!it.conv?`<button class="ic" data-a="conv" title="Converter para formato universal (MP4/M4A) — use se a TV não reproduzir">${ic('refresh')}</button>`:''}<button class="ic" data-a="dup" title="Duplicar">${ic('copy')}</button><button class="ic dg" data-a="rm" title="Remover">${ic('trash')}</button></div></div>`}).join('')
       ||`<div class="empty">${ic('tv')}<br><b>Programação vazia</b><br>Adicione arquivos ou crie um texto no painel ao lado.</div>`;
     items.filter(x=>x.type==='text').forEach(it=>{const t=$(`[data-id="${it.id}"] .th`);const s=it.layout?tpl(it,urls):slide(it);t.prepend(s);fit(s)});
     $('#bgList').innerHTML=bgs.map(b=>`<div class="bg">${ic('music')}<span class="nm"><b>${esc(b.name)}</b></span><button class="ic dg" data-bg="${b.id}">${ic('trash')}</button></div>`).join('')||'<p class="mu">Nenhuma música na trilha.</p>';
@@ -1301,6 +1354,7 @@ function bootPC(){
     const id=b.closest('.it').dataset.id,it=items.find(x=>x.id===id),a=b.dataset.a;
     if(a==='rm'){await del(id);if(editId===id){newDraft();fillForm()}}
     else if(a==='dup')await put({...it,id:uid(),order:it.order+.001});
+    else if(a==='conv'){reconvert(it);return}
     else if(a==='edit'){editItem(it);goText();view('add');fillForm();scrollTo(0,0);return}
     else if(a==='show'){if(conn&&conn.open)await sync();ctl({t:'cmd',c:'show',id});return}
     load();
@@ -1332,6 +1386,97 @@ function bootPC(){
     addEventListener('pointermove',mv,{passive:false});addEventListener('pointerup',up);addEventListener('pointercancel',up);raf=requestAnimationFrame(scroll);
   };
 
+  /* conversão de vídeo e áudio (FFmpeg rodando no navegador) */
+  const NATIVE_V=/\.(mp4|m4v|webm|mov)$/i,NATIVE_A=/\.(mp3|m4a|aac|wav|ogg|oga|opus)$/i;
+  function canPlayHere(file,kind){return new Promise(ok=>{
+    const el=document.createElement(kind),u=URL.createObjectURL(file);let done=false;
+    const fin=v=>{if(done)return;done=true;clearTimeout(t);el.removeAttribute('src');try{el.load()}catch(e){}URL.revokeObjectURL(u);ok(v)};
+    const t=setTimeout(()=>fin(false),10000);el.muted=true;el.preload='auto';
+    el.onloadeddata=()=>fin(kind==='audio'||el.videoWidth>0);el.onerror=()=>fin(false);el.src=u;
+  })}
+  let ffP=null;
+  function getFF(){
+    if(ffP)return ffP;
+    ffP=(async()=>{
+      const {FFmpeg}=await import('./vendor/ffmpeg/index.js');let err;
+      for(const base of ['vendor/ffmpeg-core/','https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/esm/','https://unpkg.com/@ffmpeg/core@0.12.10/dist/esm/']){
+        try{const u=new URL(base,location.href).href;
+          if(!/^https?:/.test(base)){const r=await fetch(u+'ffmpeg-core.wasm',{method:'HEAD'}).catch(()=>null);if(!r||!r.ok)continue}
+          const ff=new FFmpeg();await ff.load({coreURL:u+'ffmpeg-core.js',wasmURL:u+'ffmpeg-core.wasm'});return ff}catch(e){err=e}
+      }
+      ffP=null;throw err||new Error('conversor indisponível');
+    })();
+    return ffP;
+  }
+  async function convertMedia(file,kind,onProg){
+    const ff=await getFF(),ext=((file.name.match(/\.[A-Za-z0-9]+$/)||['.bin'])[0]).toLowerCase(),outN=kind==='audio'?'out.m4a':'out.mp4';
+    let inN='in'+ext,mounted=false;
+    try{try{await ff.createDir('/in')}catch(e){}
+      const fx=new File([file],'entrada'+ext,{type:file.type});if(await ff.mount('WORKERFS',{files:[fx]},'/in')){inN='/in/entrada'+ext;mounted=true}}catch(e){}
+    if(!mounted){if(file.size>1.8e9)throw new Error('Arquivo grande demais para converter neste navegador');await ff.writeFile(inN,new Uint8Array(await file.arrayBuffer()))}
+    let log='';const lg=({message})=>{log+=message+'\n'};ff.on('log',lg);
+    try{await ff.exec(['-hide_banner','-i',inN])}catch(e){}
+    ff.off('log',lg);
+    const v=/Stream #[^\n]*Video: (\w+)[^\n]*/.exec(log),a=/Stream #[^\n]*Audio: (\w+)/.exec(log),vc=v&&v[1],ac=a&&a[1];
+    const pr=({progress})=>onProg&&onProg(Math.max(0,Math.min(1,progress||0)));ff.on('progress',pr);
+    const run=async args=>{try{return(await ff.exec(args))===0&&(await ff.readFile(outN)).length>1000}catch(e){return false}};
+    const aac=ac?(ac==='aac'?['-c:a','copy']:['-c:a','aac','-b:a','160k','-ac','2']):['-an'];
+    let ok=false;
+    try{
+      if(kind==='audio'){if(!ac)throw new Error('sem áudio');ok=await run(['-i',inN,'-vn',...aac,'-movflags','+faststart','-y',outN])||await run(['-i',inN,'-vn','-c:a','aac','-b:a','192k','-y',outN])}
+      else{
+        if(!vc)throw new Error('sem vídeo');
+        const dm=/, (\d{2,5})x(\d{2,5})/.exec(v[0]),big=dm&&Math.max(+dm[1],+dm[2])>1920;
+        if(vc==='h264'&&!big&&/yuv420p[\s,(]/.test(v[0])&&!/High 10|High 4:2|High 4:4/.test(v[0]))ok=await run(['-i',inN,'-map','0:v:0','-map','0:a:0?','-c:v','copy',...aac,'-movflags','+faststart','-y',outN]);
+        if(!ok)ok=await run(['-i',inN,'-map','0:v:0','-map','0:a:0?','-c:v','libx264','-preset','ultrafast','-crf','22','-pix_fmt','yuv420p',
+          '-vf',"scale='if(gte(iw,ih),trunc(min(1920,iw)/2)*2,-2)':'if(gte(iw,ih),-2,trunc(min(1920,ih)/2)*2)'",
+          ...(ac?['-c:a','aac','-b:a','160k','-ac','2']:['-an']),'-movflags','+faststart','-y',outN]);
+      }
+      if(!ok)throw new Error('falha na conversão');
+      const data=await ff.readFile(outN);
+      return new File([data],file.name.replace(/\.[^.]+$/,'')+(kind==='audio'?'.m4a':'.mp4'),{type:kind==='audio'?'audio/mp4':'video/mp4'});
+    }finally{ff.off('progress',pr);try{await ff.deleteFile(outN)}catch(e){}if(mounted){try{await ff.unmount('/in')}catch(e){}}else try{await ff.deleteFile(inN)}catch(e){}}
+  }
+  const convQ=[];let convBusy=false;
+  function convUI(){
+    $('#convBox').innerHTML=convQ.map((j,i)=>`<div class="conv${i?' wait':''}"><span class="cic">${ic(j.kind==='audio'?'music':'video')}</span><div class="nm"><b>${esc(j.f.name)}</b><small>${esc(j.st)}</small><div class="cbar"><i style="width:${Math.round(j.p*100)}%"></i></div></div></div>`).join('');
+  }
+  function queueConv(f,kind,rec){convQ.push({f,kind,rec,p:0,st:'Na fila para conversão…'});convUI();runConv()}
+  window.__probe=async f=>{const i=await probeMp4(f);return{i,why:needsConv(i)}};
+  async function runConv(){
+    if(convBusy)return;convBusy=true;
+    while(convQ.length){
+      const j=convQ[0];
+      try{
+        j.st=ffP?'Convertendo…':'Preparando o conversor (na primeira vez pode levar alguns segundos)…';convUI();
+        const out=await convertMedia(j.f,j.kind,p=>{j.p=p;j.st=`Convertendo para ${j.kind==='audio'?'M4A':'MP4'} · ${Math.round(p*100)}%`;convUI()});
+        await put({...j.rec,blob:out,conv:1});
+        if(j.rec.replace){await del(j.rec.replace);delete j.rec.replace}
+        toast(`"${j.f.name}" convertido ✓`);load();
+      }catch(e){console.error(e);toast(`Não foi possível converter "${j.f.name}"${e&&/grande|sem /.test(e.message)?': '+e.message:'. Verifique a internet e tente de novo.'}`)}
+      convQ.shift();convUI();
+    }
+    convBusy=false;
+  }
+  function reconvert(it){
+    if(convQ.some(j=>j.rec.replace===it.id))return;
+    const {blob,...r}=it;queueConv(new File([blob],it.name,{type:blob.type}),it.type,{...r,id:uid(),replace:it.id});
+  }
+  let scanning=false;
+  async function scanOld(){
+    if(scanning)return;scanning=true;
+    try{for(const it of items.filter(x=>x.type==='video'&&!x.conv&&!x.chk&&x.blob instanceof Blob)){
+      const why=needsConv(await probeMp4(it.blob));
+      if(why){if(!convQ.some(j=>j.rec.replace===it.id)){toast(`"${it.name}" usa ${why}, que muitas TVs não reproduzem. Convertendo…`);reconvert(it)}}
+      else{it.chk=1;await put(it)}
+    }}finally{scanning=false}
+  }
+  function onVfail(id){
+    const it=items.find(x=>x.id===id);if(!it||!(it.type==='video'||it.type==='audio'))return;
+    if(it.conv)return toast(`A TV não conseguiu reproduzir "${it.name}".`);
+    toast(`A TV não reproduziu "${it.name}". Convertendo para um formato compatível…`);reconvert(it);
+  }
+
   /* importação de arquivos */
   async function addPdf(f,next){
     pdfjsLib.GlobalWorkerOptions.workerSrc=URL.createObjectURL(new Blob(['importScripts("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js")']));
@@ -1348,11 +1493,20 @@ function bootPC(){
     }
   }
   async function addFiles(files,asBg){
-    let o=Date.now();const skipped=[];
+    files=[...files]; // copia: o campo de arquivo é limpo logo em seguida
+    let o=Date.now(),conv=0;const skipped=[];
     for(const f of files){
       const n=f.name.toLowerCase();
       try{
-        if(asBg){if(f.type.startsWith('audio'))await put({id:uid(),kind:'bg',type:'audio',name:f.name,order:o++,blob:f});else skipped.push(f.name);continue}
+        const isV=f.type.startsWith('video')||VEXT.test(n),isA=!isV&&(f.type.startsWith('audio')||AEXT.test(n));
+        if(asBg){if(!isA&&!isV){skipped.push(f.name);continue}
+          const rec={id:uid(),kind:'bg',type:'audio',name:f.name,order:o++};
+          if(NATIVE_A.test(n)&&await canPlayHere(f,'audio'))await put({...rec,blob:f});else queueConv(f,'audio',rec);continue}
+        if(isV||isA){const kind=isV?'video':'audio',rec={id:uid(),kind:'item',name:f.name,type:kind,dur:8,order:o++};
+          const why=isV&&/\.(mp4|m4v|mov|3gp|3g2)$/i.test(n)?needsConv(await probeMp4(f)):false;
+          if(!why&&(isV?NATIVE_V:NATIVE_A).test(n)&&await canPlayHere(f,kind))await put({...rec,blob:f,chk:1});
+          else{queueConv(f,kind,rec);conv++}
+          continue}
         if(f.type==='application/pdf'||n.endsWith('.pdf')){await addPdf(f,()=>o++);continue}
         if(f.type.startsWith('text/')||n.endsWith('.txt')){
           const t=(await f.text()).trim();
@@ -1365,6 +1519,7 @@ function bootPC(){
       }catch(e){skipped.push(f.name)}
     }
     if(skipped.length)toast('Não suportado: '+skipped.join(', ')+'. Exporte Word/PowerPoint para PDF.');
+    else if(conv)toast(conv>1?`${conv} arquivos em conversão para um formato compatível`:'Convertendo o arquivo para um formato compatível com a TV…');
     else if(!asBg&&files.length)toast(files.length>1?files.length+' arquivos adicionados':'Arquivo adicionado');
     load();if(!asBg)view('list');
   }
@@ -1389,6 +1544,7 @@ function bootPC(){
   function onState(d){curId=d.id;tvPlaying=d.playing;syncUI();document.querySelectorAll('#list .it').forEach(x=>x.classList.toggle('now',x.dataset.id===curId))}
   bc.onmessage=e=>{
     const d=e.data;
+    if(d.t==='vfail')onVfail(d.id);
     if(d.t==='state'){onState(d);localOn=true;idleChip()}
     else if(d.t==='closed'){localOn=false;if(!isOn()){curId=null;tvPlaying=false;syncUI()}idleChip()}
   };
@@ -1422,6 +1578,7 @@ function bootPC(){
       if(d.t==='has')tvHas=d.ids;
       else if(d.t==='ack'&&acks[d.id]){acks[d.id]();delete acks[d.id]}
       else if(d.t==='state')onState(d);
+      else if(d.t==='vfail')onVfail(d.id);
     });
   }
   function connectTV(t){
@@ -1537,7 +1694,7 @@ function bootPC(){
     if(syncing){again=true;return}
     syncing=true;$('#bSync').disabled=true;
     try{
-      const c=conn;c.send({t:'hello',from:PCNAME});
+      const c=conn;c.send({t:'hello',from:PCNAME,v:APPV});
       tvHas=null;for(let i=0;i<50&&!tvHas&&c.open;i++)await sleep(100);
       const has=new Set(tvHas||[]),todo=[...items,...bgs].filter(x=>!has.has(x.id));let n=0;
       for(const it of todo){
@@ -1563,7 +1720,11 @@ function bootPC(){
   $('#bPrev').onclick=()=>ctl({t:'cmd',c:'prev'});
   $('#bClear').onclick=()=>{if(confirm('Remover todo o conteúdo da TV? (a biblioteca do computador é mantida)'))send({t:'clear'})};
   /* aparência */
-  let stT;addEventListener('uichange',()=>{clearTimeout(stT);stT=setTimeout(()=>{bc.postMessage({t:'stbg'});if(conn&&conn.open)conn.send({t:'stbg',bg:stageBg()})},700)});
+  const stPv=()=>{const b=stageBg(),e=$('#stPv');e.style.background=b.img?`url(${b.img}) center/cover`:b.css;e.style.filter=b.blur?'blur(1px)':''};
+  let stT;addEventListener('uichange',()=>{stPv();clearTimeout(stT);stT=setTimeout(()=>{bc.postMessage({t:'stbg'});if(conn&&conn.open)conn.send({t:'stbg',bg:stageBg()})},700)});
+  stPv();
+  $('#bStBg').onclick=()=>{bc.postMessage({t:'stbg'});if(!(conn&&conn.open))return toast(localOn?'Fundo aplicado na janela de apresentação':'Conecte uma TV primeiro');
+    conn.send({t:'stbg',bg:{...stageBg(),ts:Date.now()},force:1});toast('Fundo enviado para a TV')};
   function renderUI(){
     const u=uiGet();
     $('#uiTh').innerHTML=Object.entries(UITH).map(([k,t])=>`<button class="uit${u.theme===k?' on':''}" data-t="${k}"><i style="background:${t.bg}"><span style="background:${t.p}"></span><span style="background:${t.p}"></span><span style="background:${t.p}"></span><em style="background:${t.ac}"></em></i>${t.n}</button>`).join('');
@@ -1591,7 +1752,7 @@ function bootPC(){
   const setView=v=>{uiSet({view:v});document.querySelectorAll('#uiView button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));render()};
   $('#uiView').onclick=e=>{const b=e.target.closest('button');if(b)setView(b.dataset.v)};
   $('#viewSeg').onclick=e=>{const b=e.target.closest('button');if(b)setView(b.dataset.v)};
-  $('#uiReset').onclick=()=>{localStorage.removeItem('ui');localStorage.removeItem('uiImg');applyUI();dispatchEvent(new Event('uichange'));renderUI();render();toast('Aparência restaurada')};
+  $('#uiReset').onclick=()=>{localStorage.removeItem('ui');localStorage.removeItem('uiImg');localStorage.ui=JSON.stringify({ts:Date.now()});applyUI();dispatchEvent(new Event('uichange'));renderUI();render();toast('Aparência restaurada')};
 
   /* navegação do celular */
   const pcEl=$('#pc');
@@ -1643,6 +1804,7 @@ function bootTV(kind){
   const stage=$('#stage'),bgA=new Audio(),bc=local?new BroadcastChannel('apres'):null;
   if(kind==='net')try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
   let SB=null;try{SB=local?stageBg():JSON.parse(localStorage.stbg||'null')}catch(e){}
+  if(!local)kv.get('stbg').then(v=>{if(v&&(!SB||(v.ts||0)>=(SB.ts||0))){SB=v;applyBg()}});
   function applyBg(){
     let m=$('#mbg');if(!m){m=document.createElement('div');m.id='mbg';m.innerHTML='<i></i><b></b>';$('#tv').insertBefore(m,stage)}
     const sb=SB||{css:'radial-gradient(90% 100% at 15% 10%,#121830,#0b0f1d 70%)',color:'#0b0f1d',dim:0,blur:0};
@@ -1654,6 +1816,7 @@ function bootTV(kind){
   const persist=()=>{localStorage.pl=JSON.stringify(pl);localStorage.bg=JSON.stringify(bg);localStorage.tvcfg=JSON.stringify(cfg)};
   const vid=()=>stage.querySelector('video')||aud;
   const report=()=>{const m={t:'state',id:cur&&cur.id,playing};if(local)bc.postMessage(m);else if(conn&&conn.open)conn.send(m)};
+  const vfail=id=>{const m={t:'vfail',id};if(local)bc.postMessage(m);else if(conn&&conn.open)conn.send(m)};
 
   function applyCfg(){
     stage.classList.toggle('cover',cfg.fit==='cover');
@@ -1702,12 +1865,17 @@ function bootTV(kind){
     }
     else if(r.type==='audio'){
       el=slide({title:'♪',text:r.name.replace(/\.[^.]+$/,''),c1:'#141a3a',c2:'#3b1d6b',fg:'#fff',font:'elegante',al:'center'});
-      url=URL.createObjectURL(r.blob);aud=new Audio(url);aud.muted=cfg.mute;aud.loop=pl.length===1&&cfg.loop;aud.onended=advance;aud.onerror=advance;
+      url=URL.createObjectURL(r.blob);aud=new Audio(url);aud.muted=cfg.mute;aud.loop=pl.length===1&&cfg.loop;aud.onended=advance;aud.onerror=()=>{vfail(r.id);advance()};
       if(playing)aud.play().catch(()=>badge('Pressione OK para ativar o som'));
     }else{
       url=URL.createObjectURL(r.blob);
       if(r.type==='video'){
-        el=document.createElement('video');el.src=url;el.muted=cfg.mute;el.playsInline=true;el.loop=pl.length===1&&cfg.loop;el.onended=advance;el.onerror=advance;
+        el=document.createElement('video');el.src=url;el.muted=cfg.mute;el.playsInline=true;el.loop=pl.length===1&&cfg.loop;el.onended=advance;
+        let failed=false;const fail=()=>{if(failed||cur!==r)return;failed=true;vfail(r.id);advance()};el.onerror=fail;el.onloadeddata=()=>{if(!el.videoWidth)fail()};
+        el.onplaying=()=>{if(el._chk)return;el._chk=setTimeout(()=>{if(cur!==r||el.paused||!el.isConnected)return;
+          const q=el.getVideoPlaybackQuality?el.getVideoPlaybackQuality().totalVideoFrames:(typeof el.webkitDecodedFrameCount==='number'?el.webkitDecodedFrameCount:-1);
+          let pt=0;for(let k=0;k<el.played.length;k++)pt+=el.played.end(k)-el.played.start(k);
+          if(!el.videoWidth||(q===0&&(pt>1.5||el.currentTime>1.5)))fail()},4500)};
         if(playing)el.play().catch(()=>{el.muted=true;el.play().catch(()=>{})});
       }else{el=document.createElement('div');el.className='media';el.innerHTML=`<div class="bl" style="background-image:url(${url})"></div><img src="${url}">`}
     }
@@ -1735,6 +1903,7 @@ function bootTV(kind){
   }
   async function onData(d){
     if(d.t==='hello'){
+      if(d.v&&d.v!==APPV&&!local){const last=+sessionStorage.updTry||0;if(Date.now()-last>300000){sessionStorage.updTry=Date.now();badge('Atualizando o aplicativo…');setTimeout(()=>location.reload(),1500);return}}
       if(d.from&&d.from!==busyBy){busyBy=d.from;lob&&lob.update();stat()}
       conn.send({t:'has',ids:(await all()).map(x=>x.id)});
     }
@@ -1753,7 +1922,10 @@ function bootTV(kind){
       playing=true;await refresh(curId,wasEmpty,oldBg);
       badge('Conteúdo atualizado');
     }else if(d.t==='cfg'){cfg={...DEF,...d.cfg};persist();applyCfg();bgSync()}
-    else if(d.t==='stbg'){if(d.bg){SB=d.bg;try{localStorage.stbg=JSON.stringify(SB)}catch(e){}}else if(local)SB=stageBg();applyBg()}
+    else if(d.t==='stbg'){
+      if(local&&!d.bg)SB=stageBg();
+      else if(d.bg&&(d.force||!SB||(d.bg.ts||0)>=(SB.ts||0))){SB=d.bg;kv.set('stbg',SB);try{localStorage.removeItem('stbg')}catch(e){}if(d.force)badge('Fundo atualizado')}
+      applyBg()}
     else if(d.t==='cmd'){
       if(d.c==='play'){playing=true;show(idx)}
       else if(d.c==='pause'){playing=false;clearTimeout(timer);const m=vid();m&&m.pause();bgSync();report()}

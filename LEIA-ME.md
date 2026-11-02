@@ -41,8 +41,17 @@ Clique no ícone de **paleta** no topo:
 - **Plano de fundo:** cor lisa do tema, 6 gradientes (Aurora, Pôr do sol, Mar, Noturno, Dourado e Pastel) ou **sua própria foto**. Ajuste o desfoque e a suavização para manter tudo legível. Os painéis ficam translúcidos sobre o fundo.
 - **Cor de destaque** personalizada (por exemplo, a cor da sua marca).
 - **Programação em Lista ou Grade**, com miniaturas grandes. Também há um atalho nos ícones ao lado de "Programação". Na grade, dá para arrastar os cartões para reordenar.
-- **Fotos e vídeos verticais na TV** usam o plano de fundo do sistema nas laterais, em vez de faixas pretas, com uma sombra suave em volta da mídia. Na aba **Tela › Fundo de fotos e vídeos verticais** você pode trocar para "Desfoque" (a própria foto desfocada) ou "Preto". Quando você muda a aparência, a TV conectada se atualiza sozinha.
+- **Fotos e vídeos verticais na TV** usam o plano de fundo do sistema nas laterais, em vez de faixas pretas, com uma sombra suave em volta da mídia. Na aba **Tela › Fundo de fotos e vídeos verticais** você pode trocar para "Desfoque" (a própria foto desfocada) ou "Preto". Quando você muda a aparência, a TV conectada se atualiza sozinha. Se você usa mais de um aparelho (computador e celular), a TV fica com o fundo alterado por último. Para forçar o fundo de um aparelho, use **Tela › Enviar à TV**.
 - As escolhas ficam salvas no aparelho. "Restaurar padrão" volta ao visual original.
+
+## Vídeos e áudios em qualquer formato
+- Ao adicionar vídeos AVI, MKV, WMV, MOV, FLV, MPEG, 3GP, TS, HEVC/H.265 etc., ou áudios WMA, FLAC, AC3, AMR etc., o app converte sozinho para **MP4 (H.264 + AAC)** ou **M4A**, formatos que tocam em qualquer TV. A conversão acontece no próprio navegador, com uma barra de progresso, e nada é enviado para a internet.
+- **Arquivos .MP4 e .MOV são analisados por dentro.** Vídeos de câmeras e celulares que costumam ficar com tela preta na TV são convertidos automaticamente: HEVC/H.265 do iPhone, H.264 de 10 bits ou 4:2:2 (Sony, Canon, Panasonic), AVC-Intra, ProRes, 4K e áudio PCM/AC-3. MP4 comum (H.264 + AAC) entra sem conversão.
+- Vídeos que já estavam na programação também são verificados e convertidos sozinhos.
+- Se um vídeo "tocar" na TV sem imagem (tela preta), a TV detecta, avisa o computador e o vídeo é convertido e reenviado. Se a **TV** não conseguir reproduzir algum vídeo, ela avisa o computador, que converte e reenvia automaticamente.
+- Cada vídeo ou áudio tem um botão ⟳ para converter manualmente.
+- O conversor (cerca de 31 MB) é baixado só na primeira conversão e fica guardado. Para usá-lo sem internet, coloque os arquivos `ffmpeg-core.js` e `ffmpeg-core.wasm` (pacote `@ffmpeg/core` 0.12.10, pasta `dist/esm`) em `vendor/ffmpeg-core/`.
+- Arquivos muito longos podem demorar para converter. O limite é cerca de 1,8 GB por arquivo.
 
 ## Recursos do app
 - O app abre direto no último modo usado (controle ou TV). Para trocar, clique no logotipo.

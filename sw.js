@@ -1,10 +1,10 @@
 /* Apresentação na TV — service worker (funciona offline e recebe arquivos compartilhados) */
-const VERSION='apres-v6';
+const VERSION='apres-v9';
 const SHELL=['./','./index.html','./manifest.webmanifest','./icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png','./icons/favicon-32.png'];
 const CDN=['https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'];
-const CACHEABLE=/^https:\/\/(cdnjs\.cloudflare\.com|fonts\.googleapis\.com|fonts\.gstatic\.com)\//;
+const CACHEABLE=/^https:\/\/(cdnjs\.cloudflare\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|cdn\.jsdelivr\.net\/npm\/@ffmpeg|unpkg\.com\/@ffmpeg)\//;
 
 self.addEventListener('install',e=>{
   e.waitUntil((async()=>{
