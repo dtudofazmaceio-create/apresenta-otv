@@ -35,6 +35,14 @@ Na aba **Modelos**:
 - **Apresentação pronta:** cria de uma vez uma *Apresentação institucional*, uma *Reunião de resultados* ou um *Informativo da semana* completos, no tema escolhido. Depois é só editar.
 - Na TV, os slides entram com animação suave e a foto de fundo tem um leve movimento de zoom.
 
+## Aparência do sistema
+Clique no ícone de **paleta** no topo:
+- **6 temas de interface:** Noite, Claro, Grafite, Oceano, Rosé e Floresta.
+- **Plano de fundo:** cor lisa do tema, 6 gradientes (Aurora, Pôr do sol, Mar, Noturno, Dourado e Pastel) ou **sua própria foto**. Ajuste o desfoque e a suavização para manter tudo legível. Os painéis ficam translúcidos sobre o fundo.
+- **Cor de destaque** personalizada (por exemplo, a cor da sua marca).
+- **Programação em Lista ou Grade**, com miniaturas grandes. Também há um atalho nos ícones ao lado de "Programação". Na grade, dá para arrastar os cartões para reordenar.
+- As escolhas ficam salvas no aparelho. "Restaurar padrão" volta ao visual original.
+
 ## Recursos do app
 - O app abre direto no último modo usado (controle ou TV). Para trocar, clique no logotipo.
 - **Funciona sem internet** para montar a programação. Para conectar a uma TV é preciso internet.
