@@ -519,6 +519,11 @@ html[data-ui=claro] .mcredit .dk,html[data-ui=boutique] .mcredit .dk,html:not([d
 #intro .its:before,#intro .its:after{content:'';width:4.5vw;height:1px;background:currentColor;opacity:.5}
 @keyframes ilg{0%{opacity:0;transform:scale(.94);filter:blur(.5vw)}28%{opacity:.5;transform:scale(1);filter:blur(0)}100%{opacity:.5;transform:scale(1.025)}}
 @keyframes its{0%,22%{opacity:0;letter-spacing:.95em}50%,100%{opacity:.6;letter-spacing:.55em}}
+#outro{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(55% 60% at 50% 40%,#171a2c,#05060a 78%);animation:fa .9s both}
+#outro .olg{width:24vw;opacity:.5;animation:ilg 2.4s cubic-bezier(.2,.7,.2,1) both}#outro .olg svg{width:100%;height:auto;display:block}
+#outro .omsg{margin:2.2vw 0 2.6vw;color:#fff;font:600 2.3vw Montserrat,Inter,system-ui,sans-serif;letter-spacing:.01em;opacity:.92;text-align:center;animation:rise 1s .5s cubic-bezier(.2,.8,.2,1) both}
+#outro .oqr{width:22vw;height:22vw;background:#fff;border-radius:1.4vw;padding:1vw;box-shadow:0 2vw 5vw rgba(0,0,0,.5);animation:rise 1s .9s cubic-bezier(.2,.8,.2,1) both}#outro .oqr svg{width:100%;height:100%;display:block}
+#tv.outro #brand,#tv.outro #brandQR,#tv.outro #slideNo,#tv.outro #clock,#tv.outro #tick,#tv.outro #fsHint{opacity:0;transition:opacity .4s}
 #tv.intro #brand,#tv.intro #brandQR,#tv.intro #slideNo,#tv.intro #clock,#tv.intro #tick{opacity:0;transition:opacity .4s}
 #fsHint{position:absolute;left:50%;top:1.6vw;transform:translateX(-50%);background:rgba(0,0,0,.7);color:#fff;font:500 1.15vw Inter,sans-serif;padding:.6vw 1.4vw;border-radius:2vw;z-index:9;animation:fa .6s}
 #fsHint b{color:#8fb0ff}
@@ -709,6 +714,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
     <button class="ic" id="bMute" title="Sem som na TV"></button>
     <button class="ic" id="bAdv" title="Avanço: automático ou manual (A)"></button>
     <button id="bPres" title="Modo apresentador (P)"><i data-i="presenter"></i><span class="lbl">Apresentador</span></button>
+    <button id="bEnd" title="Encerrar a apresentação na TV" hidden><i data-i="stop"></i><span class="lbl">Encerrar</span></button>
     <div id="msg" class="mu"></div>
     <button class="dg" id="bClear" hidden><i data-i="trash"></i>Limpar TV</button>
     <button id="bSync" hidden><i data-i="refresh"></i>Atualizar TV</button>
@@ -768,6 +774,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
   </div>
   <div id="clock" hidden></div>
   <div id="tick" hidden><span></span></div>
+  <div id="outro" hidden><div class="olg"></div><p class="omsg">Não é só um sistema, é uma solução!</p><div class="oqr"></div></div>
   <div id="intro" hidden><div class="ilg"></div><div class="its">Fazendo Acontecer</div></div>
   <div id="badge"></div>
   <div id="slideNo"></div>
@@ -779,7 +786,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
 <div id="upd" hidden><i data-i="refresh"></i><span>Nova versão disponível</span><button class="pri" id="bUpd">Atualizar</button></div>
 <div id="pres" hidden>
   <div class="pr-top"><button class="ic" id="prX" title="Sair do modo apresentador (Esc)"><i data-i="x"></i></button><b id="prName"></b><span class="pr-count" id="prCount">—</span>
-    <div class="vseg" id="prAdv"><button data-v="auto">Automático</button><button data-v="manual">Manual</button></div><button class="pr-clock" id="prClock" title="Tempo de apresentação (clique para zerar)">00:00</button></div>
+    <div class="vseg" id="prAdv"><button data-v="auto">Automático</button><button data-v="manual">Manual</button></div><button id="prEnd" title="Encerrar a apresentação"><i data-i="stop"></i>Encerrar</button><button class="pr-clock" id="prClock" title="Tempo de apresentação (clique para zerar)">00:00</button></div>
   <div class="pr-main"><div class="pr-cur" id="prCur"></div><div class="pr-side"><small>A SEGUIR</small><div id="prNext"></div><p class="mu">Teclado ou passador: → / PageDown avança · ← / PageUp volta · B pausa · Esc sai</p></div></div>
   <div class="pr-ctl"><button id="prPrevB"><i data-i="skip-back"></i>Anterior</button><button class="pri ic" id="prPlay"></button><button class="pri" id="prNextB">Próximo<i data-i="skip-forward"></i></button></div>
 </div>
@@ -1444,6 +1451,7 @@ addEventListener('hashchange',()=>location.reload());
 
 /* ---------- ícones vetoriais ---------- */
 const IC={
+stop:'<rect x="5" y="5" width="14" height="14" rx="2.5"/>',
 store:'<path d="M3 9l1.6-5h14.8L21 9"/><path d="M4 9.5V20h16V9.5"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M9.5 20v-5.5h5V20"/>',
 play:'<polygon points="5 3 19 12 5 21 5 3"/>',pause:'<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>',
 'skip-back':'<polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/>','skip-forward':'<polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>',
@@ -2029,7 +2037,7 @@ applyUI();applyLoja();
 
 paint();showInstall();
 document.querySelectorAll('.mcredit').forEach((a,i)=>{a.href=MERCATTO_WA;a.title='Mercatto Labs · WhatsApp (82) 99662-2036';a.querySelector('.dk').innerHTML=mlogo('dark','c'+i);a.querySelector('.lt').innerHTML=mlogo('light','l'+i)});
-$('#brand').innerHTML=mlogo('dark','tv');$('#intro .ilg').innerHTML=mlogo('dark','intro');$('#brandQR .q').innerHTML=MLOGO.qr;$('#idleMcr').innerHTML=mlogo('dark','idle');
+$('#brand').innerHTML=mlogo('dark','tv');$('#intro .ilg').innerHTML=mlogo('dark','intro');$('#outro .olg').innerHTML=mlogo('dark','outro');$('#outro .oqr').innerHTML=MLOGO.qr;$('#brandQR .q').innerHTML=MLOGO.qr;$('#idleMcr').innerHTML=mlogo('dark','idle');
 {const tv=$('#tv'),idle=$('#idle'),upd=()=>tv.classList.toggle('isidle',!idle.hidden);new MutationObserver(upd).observe(idle,{attributes:true,attributeFilter:['hidden']});upd()}
 if(!mode)$('#home').hidden=false;
 else if(mode==='pc'){$('#pc').hidden=false;bootPC()}
@@ -2058,7 +2066,7 @@ function bootPC(){
     $('#bMute').innerHTML=ic(cfg.mute?'volume-x':'volume-2');$('#clk').checked=cfg.clock;
     $('#bPlay').innerHTML=ic(tvPlaying?'pause':'play');
     const on=!!(conn&&conn.open);
-    $('#bSync').hidden=$('#bClear').hidden=!on;
+    $('#bSync').hidden=$('#bClear').hidden=!on;$('#bEnd').hidden=!(on||(playerWin&&!playerWin.closed));
     $('#bOpenDock').innerHTML=on?ic('play')+'Do início':ic('cast')+'Apresentar';
     $('#bDisc').hidden=!on;$('#bConn span').textContent=on?'Trocar TV':'Conectar TV';
     try{advUI()}catch(e){}
@@ -2502,7 +2510,7 @@ function bootPC(){
   const send=m=>{if(!isOn()){toast('Conecte uma TV primeiro');return false}conn.send(m);return true};
   const ctl=m=>{bc.postMessage(m);if(isOn())conn.send(m)};
   function onState(d){tvst=d;if(d.adv&&d.adv!==cfg.adv){cfg.adv=d.adv;localStorage.cfg=JSON.stringify(cfg)}setTimeout(()=>{advUI();prRender()});curId=d.id;tvPlaying=d.playing;syncUI();document.querySelectorAll('#list .it').forEach(x=>x.classList.toggle('now',x.dataset.id===curId));
-    if(isOn())$('#msg').textContent=curId&&!items.some(x=>x.id===curId)?`Na TV agora: conteúdo de ${d.by||'outro aparelho'}`:(tvPlaying?'Na TV agora: sua programação':'TV pausada')}
+    if(isOn())$('#msg').textContent=d.ended?'Apresentação encerrada':curId&&!items.some(x=>x.id===curId)?`Na TV agora: conteúdo de ${d.by||'outro aparelho'}`:(tvPlaying?'Na TV agora: sua programação':'TV pausada')}
   bc.onmessage=e=>{
     const d=e.data;
     if(d.t==='vfail')onVfail(d.id);
@@ -2691,10 +2699,12 @@ function bootPC(){
   $('#bConn').onclick=openPicker;
   $('#bDisc').onclick=disconnect;
   $('#dX').onclick=()=>$('#dlg').close();
+  const fsDel=()=>{if(playerWin&&!playerWin.closed)try{playerWin.postMessage({t:'fs'},{targetOrigin:location.origin,delegate:'fullscreen'})}catch(e){try{playerWin.postMessage({t:'fs'},location.origin)}catch(x){}}};
   $('#bOpenDock').onclick=()=>{
-    if(!isOn())return openPicker();
+    const lw=playerWin&&!playerWin.closed;
+    if(!isOn()&&!lw)return openPicker();
     if(!items.length)return toast('Adicione itens à programação primeiro');
-    ctl({t:'cmd',c:'show',id:items[0].id,start:true});
+    fsDel();ctl({t:'cmd',c:'show',id:items[0].id,start:true});
   };
   $('#dOk').onclick=()=>{const c=$('#code').value.replace(/[^A-Za-z0-9]/g,'').toUpperCase();if(c.length<4)return toast('Digite o endereço mostrado na TV');$('#dlg').close();const o=savedGet().find(x=>x.code===c);connectTV(o||{code:c,name:'TV '+c})};
   $('#code').onkeydown=e=>{if(e.key==='Enter')$('#dOk').click()};
@@ -2727,7 +2737,9 @@ function bootPC(){
     }
   }
   $('#bSync').onclick=sync;
-  $('#bPlay').onclick=()=>ctl({t:'cmd',c:tvPlaying?'pause':'play'});
+  $('#bPlay').onclick=()=>{if(!tvPlaying)fsDel();ctl({t:'cmd',c:tvPlaying?'pause':'play'})};
+  const endPres=()=>{ctl({t:'cmd',c:'end'});toast('Apresentação encerrada')};
+  $('#bEnd').onclick=endPres;$('#prEnd').onclick=()=>{endPres();prClose()};
   $('#bNext').onclick=()=>ctl({t:'cmd',c:'next'});
   $('#bPrev').onclick=()=>ctl({t:'cmd',c:'prev'});
   $('#bClear').onclick=()=>$('#clrDlg').showModal();
@@ -2894,7 +2906,7 @@ function bootPC(){
 /* ================= TV ================= */
 function bootTV(kind){
   const local=kind==='local';
-  let pl=[],bg=[],bgm={},onames={},cfg={...DEF},idx=0,timer,playing=true,url=null,skip=0,peer,tries=0,aud=null,cur=null,bgi=0,bgUrl=null;
+  let pl=[],bg=[],bgm={},onames={},cfg={...DEF},ended=false,idx=0,timer,playing=true,url=null,skip=0,peer,tries=0,aud=null,cur=null,bgi=0,bgUrl=null;
   const peers=new Map();let sUrls=[],lob=null,lobSt='w',peerOk=false,netErr=false,myCode=null;
   const stage=$('#stage'),bgA=new Audio(),bc=local?new BroadcastChannel('apres'):null;
   if(kind==='net')try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');bgm=JSON.parse(localStorage.bgm||'{}');onames=JSON.parse(localStorage.onames||'{}');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
@@ -2913,7 +2925,7 @@ function bootTV(kind){
   const openPeers=()=>[...peers.keys()].filter(c=>c.open);
   const sendAll=m=>{for(const c of openPeers())try{c.send(m)}catch(e){}};
   const ctlNames=()=>[...new Set([...peers.values()].filter((v,i)=>v.name&&[...peers.keys()][i].open).map(v=>v.name))];
-  const report=()=>{const o=cur&&pl.find(x=>x.id===cur.id),nx=pl.length>1?pl[(idx+1)%pl.length]:null,m={t:'state',id:cur&&cur.id,playing,by:o&&onames[o.owner]||null,i:idx,n:pl.length,nx:nx&&nx.id,nxBy:nx&&onames[nx.owner]||null,adv:cfg.adv};if(local)bc.postMessage(m);else sendAll(m)};
+  const report=()=>{const o=cur&&pl.find(x=>x.id===cur.id),nx=pl.length>1?pl[(idx+1)%pl.length]:null,m={t:'state',id:cur&&cur.id,playing,by:o&&onames[o.owner]||null,i:idx,n:pl.length,nx:nx&&nx.id,nxBy:nx&&onames[nx.owner]||null,adv:cfg.adv,ended};if(local)bc.postMessage(m);else sendAll(m)};
   const vfail=id=>{const m={t:'vfail',id};if(local)bc.postMessage(m);else sendAll(m)};
 
   function applyCfg(){
@@ -2942,8 +2954,19 @@ function bootTV(kind){
     else bgA.pause();
   }
 
-  let introT=null;
-  function intro(i){const o=$('#intro');if(!o||!pl.length)return show(i);
+  let introT=null,outT=null;
+  function fsTry(){try{fs()}catch(e){}}
+  const standalone=()=>/tvapp=1/.test(location.search)||matchMedia('(display-mode: standalone)').matches;
+  function hideOutro(){const o=$('#outro');clearTimeout(outT);if(o&&!o.hidden){o.hidden=true;$('#tv').classList.remove('outro')}ended=false}
+  function finish(){
+    if(introT){clearTimeout(introT);introT=null;endIntro()}
+    clearTimeout(timer);pauseMedia();playing=false;ended=true;
+    const o=$('#outro');o.hidden=false;$('#tv').classList.add('outro');
+    o.querySelectorAll('.olg,.omsg,.oqr').forEach(x=>{x.style.animation='none';void x.offsetWidth;x.style.animation=''});
+    stage.querySelectorAll('video,audio').forEach(v=>{try{v.pause()}catch(e){}});bgSync();report();
+    clearTimeout(outT);outT=setTimeout(()=>{if(ended&&document.fullscreenElement&&!standalone())document.exitFullscreen().catch(()=>{})},10000)}
+  function next(){if(!cfg.loop&&idx>=pl.length-1&&pl.length)return finish();show(idx+1)}
+  function intro(i){const o=$('#intro');hideOutro();if(!o||!pl.length)return show(i);fsTry();
     clearTimeout(timer);clearTimeout(introT);pauseMedia();o.hidden=false;o.classList.remove('out');clearTimeout(o._t);
     o.querySelectorAll('.ilg,.its').forEach(x=>{x.style.animation='none';void x.offsetWidth;x.style.animation=''});
     $('#tv').classList.add('intro');$('#idle').hidden=true;
@@ -2951,6 +2974,7 @@ function bootTV(kind){
   function endIntro(){const o=$('#intro');if(!o||o.hidden)return;o.classList.add('out');$('#tv').classList.remove('intro');clearTimeout(o._t);o._t=setTimeout(()=>{if(!introT)o.hidden=true},900)}
   async function show(i){
     if(introT){clearTimeout(introT);introT=null;endIntro()}
+    hideOutro();
     clearTimeout(timer);if(aud){aud.pause();aud=null}if(ytp){try{ytp.destroy()}catch(e){}ytp=null}
     if(!pl.length){stage.innerHTML='';cur=null;$('#idle').hidden=false;bgSync();report();return}
     idx=((i%pl.length)+pl.length)%pl.length;
@@ -3001,7 +3025,7 @@ function bootTV(kind){
     if(cfg.adv==='manual'&&pl.length>1){const n=$('#slideNo');n.textContent=`${idx+1} / ${pl.length}`;n.classList.add('show');clearTimeout(n._t);n._t=setTimeout(()=>n.classList.remove('show'),2200)}
     bgSync();report();
   }
-  function advance(){if(!cfg.loop&&idx>=pl.length-1){playing=false;report();return}show(idx+1)}
+  function advance(){if(!cfg.loop&&idx>=pl.length-1){finish();return}show(idx+1)}
   function advSwitch(){clearTimeout(timer);const p=pl[idx];
     if(cfg.adv==='manual'){if(pl.length>1){const n=$('#slideNo');n.textContent=`${idx+1} / ${pl.length}`;n.classList.add('show');clearTimeout(n._t);n._t=setTimeout(()=>n.classList.remove('show'),2200)}}
     else if(playing&&p&&cur&&!['video','audio','youtube'].includes(cur.type)&&!(cur.snd&&cur.untilEnd)&&pl.length>1)timer=setTimeout(advance,(p.dur||8)*1000);
@@ -3061,9 +3085,11 @@ function bootTV(kind){
       else if(d.bg&&(d.force||!SB||(d.bg.ts||0)>=(SB.ts||0))){SB=d.bg;kv.set('stbg',SB);try{localStorage.removeItem('stbg')}catch(e){}if(d.force)badge('Fundo atualizado')}
       applyBg()}
     else if(d.t==='cmd'){
-      if(d.c==='play'){playing=true;show(idx)}
+      if(d.c==='play'){playing=true;ended?intro(0):show(idx)}
+      else if(d.c==='end')finish();
+      else if(d.c==='fs')fsTry();
       else if(d.c==='pause'){playing=false;clearTimeout(timer);pauseMedia();bgSync();report()}
-      else if(d.c==='next')show(idx+1);
+      else if(d.c==='next')ended?intro(0):next();
       else if(d.c==='prev')show(idx-1);
       else if(d.c==='show'){const k=pl.findIndex(x=>x.id===d.id);if(k>=0){playing=true;d.start?intro(k):show(k)}}
     }else if(d.t==='clear'){
@@ -3133,10 +3159,12 @@ function bootTV(kind){
   const fsHint=()=>{const h=$('#fsHint');if(h)h.hidden=isFull()};
   const fs=()=>{if(document.fullscreenElement||!document.documentElement.requestFullscreen)return;
     document.documentElement.requestFullscreen({navigationUI:'hide'}).then(()=>{try{navigator.keyboard&&navigator.keyboard.lock&&navigator.keyboard.lock(['Escape']).catch(()=>{})}catch(e){}}).catch(()=>{}).finally(fsHint)};
+  addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.t==='fs')fs()});
   document.addEventListener('fullscreenchange',fsHint);addEventListener('resize',fsHint);fs();setTimeout(fsHint,600);
   addEventListener('keydown',e=>{
     bgSync();fs();
-    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key==='MediaTrackNext')show(idx+1);
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key==='MediaTrackNext')ended?intro(0):next();
+    else if(e.key==='End'||e.key==='MediaStop')finish();
     else if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='MediaTrackPrevious')show(idx-1);
     else if(e.key===' '||e.key==='MediaPlayPause'){playing=!playing;if(playing)show(idx);else{clearTimeout(timer);pauseMedia();bgSync();report()}}
   });

@@ -69,6 +69,15 @@ Clique no ícone de **paleta** no topo:
 - Mantenha o app aberto enquanto converte. Vídeos 4K longos podem levar alguns minutos.
 - Arquivos muito longos podem demorar para converter. O limite é cerca de 1,8 GB por arquivo.
 
+## Encerramento e tela cheia automática
+- **Encerramento**: ao final da apresentação, a TV mostra a marca Mercatto Labs, a frase "Não é só um sistema, é uma solução!" e um QR code grande do WhatsApp. A tela fica assim até a próxima apresentação.
+- **Quando termina**: com "Repetir" desligado, termina sozinha depois do último item (ou ao avançar no último slide, no modo manual). A qualquer momento você pode usar o botão **Encerrar**, na barra inferior ou no modo Apresentador. No controle da TV, a tecla End/Stop também encerra.
+- **Tela normal no fim**: 10 segundos depois do encerramento, a TV sai da tela cheia. No app instalado na TV, ela continua em tela cheia, porque não tem barra de endereço.
+- **Tela cheia automática ao começar**:
+  - Janela de apresentação aberta pelo próprio computador (TV ligada por cabo ou tela estendida): entra em tela cheia sozinha quando você toca em "Do início" ou em ▶.
+  - App instalado na TV ou atalho "Abrir TV em tela cheia" do Windows: sempre em tela cheia, sem clicar em nada.
+  - Navegador comum da Smart TV: por segurança, o navegador exige um OK no controle. Nenhum site consegue pular isso.
+
 ## Edição Moda Atacado
 O sistema vem preparado para lojas de moda no atacado.
 
