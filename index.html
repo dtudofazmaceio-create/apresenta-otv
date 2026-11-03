@@ -16,7 +16,7 @@
 <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Montserrat:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Anton&family=Nunito:wght@700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Montserrat:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Anton&family=Nunito:wght@700;900&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b0f1d;--p:#121830;--p2:#1a2244;--ln:#232c4d;--tx:#e9edfb;--mu:#8a94b8;--ac:#5b8cff;--ac2:#8b5cf6;--ok:#34d399;--er:#f87171;--g:linear-gradient(135deg,var(--ac),var(--ac2));
   --in:#0d1226;--it:#0f1530;--hd:rgba(11,15,29,.9);--pa:rgba(18,24,48,.74);--ia:rgba(15,21,48,.7);--sh:0 10px 30px rgba(0,0,0,.25);--tst:#26304e}
@@ -25,6 +25,13 @@ html[data-ui=grafite]{--bg:#0d0d0e;--p:#171719;--p2:#222225;--ln:#2d2d31;--tx:#f
 html[data-ui=oceano]{--bg:#041820;--p:#0a2531;--p2:#0f3341;--ln:#174253;--tx:#e3f5fa;--mu:#86aab8;--ac:#2dd4bf;--ac2:#0ea5e9;--in:#061e28;--it:#08212c;--hd:rgba(4,24,32,.9);--pa:rgba(10,37,49,.74);--ia:rgba(8,33,44,.72);--tst:#123c4b}
 html[data-ui=rose]{--bg:#170b12;--p:#22111b;--p2:#301827;--ln:#402235;--tx:#fbecf3;--mu:#b893a6;--ac:#f472b6;--ac2:#fb923c;--in:#1b0d15;--it:#1d0f17;--hd:rgba(23,11,18,.9);--pa:rgba(34,17,27,.74);--ia:rgba(29,15,23,.72);--tst:#3a1c2e}
 html[data-ui=floresta]{--bg:#08140f;--p:#0f2019;--p2:#163026;--ln:#1f3d31;--tx:#e8f5ee;--mu:#8fb3a2;--ac:#4ade80;--ac2:#a3e635;--in:#0a1812;--it:#0c1b14;--hd:rgba(8,20,15,.9);--pa:rgba(15,32,25,.74);--ia:rgba(12,27,20,.72);--tst:#1c3a2d}
+html[data-ui=atelier]{--bg:#0f0d0c;--p:#1a1715;--p2:#25211e;--ln:#342e29;--tx:#f4efe8;--mu:#a89c90;--ac:#d4b483;--ac2:#b9806a;--in:#131110;--it:#161312;--hd:rgba(15,13,12,.9);--pa:rgba(26,23,21,.76);--ia:rgba(22,19,17,.74);--tst:#2c2621}
+html[data-ui=atelier] button.pri,html[data-ui=atelier] .seg button.on,html[data-ui=atelier] .lcat button.on{color:#16120f}
+html[data-ui=boutique]{--bg:#f4efe9;--p:#fffdfa;--p2:#efe7de;--ln:#e0d5c9;--tx:#1d1915;--mu:#7a6d62;--ac:#1d1915;--ac2:#8a6a4f;--in:#faf6f1;--it:#fbf8f4;--hd:rgba(255,253,250,.9);--pa:rgba(255,253,250,.82);--ia:rgba(251,248,244,.84);--sh:0 10px 30px rgba(60,40,20,.08);--tst:#1d1915}
+html[data-ui=boutique] .th,html[data-ui=boutique] .mini{background:#e9e1d7}
+html[data-ui=boutique] button.pri,html[data-ui=boutique] .seg button.on,html[data-ui=boutique] .lcat button.on{color:#fff}
+html[data-ui=boutique] .tabs button.on{background:var(--p2)}
+html[data-ui=boutique] .sw span:after{box-shadow:0 1px 3px rgba(0,0,0,.25)}
 html[data-ui=claro] .th,html[data-ui=claro] .mini{background:#dfe4ee}
 html[data-ui=claro] button.pri,html[data-ui=claro] .seg button.on,html[data-ui=claro] .lcat button.on{color:#fff}
 html[data-ui=claro] .tabs button.on{background:var(--p2)}
@@ -285,8 +292,94 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 #stage .tpl .blk{animation:grow2 1.2s .3s cubic-bezier(.2,.8,.2,1) both}@keyframes grow2{from{height:0}}
 #stage .L-promo .off{animation:pop .7s .6s cubic-bezier(.3,1.6,.5,1) both}@keyframes pop{from{transform:rotate(-10deg) scale(0)}}
 .tpl .cc .tx{max-width:34em}
+/* ---- moda / atacado ---- */
+.L-colecao .cph{position:absolute;right:0;top:0;bottom:0;width:56%;background:var(--bg2) center/cover no-repeat}
+.L-colecao .cfd{position:absolute;right:0;top:0;bottom:0;width:56%;background:linear-gradient(90deg,var(--bg),transparent 38%)}
+.L-colecao .cbig{position:absolute;right:.2em;top:50%;transform:translateY(-50%);font-family:var(--tf);font-weight:var(--tw);font-size:20em;line-height:1;color:transparent;-webkit-text-stroke:.006em var(--ac);opacity:.55;letter-spacing:-.03em;white-space:nowrap}
+.L-colecao .cl{left:8em;right:47%;top:50%;transform:translateY(-50%)}
+.tpl .t.cx{font-size:calc(7.4em*var(--k));line-height:.98;letter-spacing:-.02em}
+.L-colecao .vyr{position:absolute;right:3em;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:1.5em;letter-spacing:.7em;color:#fff;font-weight:600;text-shadow:0 0 1em rgba(0,0,0,.5)}
+.L-colecao .ft{right:52%}
+.L-novidade .pat2{position:absolute;inset:0;background:radial-gradient(60% 80% at 82% 25%,var(--bg2),transparent 70%),repeating-linear-gradient(115deg,transparent 0 3.4em,var(--ac) 3.4em 3.5em);opacity:.9}
+.L-novidade .pat2:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 25%,transparent)}
+.L-novidade .stk{position:absolute;right:8em;top:6em;width:21em;height:21em;filter:drop-shadow(0 1.4em 2.4em rgba(0,0,0,.3))}
+.L-novidade .stk svg{width:100%;height:100%;display:block}
+.L-novidade .stk text{font-family:'Montserrat',Inter,sans-serif;font-weight:800;font-size:17px;fill:var(--on);letter-spacing:1px}
+.L-novidade .nv{right:36em}
+#stage .L-novidade .stk svg{animation:spin 40s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.L-produto .side.pr{width:42%}
+.L-produto .pd{left:48%;right:6em;top:50%;transform:translateY(-50%)}
+.L-produto .tag{margin-bottom:1.6em}
+.tpl .ref{font-size:calc(1.25em*var(--k));letter-spacing:.3em;text-transform:uppercase;color:var(--mu);margin-bottom:.9em;font-weight:600}
+.L-produto .t.md{font-size:calc(3.5em*var(--k))}
+.L-produto .price{font-size:calc(5.2em*var(--k));margin-top:.3em}
+.L-produto .old{margin-top:1em}
+.tpl .szs{display:flex;flex-wrap:wrap;gap:.8em;margin:1.3em 0 0}
+.tpl .szs span{min-width:3.3em;height:3.3em;padding:0 .8em;border:.1em solid currentColor;border-radius:.45em;display:flex;align-items:center;justify-content:center;font-size:calc(1.3em*var(--k));font-weight:700;opacity:.85}
+.tpl .cls{display:flex;flex-wrap:wrap;gap:.7em 1.8em;margin:1.6em 0 1.2em}
+.tpl .cls span{display:flex;align-items:center;gap:.6em;font-size:calc(1.3em*var(--k));color:var(--mu)}
+.tpl .cls i{width:1.5em;height:1.5em;border-radius:50%;box-shadow:0 0 0 .14em var(--bg),0 0 0 .24em var(--mu);flex:none}
+.L-produto .tx{font-size:calc(1.55em*var(--k))}.L-produto .note{margin-top:1.5em}
+.tpl .lbk{position:absolute;left:6em;right:6em;top:17em;bottom:4.2em;display:flex;justify-content:center;gap:2.4em}
+.tpl .lbk.hf{bottom:9em}
+.tpl .pcard{flex:0 1 20em;display:flex;flex-direction:column;min-width:0;position:relative}
+.tpl .pcard.first{flex-basis:23em}
+.tpl .pim{flex:1;min-height:0;border-radius:.5em;background:var(--bg2) center/cover no-repeat;position:relative;overflow:hidden}
+.tpl .pim.emp i{position:absolute;left:50%;top:50%;width:8em;height:8em;transform:translate(-50%,-50%);color:var(--ac);opacity:.35}.tpl .pim.emp svg{width:100%;height:100%}
+.tpl .pcard.first .pim{box-shadow:0 0 0 .3em var(--ac)}
+.tpl .pinf{padding-top:1.1em;display:flex;flex-direction:column;gap:.3em;text-align:center}
+.tpl .lbn{font-size:calc(1.55em*var(--k));font-weight:600;line-height:1.25}
+.tpl .lbp{font-family:var(--tf);font-weight:var(--tw);font-size:calc(2.1em*var(--k));color:var(--ac);line-height:1.15}
+.tpl .lbg{font-size:calc(1.15em*var(--k));color:var(--mu);letter-spacing:.14em;text-transform:uppercase}
+.tpl .rk{position:absolute;left:.6em;top:.6em;width:2.2em;height:2.2em;border-radius:50%;background:var(--ac);color:var(--on);display:flex;align-items:center;justify-content:center;font-size:1.7em;font-weight:800;box-shadow:0 .4em 1em rgba(0,0,0,.3)}
+.tpl .lbk.n5,.tpl .lbk.n6{flex-wrap:wrap;gap:1.6em 2.4em}
+.tpl .lbk.n5 .pcard,.tpl .lbk.n6 .pcard{flex:0 0 calc(33.33% - 1.6em);flex-direction:row;height:calc(50% - .8em)}
+.tpl .lbk.n5 .pim,.tpl .lbk.n6 .pim{flex:0 0 44%}
+.tpl .lbk.n5 .pinf,.tpl .lbk.n6 .pinf{text-align:left;justify-content:center;padding:0 0 0 1.4em}
+.tpl .tab{position:absolute;left:8em;right:8em;top:20em}
+.tpl .tab.two{column-count:2;column-gap:7em}
+.tpl .tab .tr{display:flex;align-items:baseline;gap:1em;font-size:calc(1.85em*var(--k));padding:.32em 0;break-inside:avoid}
+.tpl .tab .tr i{flex:1;border-bottom:.12em dotted var(--mu);opacity:.55;min-width:1em}
+.tpl .tab .tr b{font-family:var(--tf);font-weight:var(--tw);color:var(--ac);white-space:nowrap}
+.tpl .tab .tgh{font-size:calc(1.15em*var(--k));letter-spacing:.3em;text-transform:uppercase;color:var(--ac);font-weight:700;margin:1.5em 0 .5em;break-after:avoid}
+.tpl .tab .tgh:first-child{margin-top:0}
+.tpl .cnd{position:absolute;left:7em;right:7em;top:18.5em;bottom:6.5em;display:grid;grid-template-columns:repeat(3,1fr);gap:1.8em;align-content:center}
+.tpl .cnd.n1{grid-template-columns:minmax(0,34em);justify-content:center}.tpl .cnd.n2,.tpl .cnd.n4{grid-template-columns:repeat(2,1fr)}
+.tpl .cc2{border-radius:1em;padding:1.9em 2.2em;position:relative;display:flex;flex-direction:column;gap:.5em}
+.tpl .cc2:before{content:'';position:absolute;inset:0;border-radius:1em;background:var(--fg);opacity:.06;border:.1em solid var(--ac)}
+.tpl .cc2>*{position:relative}
+.tpl .cc2 .ci{width:3.2em;height:3.2em;color:var(--ac);margin-bottom:.5em;display:block}.tpl .cc2 .ci svg{width:100%;height:100%;display:block}
+.tpl .cc2 b{font-size:calc(1.9em*var(--k));font-weight:700;line-height:1.2}
+.tpl .cc2 span{font-size:calc(1.5em*var(--k));color:var(--mu);line-height:1.4}
+.tpl .medw{position:absolute;left:8em;right:8em;top:19.5em}
+.tpl .med{width:100%;border-collapse:collapse;font-size:calc(1.9em*var(--k))}
+.tpl .med th{font-size:.62em;letter-spacing:.25em;text-transform:uppercase;color:var(--ac);text-align:center;padding:0 .6em 1.1em;font-weight:700;border-bottom:.1em solid var(--ac)}
+.tpl .med td{text-align:center;padding:.6em;border-bottom:.04em solid var(--mu)}
+.tpl .med td:first-child,.tpl .med th:first-child{text-align:left}
+.tpl .med td:first-child{font-family:var(--tf);font-weight:var(--tw);color:var(--ac);font-size:1.15em}
+.L-liquida .lqb{position:absolute;left:-5%;right:-5%;top:3.4em;height:4.6em;background:var(--ac);color:var(--on);transform:rotate(-2deg);overflow:hidden;display:flex;align-items:center;white-space:nowrap}
+.L-liquida .lqb.b{top:auto;bottom:3.4em;transform:rotate(1.6deg);background:#141414;color:#fff}
+.L-liquida .lqb span{font-family:'Anton',Impact,sans-serif;font-size:2.1em;letter-spacing:.12em}
+.tpl .lq{margin:0;font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:calc(10.5em*var(--k));line-height:.92;letter-spacing:.005em;text-wrap:balance;max-width:8.6em}
+.tpl .lqo{font-family:'Anton',Impact,sans-serif;text-transform:uppercase;color:var(--ac);font-size:calc(5em*var(--k));line-height:1;margin:.3em 0 .35em}
+.L-liquida .note{margin-top:1.4em}
+.L-contato .ct{left:8em;right:42em;top:50%;transform:translateY(-50%)}.L-contato .ct.nq{right:8em}
+.L-contato .clg{height:9em;margin-bottom:2.4em}.L-contato .clg img{height:100%;width:auto;max-width:30em;object-fit:contain;display:block}
+.L-contato .cli{display:flex;flex-direction:column;gap:1em;margin-top:2.4em}
+.L-contato .cli div{display:flex;align-items:center;gap:1em;font-size:calc(1.85em*var(--k));line-height:1.3}
+.L-contato .cli svg{width:1.3em;height:1.3em;color:var(--ac);flex:none}
+.L-contato .cqr{position:absolute;right:9em;top:50%;transform:translateY(-50%);width:26em;display:flex;flex-direction:column;align-items:center;text-align:center}
+.L-contato .cqr .q{width:21em;height:21em;background:#fff;border-radius:1.4em;padding:1.1em;margin-bottom:2em;box-shadow:0 2em 5em rgba(0,0,0,.3)}.L-contato .cqr .q svg{width:100%;height:100%;display:block}
+.L-contato .cqr b{font-size:2em;font-weight:700}.L-contato .cqr span{font-size:1.4em;color:var(--mu);margin-top:.4em}
+#stage .tpl .pcard,#stage .tpl .cc2,#stage .tpl .tab>*,#stage .tpl .med tr,#stage .L-contato .cqr,#stage .L-novidade .stk{animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
+#stage .tpl .pcard:nth-child(2),#stage .tpl .cc2:nth-child(2),#stage .tpl .tab>:nth-child(2),#stage .tpl .med tr:nth-child(2){animation-delay:.1s}
+#stage .tpl .pcard:nth-child(3),#stage .tpl .cc2:nth-child(3),#stage .tpl .tab>:nth-child(3),#stage .tpl .med tr:nth-child(3){animation-delay:.2s}
+#stage .tpl .pcard:nth-child(4),#stage .tpl .cc2:nth-child(4),#stage .tpl .tab>:nth-child(4),#stage .tpl .med tr:nth-child(4){animation-delay:.3s}
+#stage .tpl .pcard:nth-child(n+5),#stage .tpl .cc2:nth-child(n+5),#stage .tpl .tab>:nth-child(n+5),#stage .tpl .med tr:nth-child(n+5){animation-delay:.4s}
+#stage .L-colecao .cph,#stage .L-produto .side{animation:kb 24s ease-out both}
+
 .o-junina .cnt{top:57%}
-.L-promo .phi{position:absolute;left:50%;top:50%;width:18em;height:18em;transform:translate(-50%,-50%);color:var(--ac);opacity:.22}.L-promo .phi svg{width:100%;height:100%}
+.tpl .phi{position:absolute;left:50%;top:50%;width:18em;height:18em;transform:translate(-50%,-50%);color:var(--ac);opacity:.22}.tpl .phi svg{width:100%;height:100%}
 .L-promo .side{background-color:var(--bg2)}
 
 /* pessoas: fotos e instagram */
@@ -356,7 +449,7 @@ body.prmode{overflow:hidden}
 .pn{display:flex;align-items:center;gap:6px}.pos{color:var(--ac);font-size:13px;min-width:24px}
 .pac{display:flex;flex-direction:column;gap:4px}.pac .ic{padding:5px}.pac .ic .i{width:15px;height:15px}
 /* editor de modelos */
-.lcat{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px}.lcat button{font-size:11.5px;padding:8px 2px}.lcat button.on{background:var(--ac);color:#fff;outline:0}
+.lcat{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:10px}.lcat button{font-size:11.5px;padding:8px 2px}.lcat button.on{background:var(--ac);color:#fff;outline:0}
 .lays{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .lay{padding:0;flex-direction:column;align-items:stretch;gap:0;background:transparent;border-radius:10px;overflow:hidden;border:2px solid transparent}
 .lay.on{border-color:var(--ac);outline:0}
@@ -378,7 +471,10 @@ body.prmode{overflow:hidden}
 .vseg{display:flex;gap:3px;background:var(--in);border:1px solid var(--ln);border-radius:11px;padding:3px}
 .vseg button{background:transparent;padding:6px 8px;border-radius:8px;color:var(--mu)}.vseg button.on{background:var(--p2);color:var(--tx);outline:0}
 .vseg.wide button{flex:1;padding:8px}
-.uith{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.uith{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ljlogo{width:130px;height:72px;border-radius:12px;background:var(--in) center/contain no-repeat;border:1px dashed var(--ln);display:flex;align-items:center;justify-content:center;color:var(--mu);font-size:12px;flex:none;background-origin:content-box;padding:8px}
+.brand .blg{width:auto;max-width:120px;height:30px;object-fit:contain;display:block}.brand span.hl{background:none;width:auto;padding:0}
+.brand small{display:block;font-size:10.5px;font-weight:500;color:var(--mu);letter-spacing:.04em;margin-top:1px}
 .uit{flex-direction:column;gap:7px;padding:8px;background:var(--it);border:1px solid var(--ln);font-size:12px}
 .uit i{display:block;width:100%;aspect-ratio:16/9;border-radius:8px;position:relative;overflow:hidden;border:1px solid rgba(127,127,127,.25)}
 .uit i span{position:absolute;border-radius:4px}.uit i span:nth-child(1){left:8%;top:10%;right:8%;height:14%}.uit i span:nth-child(2){left:8%;top:32%;width:52%;bottom:12%}.uit i span:nth-child(3){right:8%;top:32%;width:26%;bottom:12%}
@@ -411,11 +507,19 @@ body.prmode{overflow:hidden}
 #tv.isidle #brand,#tv.isidle #brandQR{opacity:0}
 .mcredit{display:inline-flex;align-items:center;gap:8px;color:var(--mu);font-size:12px;text-decoration:none;opacity:.85}.mcredit:hover{opacity:1}
 .mcredit .mlsvg{height:22px;width:auto}
-html[data-ui=claro] .mcredit .dk,html:not([data-ui=claro]) .mcredit .lt{display:none}
+html[data-ui=claro] .mcredit .dk,html[data-ui=boutique] .mcredit .dk,html:not([data-ui=claro]):not([data-ui=boutique]) .mcredit .lt{display:none}
 #idle .mcr{position:absolute;right:2vw;bottom:1.6vw;height:2.4vw;opacity:.6}#idle .mcr .mlsvg{height:100%;width:auto}
 
 /* avanço manual, YouTube e tela cheia na TV */
 #slideNo{position:absolute;left:50%;bottom:2.2vw;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font:600 1.3vw Inter,sans-serif;padding:.4vw 1.2vw;border-radius:2vw;opacity:0;transition:.4s;z-index:5;pointer-events:none}#slideNo.show{opacity:1}
+#intro{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(55% 60% at 50% 45%,#171a2c,#05060a 78%);transition:opacity .9s ease}
+#intro.out{opacity:0}
+#intro .ilg{width:34vw;opacity:.5;animation:ilg 3.6s cubic-bezier(.2,.7,.2,1) both}#intro .ilg svg{width:100%;height:auto;display:block}
+#intro .its{display:flex;align-items:center;gap:1.6vw;margin-top:2.6vw;color:#fff;font:500 1.55vw Montserrat,Inter,system-ui,sans-serif;letter-spacing:.55em;text-transform:uppercase;padding-left:.55em;animation:its 3.6s ease both}
+#intro .its:before,#intro .its:after{content:'';width:4.5vw;height:1px;background:currentColor;opacity:.5}
+@keyframes ilg{0%{opacity:0;transform:scale(.94);filter:blur(.5vw)}28%{opacity:.5;transform:scale(1);filter:blur(0)}100%{opacity:.5;transform:scale(1.025)}}
+@keyframes its{0%,22%{opacity:0;letter-spacing:.95em}50%,100%{opacity:.6;letter-spacing:.55em}}
+#tv.intro #brand,#tv.intro #brandQR,#tv.intro #slideNo,#tv.intro #clock,#tv.intro #tick{opacity:0;transition:opacity .4s}
 #fsHint{position:absolute;left:50%;top:1.6vw;transform:translateX(-50%);background:rgba(0,0,0,.7);color:#fff;font:500 1.15vw Inter,sans-serif;padding:.6vw 1.4vw;border-radius:2vw;z-index:9;animation:fa .6s}
 #fsHint b{color:#8fb0ff}
 .ytw{position:absolute;inset:0}.ytw iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
@@ -499,7 +603,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
 <body>
 
 <div id="home" class="home" hidden>
-  <div class="brand" style="justify-content:center"><span><i data-i="tv"></i></span>Apresentação na TV</div>
+  <div class="brand" id="homeBrand" style="justify-content:center"><span><i data-i="tv"></i></span><em>Apresentação na TV</em></div>
   <h1>Envie conteúdo para a TV, sem cabos</h1>
   <p class="mu">Fotos, vídeos, PDFs, avisos de texto e música de fundo.</p>
   <div class="hc">
@@ -512,8 +616,9 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
 
 <div id="pc" hidden>
   <header class="top">
-    <a class="brand" href="#home" title="Trocar modo (computador/TV)"><span><i data-i="tv"></i></span><em>Apresentação na TV</em></a>
+    <a class="brand" id="pcBrand" href="#home" title="Trocar modo (computador/TV)"><span><i data-i="tv"></i></span><em>Apresentação na TV</em></a>
     <div class="row" style="gap:8px;flex-wrap:nowrap;min-width:0">
+    <button class="ic" id="bLoja" title="Sua loja: nome, logo e contatos"><i data-i="store"></i></button>
     <button class="ic" id="bUi" title="Aparência: temas e plano de fundo"><i data-i="palette"></i></button>
     <button class="ic inst" data-install hidden title="Instalar o aplicativo"><i data-i="download"></i><span class="lbl">Instalar</span></button>
     <div class="chip"><span class="dot" id="dot"></span><span id="cTxt">Nenhuma TV conectada</span><button class="ic dg" id="bDisc" title="Desconectar" hidden><i data-i="power"></i></button><button id="bConn" title="Conectar TV (Ctrl+K)"><i data-i="tv"></i><span>Conectar TV</span></button></div>
@@ -544,13 +649,13 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
 
       <div id="p-text" hidden>
         <div class="row" style="justify-content:space-between;margin-bottom:10px"><label class="l" style="margin:0">Modelo</label><button id="bKit" style="padding:7px 11px;font-size:12px"><i data-i="layers"></i>Apresentação pronta</button></div>
-        <div class="lcat" id="lcat"><button data-c="a">Apresentação</button><button data-c="i">Informativo</button><button data-c="c">Celebrações</button><button data-c="p">Promoções</button></div>
+        <div class="lcat" id="lcat"><button data-c="m">Coleção</button><button data-c="w">Atacado</button><button data-c="p">Promoções</button><button data-c="a">Apresentação</button><button data-c="i">Informativo</button><button data-c="c">Celebrações</button></div>
         <div class="lays" id="lays"></div>
         <div class="pv" id="pv"></div>
         <div id="thBox"><label class="l" style="margin-top:4px">Tema</label>
         <div class="themes" id="themes"></div></div>
         <div id="fields"></div>
-        <label class="l">Foto de fundo</label>
+        <label class="l" id="imgLbl">Foto de fundo</label>
         <div class="attach"><i data-i="image"></i><span class="nm mu" id="imgNm" style="flex:1"></span><button class="ic dg" id="imgRm" title="Remover foto" hidden><i data-i="trash"></i></button><label class="fbtn">Escolher<input type="file" id="imgIn" accept="image/*" hidden></label></div>
         <div class="row" id="ovRow" style="margin-top:8px;flex-wrap:nowrap"><span class="sec" style="white-space:nowrap">Escurecer foto</span><input type="range" id="ov" min="0" max="85" style="flex:1"></div>
         <label class="l">Música deste slide</label>
@@ -663,6 +768,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
   </div>
   <div id="clock" hidden></div>
   <div id="tick" hidden><span></span></div>
+  <div id="intro" hidden><div class="ilg"></div><div class="its">Fazendo Acontecer</div></div>
   <div id="badge"></div>
   <div id="slideNo"></div>
   <div id="fsHint" hidden>Pressione <b>OK</b> no controle (ou clique) para tela cheia</div>
@@ -706,6 +812,17 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
   </div>
   <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--ln)"><a class="mcredit" id="uiCredit" target="_blank" rel="noopener">Desenvolvido por <span class="dk"></span><span class="lt"></span></a></div>
   <div class="row" style="justify-content:space-between;margin-top:14px"><button id="uiReset"><i data-i="refresh"></i>Restaurar padrão</button><button class="pri" onclick="this.closest('dialog').close()">Concluir</button></div>
+</dialog>
+<dialog id="lojaDlg" style="width:min(94vw,560px)">
+  <div class="row" style="justify-content:space-between;align-items:flex-start;flex-wrap:nowrap"><div><h3 style="margin:0">Sua loja</h3><span class="mu" style="font-size:13px">Aparece no topo do sistema e já preenche os modelos (contato, rodapés, WhatsApp e Instagram).</span></div><button class="ic" onclick="this.closest('dialog').close()"><i data-i="x"></i></button></div>
+  <label class="l">Logo</label>
+  <div class="row" style="flex-wrap:nowrap;gap:12px"><div id="ljLogo" class="ljlogo"></div><div class="row" style="gap:6px"><label class="fbtn"><i data-i="image"></i> Escolher logo<input type="file" id="ljLogoIn" accept="image/*" hidden></label><button id="ljLogoRm" class="dg" hidden><i data-i="trash"></i>Remover</button></div></div>
+  <p class="mu" style="font-size:12px;margin:6px 0 0">Use PNG com fundo transparente para um resultado mais elegante.</p>
+  <label class="l">Nome da loja</label><input id="ljNome" data-lj="nome" placeholder="Ex.: Bella Moda Atacado">
+  <label class="l">Frase ou segmento</label><input id="ljSlogan" data-lj="slogan" placeholder="Ex.: Moda feminina no atacado">
+  <div class="row" style="gap:10px;flex-wrap:nowrap"><div style="flex:1;min-width:0"><label class="l">WhatsApp de vendas</label><input data-lj="wa" inputmode="tel" placeholder="(82) 99999-0000"></div><div style="flex:1;min-width:0"><label class="l">Instagram</label><input data-lj="ig" placeholder="@sualoja"></div></div>
+  <label class="l">Endereço e horário</label><textarea data-lj="end" rows="3" style="resize:vertical" placeholder="Rua do Comércio, 250 · Centro&#10;Seg a sex, 7h às 17h · Sáb, 7h às 12h"></textarea>
+  <div class="row" style="justify-content:flex-end;margin-top:16px"><button class="pri" onclick="this.closest('dialog').close()">Concluir</button></div>
 </dialog>
 <dialog id="kitDlg" style="width:min(94vw,640px)">
   <div class="row" style="justify-content:space-between;align-items:flex-start;flex-wrap:nowrap"><div><h3 style="margin:0">Apresentação pronta</h3><span class="mu" style="font-size:13px">Cria todos os slides de uma vez. Depois é só editar os textos e colocar suas fotos.</span></div><button class="ic" onclick="this.closest('dialog').close()"><i data-i="x"></i></button></div>
@@ -1327,6 +1444,7 @@ addEventListener('hashchange',()=>location.reload());
 
 /* ---------- ícones vetoriais ---------- */
 const IC={
+store:'<path d="M3 9l1.6-5h14.8L21 9"/><path d="M4 9.5V20h16V9.5"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M9.5 20v-5.5h5V20"/>',
 play:'<polygon points="5 3 19 12 5 21 5 3"/>',pause:'<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>',
 'skip-back':'<polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/>','skip-forward':'<polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>',
 repeat:'<polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>',
@@ -1395,6 +1513,12 @@ function slide(r){
 const fit=el=>{el.style.fontSize=(el.clientWidth/100)+'px'};
 /* ---------- modelos profissionais ---------- */
 const THEMES={
+  couture:{n:'Couture',bg:'#0c0c0c',bg2:'#1f1d1b',fg:'#f5f1ea',mu:'#a8a29a',ac:'#e3d3b8',on:'#0c0c0c',pair:'fashion'},
+  offwhite:{n:'Off-white',bg:'#fbf9f5',bg2:'#ebe5dc',fg:'#161616',mu:'#6f6a63',ac:'#161616',acPh:'#ffffff',on:'#fbf9f5',pair:'fashion'},
+  nude:{n:'Nude',bg:'#f2e8df',bg2:'#e2cfbf',fg:'#2b211c',mu:'#7d6a5d',ac:'#9c5f45',acPh:'#f3c3a4',on:'#ffffff',pair:'fashion'},
+  rose:{n:'Rosé',bg:'#f7e9ea',bg2:'#ebcdd2',fg:'#3a1f26',mu:'#8a6670',ac:'#b4566f',acPh:'#ffb8c8',on:'#ffffff',pair:'fashion'},
+  champagne:{n:'Champagne',bg:'#16120e',bg2:'#2f261c',fg:'#f7efe2',mu:'#bfae96',ac:'#d9b77e',on:'#16120e',pair:'editorial'},
+  oliva:{n:'Oliva',bg:'#23271c',bg2:'#3b4131',fg:'#f1ede0',mu:'#b6b59f',ac:'#d8c39a',on:'#23271c',pair:'editorial'},
   executivo:{n:'Executivo',bg:'#0d1828',bg2:'#1a2b45',fg:'#f6f1e7',mu:'#a9b4c4',ac:'#c9a45c',on:'#0d1828',pair:'classica'},
   corporativo:{n:'Corporativo',bg:'#ffffff',bg2:'#e8eef8',fg:'#0f172a',mu:'#5b6576',ac:'#1d4ed8',acPh:'#8fb0ff',on:'#ffffff',pair:'neutra'},
   grafite:{n:'Grafite',bg:'#111111',bg2:'#262626',fg:'#ffffff',mu:'#a3a3a3',ac:'#ff6b4a',on:'#111111',pair:'moderna'},
@@ -1405,50 +1529,79 @@ const THEMES={
   ametista:{n:'Ametista',bg:'#18122e',bg2:'#33265e',fg:'#f3efff',mu:'#b4a8d8',ac:'#c4a1ff',on:'#18122e',pair:'neutra'}
 };
 const PAIRS={
+  fashion:['Moda (Bodoni + Montserrat)',"'Bodoni Moda',Didot,'Playfair Display',Georgia,serif","'Montserrat','Inter',system-ui,sans-serif",500],
   classica:['Clássica (Playfair + Inter)',"'Playfair Display',Georgia,serif","'Inter',system-ui,sans-serif",700],
   moderna:['Moderna (Montserrat)',"'Montserrat','Inter',system-ui,sans-serif","'Inter',system-ui,sans-serif",800],
   editorial:['Editorial (Cormorant + Montserrat)',"'Cormorant Garamond',Georgia,serif","'Montserrat','Inter',system-ui,sans-serif",600],
   neutra:['Neutra (Inter)',"'Inter',system-ui,sans-serif","'Inter',system-ui,sans-serif",800]
 };
 const F={eb:'Chamada (linha pequena acima do título)',t:'Título',tx:'Texto',ft:'Rodapé'};
+/* dados da loja (cliente) usados nos modelos */
+const LOJA_DEMO={nome:'Bella Moda Atacado',ig:'@bellamoda.atacado',wa:'(82) 99999-0000',end:'Rua do Comércio, 250 · Centro\nSeg a sex, 7h às 17h · Sáb, 7h às 12h',slogan:'Moda feminina no atacado',logo:''};
+function loja(){let o={};try{o=JSON.parse(localStorage.loja||'{}')}catch(e){}const r={...LOJA_DEMO};for(const k in o)if(o[k])r[k]=o[k];if(o.nome&&!o.logo)r.logo='';return r}
+function SUB(o){const L=loja(),m={'{loja}':L.nome,'{ig}':L.ig,'{wa}':fmtWa(L.wa),'{end}':L.end,'{slogan}':L.slogan,'{lg}':L.logo||''};
+  const f=v=>typeof v==='string'?v.replace(/\{(loja|ig|wa|end|slogan|lg)\}/g,x=>m[x]):Array.isArray(v)?v.map(f):v&&typeof v==='object'&&!(v instanceof Blob)?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,f(x)])):v;
+  return f(o)}
+const SS=L=>SUB(LAYOUTS[L].s);
+const CORES={preto:'#141414',branco:'#ffffff','off white':'#f3efe6',offwhite:'#f3efe6',creme:'#efe4cf',areia:'#d9c7a8',bege:'#d6bf9f',nude:'#e3bfa6',caramelo:'#b07443',camel:'#b9874f',marrom:'#6b4226',chocolate:'#4a2c1d',cafe:'#5a3a26',cinza:'#8d8d8d',mescla:'#a3a3a3',chumbo:'#4a4a4a',grafite:'#3d3d3d',azul:'#2a5db0',marinho:'#1c2a4a','azul marinho':'#1c2a4a','azul claro':'#9cc3e6',jeans:'#4f6d8f',verde:'#2f7d4f',militar:'#5b6237',oliva:'#6b6b3a','verde agua':'#8fd3c1',menta:'#a8e6cf',vermelho:'#c62828',vinho:'#6d1b2f',bordo:'#6d1b2f',marsala:'#7b2d3b',rosa:'#e88aa8',rose:'#e6b8b0',pink:'#e83e8c',lilas:'#b39ddb',roxo:'#6a3d9a',amarelo:'#f2c94c',mostarda:'#c9a227',laranja:'#f08a24',terracota:'#b5562f',ferrugem:'#a14a24',coral:'#f07c6c',salmao:'#f4a28c',dourado:'#c9a45c',prata:'#c0c0c0',estampado:'conic-gradient(#e88aa8,#f2c94c,#8fd3c1,#9cc3e6,#e88aa8)',floral:'conic-gradient(#e88aa8,#f2c94c,#8fd3c1,#9cc3e6,#e88aa8)',animal:'repeating-radial-gradient(circle at 30% 30%,#3a2a1a 0 2px,#c9a06a 2px 6px)'};
+const corOf=n=>{const k=String(n).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[-_]/g,' ').trim();if(CORES[k])return CORES[k];const w=Object.keys(CORES).sort((a,b)=>b.length-a.length).find(c=>k.startsWith(c)||k.includes(c));return w?CORES[w]:'#9a8f84'};
+const CICO={bag:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',card:'<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3"/>',truck:'<path d="M2 7h11v9H2zM13 10h4l3 3v3h-7"/><circle cx="6" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',swap:'<path d="M4 9h14l-3-3M20 15H6l3 3"/>',pct:'<path d="M5 19L19 5"/><circle cx="7" cy="7" r="2.2"/><circle cx="17" cy="17" r="2.2"/>',ruler:'<rect x="2.5" y="8" width="19" height="8" rx="1.5"/><path d="M6.5 8v3M10.5 8v4M14.5 8v3M18 8v4"/>',chat:'<path d="M4 19l1.3-3.8A7.6 7.6 0 1 1 8.4 18.3z"/>',tag:'<path d="M3 12V4h8l9.5 9.5-8 8z"/><circle cx="7.5" cy="8" r="1.4"/>',pin:'<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',box:'<path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9"/>',star:'<path d="M12 3l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 16.9 6.4 20l1.3-6.2L3 9.5l6.3-.7z"/>'};
+const cico=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${CICO[k]||CICO.tag}</svg>`;
+const ckey=t=>{const k=String(t).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();return /troca|devolu/.test(k)?'swap':/frete|envio|entreg|transport|correio|despach/.test(k)?'truck':/pag|pix|cart|boleto|parcel|credito/.test(k)?'card':/minim|pedido|grade|peca/.test(k)?'bag':/prazo|horar|tempo|dias?\b|semana/.test(k)?'clock':/desconto|%|off|progressiv/.test(k)?'pct':/tamanh|medida/.test(k)?'ruler':/whats|contat|atend|vendedor|consultor/.test(k)?'chat':/estoque|reposi|pronta/.test(k)?'box':/exclusiv|qualidade|premium/.test(k)?'star':'tag'};
+const WAI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.2c.3 2.2 2.6 4.8 5.2 5.3l1.2-1.4-1.8-1-1 .8c-1-.5-1.8-1.3-2.3-2.3l.8-1-1-1.8z" fill="currentColor" stroke="none"/></svg>';
+const qrSvg=u=>{if(typeof qrcode!=='function')return'';try{const q=qrcode(0,'M');q.addData(u);q.make();return q.createSvgTag({cellSize:4,margin:2,scalable:true})}catch(x){return''}};
+let qrP=null;
+function qrFill(){const go=()=>document.querySelectorAll('[data-qr]').forEach(el=>{const v=qrSvg(el.dataset.qr);if(v){el.innerHTML=v;el.removeAttribute('data-qr')}});
+  if(typeof qrcode==='function')return go();
+  if(!qrP)qrP=new Promise(ok=>{const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';sc.onload=ok;sc.onerror=()=>{qrP=null};document.head.appendChild(sc)});
+  qrP.then(go)}
+const fmtWa=v=>{let d=String(v||'').replace(/\D/g,'');if(d.length>11&&d.startsWith('55'))d=d.slice(2);return d.length===11?`(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`:d.length===10?`(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`:String(v||'')};
+const waLink=v=>{let d=String(v||'').replace(/\D/g,'');if(!d)return'';if(d.length<=11)d='55'+d;return'https://wa.me/'+d};
 const LAYOUTS={
   capa:{n:'Capa',cat:'a',f:{eyebrow:F.eb,title:F.t,text:'Subtítulo',foot:'Rodapé (setor, data)'},
-    s:{eyebrow:'Apresentação institucional',title:'Planejamento Estratégico 2027',text:'Metas, prioridades e próximos passos',foot:'Diretoria Comercial · Novembro de 2026'}},
+    s:{eyebrow:'Apresentação institucional',title:'Planejamento Comercial 2027',text:'Coleções, metas e próximos passos da {loja}',foot:'Diretoria Comercial · Novembro de 2026'}},
   topicos:{n:'Tópicos',cat:'a',f:{eyebrow:F.eb,title:F.t,text:'Tópicos (um por linha)',foot:F.ft},
-    s:{eyebrow:'Agenda',title:'O que vamos ver hoje',text:'Resultados do período\nNovos lançamentos\nMetas do próximo trimestre\nReconhecimento da equipe'}},
+    s:{eyebrow:'Agenda',title:'O que vamos ver hoje',text:'Resultados do período\nLançamento da coleção Verão\nMetas de vendas no atacado\nReconhecimento da equipe'}},
   secao:{n:'Divisor de seção',cat:'a',f:{big:'Número da seção',title:'Título da seção',text:'Descrição'},
-    s:{big:'01',title:'Resultados do trimestre',text:'Visão geral dos principais indicadores do período'}},
+    s:{big:'01',title:'Resultados do trimestre',text:'Vendas, peças por pedido e novos lojistas'}},
   indicador:{n:'Indicador',cat:'a',f:{eyebrow:F.eb,big:'Número em destaque',title:'O que o número representa',text:'Contexto',foot:F.ft},
-    s:{eyebrow:'Resultado de outubro',big:'R$ 4,8 mi',title:'em vendas no mês',text:'Crescimento de 23% em relação a setembro'}},
+    s:{eyebrow:'Resultado de outubro',big:'48 mil',title:'peças vendidas no atacado',text:'Crescimento de 23% em relação a setembro'}},
   destaque:{n:'Destaque com foto',cat:'a',f:{eyebrow:F.eb,title:F.t,text:F.tx,foot:'Observação'},
-    s:{eyebrow:'Lançamento',title:'Residencial Jardim das Flores',text:'120 unidades de 2 e 3 dormitórios, lazer completo e entrega prevista para 2028.',foot:'Plantão de vendas no local'}},
+    s:{eyebrow:'Lançamento',title:'Coleção Verão 2027',text:'Linho, viscose e tons terrosos: 86 peças pensadas para girar rápido na sua loja.',foot:'Disponível para pedidos'}},
   citacao:{n:'Citação',cat:'a',f:{text:'Frase',foot:'Autor'},
-    s:{text:'Grandes resultados nascem de pequenas atitudes repetidas todos os dias.',foot:'Equipe de Liderança'}},
+    s:{text:'A moda passa, o estilo permanece. E um bom atendimento também.',foot:'Equipe {loja}'}},
   encerramento:{n:'Encerramento',cat:'a',f:{eyebrow:F.eb,title:F.t,text:'Mensagem ou contatos',foot:F.ft},
-    s:{eyebrow:'Muito obrigado',title:'Juntos, vamos mais longe',text:'Dúvidas e sugestões: comunicacao@empresa.com.br',foot:'Diretoria Comercial'}},
+    s:{eyebrow:'Muito obrigado',title:'Juntos, vamos mais longe',text:'Pedidos pelo WhatsApp {wa} · Instagram {ig}',foot:'{loja}'}},
   livre:{n:'Texto simples',cat:'a',f:{eyebrow:F.eb,title:F.t,text:F.tx,foot:F.ft},
     s:{eyebrow:'',title:'Seu título aqui',text:'Escreva a mensagem que deseja exibir na TV.'}},
   comunicado:{n:'Comunicado',cat:'i',f:{eyebrow:'Etiqueta',title:F.t,text:'Mensagem',foot:'Assinatura (setor · data)'},
-    s:{eyebrow:'Comunicado interno',title:'Novo horário de atendimento',text:'A partir de 1º de dezembro, o atendimento ao público será das 8h às 18h, de segunda a sexta-feira.',foot:'Recursos Humanos · 02/11/2026'}},
+    s:{eyebrow:'Comunicado interno',title:'Novo horário de atendimento',text:'A partir de 1º de dezembro, a loja abre às 7h para atender os lojistas que chegam cedo. Sábados, das 7h às 13h.',foot:'Gerência · 02/11/2026'}},
   evento:{n:'Evento',cat:'i',f:{big:'Data (ex.: 28/11)',eyebrow:'Etiqueta',title:'Nome do evento',text:'Detalhes (um por linha)',foot:F.ft},
-    s:{big:'28/11',eyebrow:'Evento',title:'Confraternização de fim de ano',text:'Sexta-feira, às 19h\nEspaço Villa Garden\nConfirme presença até 20/11',foot:'Contamos com você!'}},
+    s:{big:'28/11',eyebrow:'Evento',title:'Lançamento da Coleção Verão',text:'Sexta-feira, às 9h\nCafé da manhã para lojistas\nCondições especiais no dia',foot:'Confirme presença pelo WhatsApp'}},
   pessoa:{n:'Boas-vindas',cat:'i',f:{eyebrow:F.eb,title:'Nome',ig:'Instagram (opcional)',text:'Cargo / setor',foot:'Mensagem'},
-    s:{eyebrow:'Seja bem-vinda',title:'Mariana Costa',ig:'@marianacosta.imoveis',text:'Corretora de Imóveis · Equipe Zona Sul',foot:'Desejamos muito sucesso nesta nova jornada!'}},
+    s:{eyebrow:'Seja bem-vinda',title:'Mariana Costa',ig:'@marianacosta.moda',text:'Consultora de vendas · Atacado',foot:'Desejamos muito sucesso nesta nova jornada!'}},
   aniversario:{n:'Aniversariantes',cat:'i',f:{eyebrow:F.eb,title:F.t,people:'Aniversariantes (até 8)',foot:F.ft},
     s:{eyebrow:'Parabéns!',title:'Aniversariantes de novembro',people:[{n:'Ana Souza',v:'03/11',ig:'@anasouza'},{n:'Carlos Lima',v:'12/11',ig:'@carloslima'},{n:'Fernanda Alves',v:'21/11',ig:''},{n:'Roberto Dias',v:'27/11',ig:'@robertodias'}],foot:'Muitas felicidades a todos!'}},
   urgente:{n:'Aviso importante',cat:'i',f:{eyebrow:'Etiqueta',title:F.t,text:F.tx,foot:F.ft},
-    s:{eyebrow:'Atenção',title:'Manutenção na rede elétrica',text:'Na quinta-feira, das 14h às 16h, não haverá energia no 2º andar. Salve seus trabalhos com antecedência.',foot:'Facilities · Ramal 2040'}},
+    s:{eyebrow:'Atenção',title:'Inventário de estoque',text:'No sábado, dia 30, a loja abre só às 10h para a contagem do estoque. Os pedidos agendados serão separados na sexta.',foot:'Gerência'}},
   meta:{n:'Meta / progresso',cat:'i',f:{eyebrow:F.eb,title:F.t,big:'Percentual atingido (ex.: 78%)',text:'Detalhe',foot:F.ft},
-    s:{eyebrow:'Meta do mês',title:'Vendas de novembro',big:'78%',text:'R$ 3,9 mi de R$ 5 mi · faltam 12 dias',foot:'Vamos juntos bater a meta!'}}
+    s:{eyebrow:'Meta do mês',title:'Vendas de novembro',big:'78%',text:'R$ 780 mil de R$ 1 milhão · faltam 12 dias',foot:'Vamos juntas bater a meta!'}}
 };
 const KITS=[
+  {n:'Lançamento de coleção',d:'abertura da coleção, novidade, vitrine, peças, preços, como comprar e contato',
+   s:[['colecao'],['novidade'],['lookbook'],['produto'],['produto',{eyebrow:'Destaque',ref:'CJ-1180',title:'Conjunto alfaiataria colete e calça',big:'R$ 119,90',sz:'36, 38, 40, 42, 44, 46',cores:'Off-white, Preto, Terracota',text:'Linho com elastano. Colete com botões de madrepérola.',foot:'Pode misturar tamanhos'}],['tabela'],['condicoes'],['contato']]},
+  {n:'Atacado: como comprar',d:'condições, tabela de preços, medidas e contato',s:[['condicoes'],['tabela'],['medidas'],['contato']]},
+  {n:'Vitrine da semana',d:'chegou, mais vendidos, vitrine, peça em destaque e contato',
+   s:[['novidade',{big:'Reposição',eyebrow:'Chegou reposição',title:'Os queridinhos voltaram',text:'Calça pantalona e vestido midi de linho em todas as cores e tamanhos.'}],['maisvendidos'],['lookbook'],['produto'],['contato']]},
+  {n:'Liquidação',d:'abertura, vitrine com preços, peça em oferta e última chamada',
+   s:[['liquida'],['lookbook',{eyebrow:'Liquida',title:'Preços que valem o estoque',people:[{n:'Vestido curto canelado',v:'De R$ 44,90 por R$ 19,90',g:'P ao G'},{n:'Blusa de tricô',v:'De R$ 39,90 por R$ 15,90',g:'Tamanho único'},{n:'Short alfaiataria',v:'De R$ 42,90 por R$ 18,90',g:'36 ao 44'}]}],['promo'],['liquida',{eyebrow:'Últimos dias',title:'Última chamada',big:'Tudo a partir de R$ 9,90',text:'Garanta sua grade antes que acabe.'}]]},
   {n:'Apresentação institucional',d:'capa, agenda, seção, destaque, indicador, citação e encerramento',
    s:[['capa'],['topicos'],['secao'],['destaque'],['indicador'],['citacao'],['encerramento']]},
   {n:'Reunião de resultados',d:'capa, três indicadores, meta, próximos passos e encerramento',
-   s:[['capa',{eyebrow:'Reunião mensal',title:'Resultados de Outubro',text:'Desempenho comercial e próximos passos'}],
-      ['indicador'],['indicador',{eyebrow:'Contratos',big:'37',title:'negócios fechados',text:'Recorde do ano · 9 a mais que a média mensal'}],
-      ['indicador',{eyebrow:'Satisfação',big:'92%',title:'dos clientes nos recomendariam',text:'Pesquisa com 214 clientes atendidos em outubro'}],
-      ['meta'],['topicos',{eyebrow:'Próximos passos',title:'Prioridades para novembro',text:'Ampliar o atendimento aos sábados\nLançar a campanha de fim de ano\nTreinamento da nova equipe\nRevisar a carteira de imóveis'}],
+   s:[['capa',{eyebrow:'Reunião mensal',title:'Resultados de Outubro',text:'Desempenho de vendas no atacado e próximos passos'}],
+      ['indicador'],['indicador',{eyebrow:'Lojistas',big:'137',title:'novos clientes cadastrados',text:'Recorde do ano · 40 a mais que a média mensal'}],
+      ['indicador',{eyebrow:'Ticket médio',big:'R$ 2.480',title:'por pedido no atacado',text:'Média de 42 peças por pedido em outubro'}],
+      ['meta'],['topicos',{eyebrow:'Próximos passos',title:'Prioridades para novembro',text:'Lançar a coleção Verão\nCampanha de Black Friday no atacado\nAtender pelo WhatsApp em até 10 minutos\nReativar lojistas sem compra há 60 dias'}],
       ['encerramento']]},
   {n:'Informativo da semana',d:'comunicado, evento, aniversariantes, boas-vindas e aviso',
    s:[['comunicado'],['evento'],['aniversario'],['pessoa'],['urgente']]}
@@ -1461,11 +1614,12 @@ function tpl(r,urls){
   let T=THEMES[r.theme]||THEMES.executivo;
   if(O)T={...O,pair:{sans:'moderna',round:'neutra'}[O.tf]||'classica'};
   if(L==='blackfriday')T={bg:'#050505',bg2:'#1d1d1d',fg:'#ffffff',mu:'#c4c4c4',ac:'#ffd400',on:'#050505',pair:'moderna'};
+  if(L==='liquida')T={bg:'#f5f0ea',bg2:'#ebe2d8',fg:'#141414',mu:'#5c5650',ac:'#d62839',acPh:'#ff4d5e',on:'#ffffff',pair:'moderna'};
   let P=PAIRS[r.pair]||PAIRS[T.pair];
   if(O&&O.tf==='round'&&!r.pair)P=['',"'Nunito',system-ui,sans-serif","'Nunito',system-ui,sans-serif",900];
   const e=s=>esc(s||''),ln=s=>String(s||'').split('\n').map(x=>x.trim()).filter(Boolean);
   let ph=null;if(r.img instanceof Blob){ph=URL.createObjectURL(r.img);urls&&urls.push(ph)}
-  const full=ph&&!['destaque','premio','aniver1','promo'].includes(L);
+  const full=ph&&!['destaque','premio','aniver1','promo','colecao','produto','contato'].includes(L);
   const d=document.createElement('div');d.className='slide tpl L-'+L+(O?' o-'+r.occ:'')+(full?' ph':'');
   const ac=r.acc||(L==='urgente'?'#e5484d':full&&T.acPh||T.ac),on=r.acc||L==='urgente'?'#ffffff':T.on;
   d.style.cssText=`--bg:${T.bg};--bg2:${T.bg2};--fg:${full?'#fff':T.fg};--mu:${full?'rgba(255,255,255,.85)':T.mu};--ac:${ac};--on:${on};--tf:${P[1]};--bf:${P[2]};--tw:${P[3]};--k:${{P:.85,M:1,G:1.15,X:1.3}[r.size]||1}`;
@@ -1514,9 +1668,29 @@ function tpl(r,urls){
     case 'data':
       h=deco(O.dk,O.dc,r.occ)+`<div class="cnt cc">${O.em?`<div class="emb">${emb(O.em)}</div>`:''}${eb}${r.title?`<h1 class="t ${O.tf==='script'?'scr':'xl'}">${e(r.title)}</h1>`:''}${r.big?`<div class="yr">${e(r.big)}</div>`:''}${rule('c')}${p}${note}</div>`;break;
     case 'promo':{const n=x=>{const v=parseFloat(String(x||'').replace(/[^\d,]/g,'').replace(',','.'));return isNaN(v)?0:v},a=n(r.old),b=n(r.big),off=a>b&&b>0?Math.round((1-b/a)*100):0;
-      h=`<div class="side r"${ph?` style="background-image:url(${ph})"`:''}>${ph?'':`<div class="pat"></div><i class="phi">${emb('house')}</i>`}</div>${off?`<div class="off"><b>${off}%</b><span>OFF</span></div>`:''}<div class="cnt lt">${r.eyebrow?`<div class="tag">${e(r.eyebrow)}</div>`:''}${t('md')}${r.old?`<div class="old">De ${e(r.old)}</div>`:''}${r.big?`<div class="price">${r.old?'<small>por</small>':''}${e(r.big)}</div>`:''}${p}${note}</div>`;break}
+      h=`<div class="side r"${ph?` style="background-image:url(${ph})"`:''}>${ph?'':`<div class="pat"></div><i class="phi">${emb('hanger')}</i>`}</div>${off?`<div class="off"><b>${off}%</b><span>OFF</span></div>`:''}<div class="cnt lt">${r.eyebrow?`<div class="tag">${e(r.eyebrow)}</div>`:''}${t('md')}${r.old?`<div class="old">De ${e(r.old)}</div>`:''}${r.big?`<div class="price">${r.old?'<small>por</small>':''}${e(r.big)}</div>`:''}${p}${note}</div>`;break}
     case 'blackfriday':{const w=String(r.title||'').trim().split(/\s+/).filter(Boolean),cd=countdown(r.when);
       h=`<div class="haz"></div><div class="haz b"></div><div class="glow"></div><div class="cnt cc">${eb}${w.length?`<h1 class="bf">${w.map(x=>`<span>${e(x)}</span>`).join('')}</h1>`:''}${r.big?`<div class="offer">${e(r.big)}</div>`:''}${cd?`<div class="cd">${cd}</div>`:''}${p}</div>${ft}`;break}
+    case 'colecao':
+      h=(ph?`<div class="cph" style="background-image:url(${ph})"></div><div class="cfd"></div>`:`<div class="cbig">${e(r.big)}</div>`)+`<div class="cnt cl">${eb}${r.title?`<h1 class="t cx">${e(r.title)}</h1>`:''}${rule()}${p}</div>${r.big&&ph?`<div class="vyr">${e(r.big)}</div>`:''}${ft}`;break;
+    case 'novidade':{const sl=String(r.big||'Novidade').toUpperCase(),id='cp'+Math.random().toString(36).slice(2,8);
+      h=`${ph?'':'<div class="pat2"></div>'}<div class="stk"><svg viewBox="-100 -100 200 200"><defs><path id="${id}" d="M-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs><circle r="99" style="fill:var(--ac)"/><text><textPath href="#${id}" textLength="462" lengthAdjust="spacing">${e(sl+' · '+sl+' · ')}</textPath></text><path d="${star5(24,10)}" style="fill:var(--on)"/></svg></div><div class="cnt bot nv">${eb}${t('xl')}${rule()}${p}</div>${ft}`;break}
+    case 'produto':{const sz=String(r.sz||'').split(/[,;\/]+|\s+(?=\S)/).map(x=>x.trim()).filter(Boolean).slice(0,9),cs=String(r.cores||'').split(/[,;\/]+/).map(x=>x.trim()).filter(Boolean).slice(0,6);
+      h=`<div class="side pr"${ph?` style="background-image:url(${ph})"`:''}>${ph?'':`<div class="pat"></div><i class="phi">${emb('hanger')}</i>`}</div><div class="cnt pd">${r.eyebrow?`<div class="tag">${e(r.eyebrow)}</div>`:''}${r.ref?`<div class="ref">Ref. ${e(String(r.ref).replace(/^ref\.?\s*/i,''))}</div>`:''}${t('md')}${r.old?`<div class="old">De ${e(r.old)}</div>`:''}${r.big?`<div class="price"><small>${r.old?'por':'Preço atacado'}</small>${e(r.big)}</div>`:''}${sz.length?`<div class="szs">${sz.map(x=>`<span>${e(x)}</span>`).join('')}</div>`:''}${cs.length?`<div class="cls">${cs.map(x=>`<span><i style="background:${corOf(x)}"></i>${e(x)}</span>`).join('')}</div>`:''}${p}${note}</div>`;break}
+    case 'lookbook':case 'maisvendidos':{const it=ppl().slice(0,6),rk=L==='maisvendidos',n=it.length;
+      h=`<div class="hd2 c">${eb}${t('md')}</div><div class="lbk n${n}${r.foot?' hf':''}">${it.map((x,i)=>`<div class="pcard${rk&&!i?' first':''}">${x.ph instanceof Blob?`<div class="pim" style="background-image:url(${U(x.ph)})"></div>`:`<div class="pim emp"><i>${emb('hanger')}</i></div>`}${rk?`<b class="rk">${i+1}º</b>`:''}<div class="pinf"><span class="lbn">${e(x.n)}</span>${x.v?`<span class="lbp">${e(x.v)}</span>`:''}${x.g?`<span class="lbg">${e(x.g)}</span>`:''}</div></div>`).join('')}</div>${ft}`;break}
+    case 'tabela':{const it=ln(r.text).slice(0,18).map(x=>{const q=x.split(/\s+[—–-]\s+|\s*[;|]\s*|\s*\.{3,}\s*|\s*:\s+(?=R?\$|\d)/);return q.length>1?{n:q[0],v:q.slice(1).join(' ')}:{h:x}}),two=it.length>8;
+      h=`<div class="hd2">${eb}${t('lg')}</div><div class="tab${two?' two':''}">${it.map(x=>x.h?`<div class="tgh">${e(x.h)}</div>`:`<div class="tr"><span>${e(x.n)}</span><i></i><b>${e(x.v)}</b></div>`).join('')}</div>${ft}`;break}
+    case 'condicoes':{const it=ln(r.text).slice(0,6).map(x=>{const q=x.split(/\s+[—–-]\s+|\s*[;|]\s*|:\s+/);return{n:q[0],v:q.slice(1).join(' ')}});
+      h=`<div class="hd2 c">${eb}${t('lg')}</div><div class="cnd n${it.length}">${it.map(x=>`<div class="cc2"><i class="ci">${cico(ckey(x.n+' '+x.v))}</i><b>${e(x.n)}</b>${x.v?`<span>${e(x.v)}</span>`:''}</div>`).join('')}</div>${ft}`;break}
+    case 'medidas':{const rows=ln(r.text).map(x=>x.split(/\s*[;|\t]\s*/)).slice(0,10),hd=rows[0]||[];
+      h=`<div class="hd2">${eb}${t('lg')}</div><div class="medw"><table class="med"><thead><tr>${hd.map(c=>`<th>${e(c)}</th>`).join('')}</tr></thead><tbody>${rows.slice(1).map(w=>`<tr>${hd.map((_,j)=>`<td>${e(w[j]||'')}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${ft}`;break}
+    case 'liquida':{const cd=countdown(r.when),bt=e(String(r.eyebrow||'Liquidação').toUpperCase()+'  ·  ').repeat(12);
+      h=`<div class="lqb"><span>${bt}</span></div><div class="lqb b"><span>${bt}</span></div><div class="cnt cc">${r.title?`<h1 class="lq">${e(r.title)}</h1>`:''}${r.big?`<div class="lqo">${e(r.big)}</div>`:''}${cd?`<div class="cd">${cd}</div>`:''}${p}${note}</div>`;break}
+    case 'contato':{const lg=ph||(typeof r.lg==='string'&&/^data:image|^blob:|^https?:/.test(r.lg)?r.lg:''),wl=waLink(r.wa);let qs='';
+      if(wl){qs=qrSvg(wl);if(!qs){qs=' ';setTimeout(qrFill,0)}}
+      const li=ln(r.text).map(x=>`<div>${cico(/\d{1,2}\s?h|hor[aá]rio|seg|s[aá]b|dom|aberto/i.test(x)?'clock':'pin')}<span>${e(x)}</span></div>`).join('');
+      h=`<div class="frame"></div><div class="cnt ct${qs?'':' nq'}">${lg?`<div class="clg"><img src="${lg}" alt=""></div>`:''}${eb}${t('lg')}<div class="cli">${r.wa?`<div>${WAI}<span>${e(fmtWa(r.wa))}</span></div>`:''}${igH(r.ig)?`<div>${IGI}<span>${e(igH(r.ig))}</span></div>`:''}${li}</div></div>${qs?`<div class="cqr"><div class="q"${qs===' '?` data-qr="${e(wl)}"`:''}>${qs}</div><b>Peça pelo WhatsApp</b><span>Aponte a câmera do celular</span></div>`:''}${ft}`;break}
     default:h=`<div class="cnt cc">${eb}${t('xl')}${rule('c')}${p}</div>${ft}`;
   }
   const bgp=full?`<div class="pbg${L==='pessoa'?' blur':''}" style="background-image:url(${ph})"></div><div class="pov" style="opacity:${L==='pessoa'?.62:(r.ov??.55)}"></div>${L==='pessoa'?'':'<div class="pgr"></div>'}`:'';
@@ -1541,6 +1715,11 @@ const EMB={
   fire:`<path d="M0-47C12-27 32-15 32 12 32 33 17 46 0 46-17 46-32 33-32 12-32-4-22-14-16-24-13-8-6-4 0-10 6-20 1-34 0-47Z"/>`,
   brasil:`<path d="M0-32L47 0 0 32-47 0Z"/><circle r="18" ${BGF}/><circle r="12"/>`,
   gear:`<circle r="31" style="fill:none;stroke:currentColor;stroke-width:16;stroke-dasharray:12.2 12.2"/><circle r="27"/><circle r="10" ${BGF}/>`,
+  hanger:`<path d="M0-30C0-42 14-42 14-32 14-24 4-24 0-14L-44 18C-50 22-48 30-41 30H41C48 30 50 22 44 18L0-14" style="fill:none;stroke:currentColor;stroke-width:7;stroke-linecap:round;stroke-linejoin:round"/>`,
+  bag:`<path d="M-34-18H34L40 46H-40Z"/><path d="M-15-18V-28C-15-46 15-46 15-28V-18" style="fill:none;stroke:currentColor;stroke-width:7;stroke-linecap:round"/><circle cx="-15" cy="-6" r="4" ${BGF}/><circle cx="15" cy="-6" r="4" ${BGF}/>`,
+  scissors:`<circle cx="-22" cy="30" r="13" style="fill:none;stroke:currentColor;stroke-width:7"/><circle cx="22" cy="30" r="13" style="fill:none;stroke:currentColor;stroke-width:7"/><path d="M-14 20L22-46M14 20L-22-46" style="fill:none;stroke:currentColor;stroke-width:8;stroke-linecap:round"/>`,
+  dress:`<path d="M-10-46H10L14-30C24-24 22-12 16-4L40 46H-40L-16-4C-22-12-24-24-14-30Z"/>`,
+  tag:`<path d="M-44-8V-44H-8L44 8 8 44Z"/><circle cx="-28" cy="-28" r="7" ${BGF}/>`,
   hands:`<circle cx="-17" cy="-6" r="22"/><circle cx="17" cy="-6" r="22" style="opacity:.65"/><path d="${star5(12,5)}" transform="translate(0 33)"/>`
 };
 const emb=k=>EMB[k]?`<svg viewBox="-50 -50 100 100" style="fill:currentColor">${EMB[k]}</svg>`:'';
@@ -1593,17 +1772,23 @@ const OCC={
   maes:{n:'Dia das Mães',md:510,dt:'Dia das Mães',bg:'#fbeef1',bg2:'#f3d2da',fg:'#5a1f2e',mu:'#8c5a66',ac:'#c94f6d',on:'#ffffff',dk:'hearts',dc:['#c94f6d','#f2a6b6','#e9c46a'],em:'flower',tf:'script',
     e:'Homenagem',t:'Feliz Dia das Mães',x:'A todas as mães da nossa equipe e às nossas clientes, nosso carinho e gratidão.',f:'Com amor, toda a equipe'},
   namorados:{n:'Dia dos Namorados',md:612,dt:'12 de junho',bg:'#3a0912',bg2:'#7a1428',fg:'#ffffff',mu:'#f5c6cf',ac:'#ff6b81',on:'#ffffff',dk:'hearts',dc:['#ff6b81','#ffffff','#ffb3c1'],em:'heart',tf:'script',
-    e:'12 de junho',t:'Dia dos Namorados',x:'O amor está no ar — e o lar perfeito para viver essa história também.',f:''},
+    e:'12 de junho',t:'Dia dos Namorados',x:'O amor está no ar. Prepare a vitrine: o look certo vende o presente perfeito.',f:''},
   junina:{n:'Festa Junina',md:624,dt:'Festa Junina',bg:'#16264a',bg2:'#2f4a7a',fg:'#fff8e7',mu:'#e4dcc4',ac:'#ffb703',on:'#16264a',dk:'flags',dc:['#e63946','#ffb703','#2a9d8f','#f4a261','#8ecae6','#fb5607'],em:'fire',tf:'round',
     e:'Arraiá da equipe',t:'Festa Junina',x:'Venha de caipira! Sexta-feira, às 18h, no salão de eventos. Teremos quentão, pamonha e quadrilha.',f:'Traga um prato típico'},
   pais:{n:'Dia dos Pais',md:809,dt:'Dia dos Pais',bg:'#0e1b30',bg2:'#1e3a5f',fg:'#ffffff',mu:'#bccadd',ac:'#d4a373',on:'#0e1b30',dk:'stars',dc:['#d4a373','#ffffff'],em:'tie',tf:'serif',
     e:'Homenagem',t:'Feliz Dia dos Pais',x:'A todos os pais da nossa equipe e aos nossos clientes, nossa homenagem e gratidão.',f:'Com carinho, toda a equipe'},
-  corretor:{n:'Dia do Corretor de Imóveis',md:827,dt:'27 de agosto',bg:'#0d1828',bg2:'#1a2b45',fg:'#f6f1e7',mu:'#b4bccb',ac:'#c9a45c',on:'#0d1828',dk:'stars',dc:['#c9a45c','#ffffff'],em:'house',tf:'serif',
-    e:'27 de agosto',t:'Dia do Corretor de Imóveis',x:'Parabéns a quem transforma sonhos em endereços. Obrigado por cada chave entregue!',f:'Diretoria'},
+  vendedor:{n:'Dia do Vendedor',md:1001,dt:'1º de outubro',bg:'#0c0c0c',bg2:'#26221d',fg:'#f6f1e7',mu:'#b9b0a2',ac:'#d9b77e',on:'#0c0c0c',dk:'stars',dc:['#d9b77e','#ffffff'],em:'tag',tf:'serif',
+    e:'1º de outubro',t:'Dia do Vendedor',x:'Parabéns a quem atende cada lojista com cuidado e transforma peças em resultados. Obrigado por cada pedido!',f:'Diretoria'},
+  consumidor:{n:'Dia do Consumidor',md:315,dt:'15 de março',bg:'#1b0f2e',bg2:'#3d1f63',fg:'#ffffff',mu:'#dccdf2',ac:'#ffcf5c',on:'#1b0f2e',dk:'confetti',dc:['#ffcf5c','#ffffff','#ff7aa8'],em:'bag',tf:'sans',
+    e:'15 de março',t:'Semana do Consumidor',x:'Descontos especiais em toda a loja para você abastecer o estoque com preço de atacado.',f:'Válido de 11 a 17 de março'},
+  costureira:{n:'Dia da Costureira',md:525,dt:'25 de maio',bg:'#f4ece4',bg2:'#e6d6c6',fg:'#3a2a20',mu:'#7d6656',ac:'#a8563a',on:'#ffffff',dk:'dots',dc:['#a8563a','#d9b77e','#ffffff'],em:'scissors',tf:'script',
+    e:'25 de maio',t:'Dia da Costureira',x:'Cada ponto, cada acabamento, cada peça perfeita passa pelas suas mãos. Nossa homenagem e gratidão.',f:'Com carinho, toda a equipe'},
+  comerciante:{n:'Dia do Comerciante',md:716,dt:'16 de julho',bg:'#0b2230',bg2:'#123c52',fg:'#ffffff',mu:'#c3d6e2',ac:'#f2c46d',on:'#0b2230',dk:'stars',dc:['#f2c46d','#ffffff'],em:'bag',tf:'serif',
+    e:'16 de julho',t:'Dia do Comerciante',x:'Parabéns a cada lojista que confia na nossa moda para vestir a sua cidade. Crescemos juntos!',f:''},
   independencia:{n:'Independência do Brasil',md:907,dt:'7 de setembro',bg:'#05371f',bg2:'#0b6b3a',fg:'#ffffff',mu:'#cfe8d8',ac:'#ffd500',on:'#05371f',dk:'stars',dc:['#ffd500','#ffffff','#4d8bff'],em:'brasil',tf:'sans',
     e:'7 de setembro',t:'Independência do Brasil',x:'Orgulho de construir este país todos os dias. Lembrete: feriado, não haverá expediente.',f:''},
   clientes:{n:'Dia do Cliente',md:915,dt:'15 de setembro',bg:'#0a2240',bg2:'#123a6b',fg:'#ffffff',mu:'#c6d6ea',ac:'#4cc9f0',on:'#0a2240',dk:'confetti',dc:['#4cc9f0','#ffffff','#ffd166'],em:'heart',tf:'sans',
-    e:'15 de setembro',t:'Dia do Cliente',x:'Obrigado por confiar em nós. Você é a razão de tudo o que fazemos.',f:''},
+    e:'15 de setembro',t:'Dia do Cliente',x:'Obrigado, lojista, por confiar na nossa moda. Você é a razão de tudo o que fazemos.',f:'{loja}'},
   criancas:{n:'Dia das Crianças',md:1012,dt:'12 de outubro',bg:'#173156',bg2:'#2b5a8a',fg:'#ffffff',mu:'#d6e4f3',ac:'#ffd166',on:'#173156',dk:'balloons',dc:['#ef476f','#ffd166','#06d6a0','#4cc9f0','#ff9f1c'],em:'kite',tf:'round',
     e:'12 de outubro',t:'Feliz Dia das Crianças',x:'Que nunca falte alegria, imaginação e brincadeira!',f:''},
   outubrorosa:{n:'Outubro Rosa',md:1001,dt:'Outubro',bg:'#3b0d24',bg2:'#7a1f4b',fg:'#ffffff',mu:'#f6cfe0',ac:'#ff8fb8',on:'#3b0d24',dk:'dots',dc:['#ff8fb8','#ffffff'],em:'ribbon',tf:'serif',
@@ -1619,26 +1804,52 @@ const occText=k=>{const o=OCC[k]||OCC.natal;return{occ:k,eyebrow:o.e||o.dt,title
 function nextOcc(){const d=new Date(),k=(d.getMonth()+1)*100+d.getDate(),l=Object.entries(OCC).sort((a,b)=>a[1].md-b[1].md);return(l.find(([,o])=>o.md>=k)||l[0])[0]}
 Object.assign(LAYOUTS,{
   premio:{n:'Premiação',cat:'c',f:{eyebrow:'Chamada (ex.: Destaque do mês)',title:'Nome do premiado',ig:'Instagram (opcional)',big:'Conquista',text:'Detalhes',foot:'Mensagem'},
-    s:{eyebrow:'Destaque do mês · Outubro',title:'Ricardo Almeida',ig:'@ricardo.imoveis',big:'Corretor que mais vendeu',text:'12 imóveis vendidos · R$ 6,3 mi em VGV',foot:'Parabéns pela dedicação e pelos resultados!'}},
+    s:{eyebrow:'Destaque do mês · Outubro',title:'Juliana Martins',ig:'@jumartins.moda',big:'Vendedora que mais vendeu',text:'312 pedidos · R$ 186 mil em vendas',foot:'Parabéns pela dedicação e pelos resultados!'}},
   ranking:{n:'Ranking / pódio',cat:'c',f:{eyebrow:F.eb,title:F.t,people:'Classificação (na ordem: 1º, 2º, 3º…)',foot:F.ft},
-    s:{eyebrow:'Ranking de vendas',title:'Top corretores de outubro',people:[{n:'Ricardo Almeida',v:'R$ 6,3 mi',ig:'@ricardo.imoveis'},{n:'Juliana Martins',v:'R$ 5,1 mi',ig:'@jumartins.corretora'},{n:'Paulo Henrique',v:'R$ 4,4 mi',ig:'@paulohenrique'},{n:'Camila Rocha',v:'R$ 3,2 mi',ig:''},{n:'Thiago Nunes',v:'R$ 2,9 mi',ig:''}]}},
+    s:{eyebrow:'Ranking de vendas',title:'Top vendedoras de outubro',people:[{n:'Juliana Martins',v:'R$ 186 mil',ig:'@jumartins.moda'},{n:'Patrícia Lopes',v:'R$ 154 mil',ig:'@paty.lopes'},{n:'Renata Sales',v:'R$ 131 mil',ig:'@renatasales'},{n:'Camila Rocha',v:'R$ 98 mil',ig:''},{n:'Thiago Nunes',v:'R$ 87 mil',ig:''}]}},
   aniver1:{n:'Aniversariante do dia',cat:'c',f:{eyebrow:'Chamada',title:'Nome do aniversariante',ig:'Instagram (opcional)',big:'Data',text:'Mensagem',foot:'Assinatura'},
-    s:{eyebrow:'Feliz aniversário',title:'Juliana Martins',ig:'@jumartins.corretora',big:'Hoje · 14 de novembro',text:'Que seu novo ciclo seja repleto de saúde, alegrias e muitas conquistas!',foot:'Com carinho, toda a equipe'}},
+    s:{eyebrow:'Feliz aniversário',title:'Juliana Martins',ig:'@jumartins.moda',big:'Hoje · 14 de novembro',text:'Que seu novo ciclo seja repleto de saúde, alegrias e muitas conquistas!',foot:'Com carinho, toda a equipe'}},
   data:{n:'Data comemorativa',cat:'c',f:{occ:'Data comemorativa',eyebrow:'Linha pequena (acima do título)',title:F.t,big:'Destaque opcional (ex.: ano)',text:'Mensagem',foot:'Assinatura'},s:{}},
-  promo:{n:'Promoção / oferta',cat:'p',f:{eyebrow:'Etiqueta',title:'Produto ou imóvel',old:'Preço "de" (opcional)',big:'Preço "por"',text:'Detalhes',foot:'Condições / validade'},
-    s:{eyebrow:'Oferta especial',title:'Apartamento 3 dormitórios no Jardim Europa',old:'R$ 689.000',big:'R$ 599.000',text:'92 m² · 2 vagas · varanda gourmet',foot:'Válido até 30/11 ou enquanto durarem as unidades'}},
+  promo:{n:'Promoção / oferta',cat:'p',f:{eyebrow:'Etiqueta',title:'Produto',old:'Preço "de" (opcional)',big:'Preço "por"',text:'Detalhes',foot:'Condições / validade'},
+    s:{eyebrow:'Oferta da semana',title:'Vestido midi de linho',old:'R$ 89,90',big:'R$ 69,90',text:'P ao GG · 4 cores · grade fechada com 6 peças',foot:'Válido até 30/11 ou enquanto durar o estoque'}},
   blackfriday:{n:'Black Friday',cat:'p',f:{eyebrow:F.eb,title:'Título',big:'Oferta (ex.: Até 50% OFF)',when:'Data final, para contagem regressiva (ex.: 27/11)',text:F.tx,foot:'Condições'},
-    s:{eyebrow:'Ofertas imperdíveis',title:'Black Friday',big:'Até 15% OFF',when:'27/11',text:'Condições especiais em imóveis selecionados e entrada facilitada.',foot:'Consulte seu corretor · Válido até 30/11'}}
+    s:{eyebrow:'Atacado com preço de fábrica',title:'Black Friday',big:'Até 50% OFF',when:'27/11',text:'Coleção inteira com desconto progressivo e frete grátis acima de R$ 1.500.',foot:'Válido para pedidos até 30/11'}}
 });
 LAYOUTS.aniversario.cat='c';
+const LF={n:'Peças (foto, nome/referência, preço e tamanhos)'};
+Object.assign(LAYOUTS,{
+  colecao:{n:'Lançamento de coleção',cat:'m',f:{eyebrow:'Estação (ex.: Primavera-Verão)',title:'Nome da coleção',big:'Ano ou edição (ex.: 2027)',text:'Descrição',foot:'Rodapé'},
+    s:{eyebrow:'Primavera-Verão',title:'Coleção Brisa',big:'2027',text:'Linho, viscose e tons de areia. Peças leves, versáteis e com alto giro para a sua loja.',foot:'{loja} · Disponível para pedidos'}},
+  novidade:{n:'Acabou de chegar',cat:'m',f:{big:'Selo (ex.: Novidade, Reposição)',eyebrow:F.eb,title:F.t,text:F.tx,foot:F.ft},
+    s:{big:'Novidade',eyebrow:'Acabou de chegar',title:'Alfaiataria de verão',text:'Coletes, calças pantalona e blazers em linho. Grades completas do 36 ao 46.',foot:'Garanta a sua grade'}},
+  produto:{n:'Peça em destaque',cat:'m',f:{eyebrow:'Etiqueta (ex.: Lançamento)',ref:'Referência',title:'Nome da peça',old:'Preço "de" (opcional)',big:'Preço atacado',sz:'Tamanhos (ex.: P, M, G, GG)',cores:'Cores (ex.: Preto, Off-white, Caramelo)',text:'Tecido e detalhes',foot:'Condição (ex.: Grade fechada · 6 peças)'},
+    s:{eyebrow:'Lançamento',ref:'VS-2041',title:'Vestido midi de linho',big:'R$ 69,90',sz:'P, M, G, GG',cores:'Off-white, Caramelo, Preto, Verde oliva',text:'Linho com viscose, forrado, com amarração na cintura.',foot:'Grade fechada · 6 peças'}},
+  lookbook:{n:'Vitrine de peças',cat:'m',f:{eyebrow:F.eb,title:F.t,people:LF.n,foot:F.ft},
+    s:{eyebrow:'Vitrine da semana',title:'Destaques da coleção',people:[{n:'Vestido midi linho',v:'R$ 69,90',g:'P ao GG'},{n:'Conjunto alfaiataria',v:'R$ 119,90',g:'36 ao 46'},{n:'Blusa de tricô',v:'R$ 39,90',g:'Tamanho único'},{n:'Calça pantalona',v:'R$ 59,90',g:'36 ao 46'}],foot:'Pedidos pelo WhatsApp {wa}'}},
+  maisvendidos:{n:'Mais vendidos',cat:'m',f:{eyebrow:F.eb,title:F.t,people:'Peças (na ordem: 1º, 2º, 3º…)',foot:F.ft},
+    s:{eyebrow:'Ranking da semana',title:'Os mais pedidos pelos lojistas',people:[{n:'Calça pantalona',v:'R$ 59,90',g:'1.240 peças'},{n:'Vestido midi linho',v:'R$ 69,90',g:'980 peças'},{n:'Cropped canelado',v:'R$ 24,90',g:'870 peças'}],foot:'Reposição garantida'}},
+  tabela:{n:'Tabela de preços',cat:'w',f:{eyebrow:F.eb,title:F.t,text:'Itens (um por linha: Peça — preço). Linha sem preço vira título de grupo',foot:'Observação'},
+    s:{eyebrow:'Tabela de atacado',title:'Preços da coleção',text:'Vestidos\nVestido midi de linho — R$ 69,90\nVestido curto canelado — R$ 44,90\nVestido longo estampado — R$ 79,90\nBlusas e calças\nBlusa de tricô — R$ 39,90\nCropped canelado — R$ 24,90\nCalça pantalona — R$ 59,90\nShort alfaiataria — R$ 42,90',foot:'Preços para pedido mínimo de 6 peças'}},
+  condicoes:{n:'Como comprar no atacado',cat:'w',f:{eyebrow:F.eb,title:F.t,text:'Condições (uma por linha: Título — detalhe)',foot:F.ft},
+    s:{eyebrow:'Atacado',title:'Como comprar',text:'Pedido mínimo — R$ 300 ou 6 peças\nPagamento — Pix, cartão em até 6x ou boleto\nFrete grátis — Acima de R$ 1.500\nEnvio — Despacho em até 48 horas\nGrade — Pode misturar cores e modelos\nTroca — Em até 7 dias por defeito',foot:'Atendimento pelo WhatsApp {wa}'}},
+  medidas:{n:'Tabela de medidas',cat:'w',f:{eyebrow:F.eb,title:F.t,text:'Tabela (uma linha por tamanho, colunas separadas por ; — a 1ª linha é o cabeçalho)',foot:'Observação'},
+    s:{eyebrow:'Guia de tamanhos',title:'Tabela de medidas',text:'Tamanho;Busto;Cintura;Quadril\nP;84–88;64–68;90–94\nM;89–93;69–73;95–99\nG;94–98;74–78;100–104\nGG;99–104;79–84;105–110',foot:'Medidas em centímetros'}},
+  contato:{n:'Contato e redes',cat:'w',f:{title:'Nome da loja',eyebrow:'Frase (ex.: Moda feminina no atacado)',wa:'WhatsApp',ig:'Instagram',text:'Endereço e horário (um por linha)',foot:F.ft},
+    s:{title:'{loja}',eyebrow:'{slogan}',wa:'{wa}',ig:'{ig}',text:'{end}',lg:'{lg}',foot:''}},
+  liquida:{n:'Liquidação',cat:'p',f:{eyebrow:'Faixa (ex.: Queima de estoque)',title:'Título',big:'Oferta (ex.: Até 70% OFF)',when:'Data final, para contagem regressiva (ex.: 15/01)',text:F.tx,foot:'Condições'},
+    s:{eyebrow:'Queima de estoque',title:'Liquida Verão',big:'Até 70% OFF',when:'15/01',text:'Peças da coleção passada com preços abaixo do custo. Enquanto durar o estoque.',foot:'Pedido mínimo de R$ 300'}}
+});
+for(const k of ['capa','topicos','secao','indicador','destaque','citacao','encerramento','livre'])LAYOUTS[k].cat='a';
 LAYOUTS.data.s=occText(nextOcc());
 KITS.push(
   {n:'Reconhecimento da equipe',d:'premiação, ranking, aniversariante do dia e aniversariantes do mês',s:[['premio'],['ranking'],['aniver1'],['aniversario']]},
-  {n:'Campanha Black Friday',d:'abertura com contagem regressiva, duas ofertas e última chamada',
-   s:[['blackfriday'],['promo'],['promo',{eyebrow:'Imperdível',title:'Casa em condomínio fechado no Alphaville',old:'R$ 1.450.000',big:'R$ 1.290.000',text:'4 suítes · 380 m² · piscina e espaço gourmet'}],
-      ['blackfriday',{eyebrow:'Últimos dias',title:'Última chance',big:'Condições exclusivas',text:'Agende sua visita e garanta o seu desconto.'}]]},
+  {n:'Black Friday no atacado',d:'abertura com contagem regressiva, duas ofertas e última chamada',
+   s:[['blackfriday'],['promo'],['promo',{eyebrow:'Imperdível',title:'Calça pantalona em alfaiataria',old:'R$ 79,90',big:'R$ 49,90',text:'36 ao 46 · Preto, Off-white e Caramelo'}],
+      ['blackfriday',{eyebrow:'Últimos dias',title:'Última chance',big:'Estoque limitado',text:'Garanta sua grade antes que acabe. Pedidos pelo WhatsApp {wa}.'}]]},
+  {n:'Datas do varejo de moda',d:'Dia do Consumidor, Mães, Namorados, Pais, Cliente e Natal',
+   s:[['data',occText('consumidor')],['data',occText('maes')],['data',occText('namorados')],['data',occText('pais')],['data',occText('clientes')],['data',occText('natal')]]},
   {n:'Fim de ano',d:'Natal, recesso e Ano Novo',
-   s:[['data',occText('natal')],['comunicado',{eyebrow:'Recesso de fim de ano',title:'Expediente no fim de ano',text:'De 24/12 a 01/01 o escritório estará fechado. Retornamos no dia 02/01, às 9h.',foot:'Diretoria · Dezembro de 2026'}],['data',occText('anonovo')]]}
+   s:[['data',occText('natal')],['comunicado',{eyebrow:'Recesso de fim de ano',title:'Expediente no fim de ano',text:'Dia 24/12 atendemos até as 12h. De 25/12 a 01/01 a loja estará fechada. Retornamos no dia 02/01, às 7h.',foot:'{loja} · Dezembro de 2026'}],['data',occText('anonovo')]]}
 );
 
 
@@ -1773,9 +1984,11 @@ if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)&&mode!=='cas
 }
 
 /* ---------- aparência do sistema ---------- */
-const UITH={noite:{n:'Noite',bg:'#0b0f1d',p:'#121830',ac:'#5b8cff'},claro:{n:'Claro',bg:'#eef1f7',p:'#ffffff',ac:'#3b6cf6'},grafite:{n:'Grafite',bg:'#0d0d0e',p:'#1c1c1f',ac:'#ff8a3d'},
+const UITH={atelier:{n:'Atelier',bg:'#0f0d0c',p:'#1a1715',ac:'#d4b483'},boutique:{n:'Boutique',bg:'#f4efe9',p:'#fffdfa',ac:'#1d1915'},noite:{n:'Noite',bg:'#0b0f1d',p:'#121830',ac:'#5b8cff'},claro:{n:'Claro',bg:'#eef1f7',p:'#ffffff',ac:'#3b6cf6'},grafite:{n:'Grafite',bg:'#0d0d0e',p:'#1c1c1f',ac:'#ff8a3d'},
   oceano:{n:'Oceano',bg:'#041820',p:'#0a2531',ac:'#2dd4bf'},rose:{n:'Rosé',bg:'#170b12',p:'#22111b',ac:'#f472b6'},floresta:{n:'Floresta',bg:'#08140f',p:'#0f2019',ac:'#4ade80'}};
 const UIBG={
+  seda:['Seda','radial-gradient(70% 90% at 15% 10%,#6b4f3a,transparent 60%),radial-gradient(60% 80% at 90% 90%,#3a2a35,transparent 65%),linear-gradient(135deg,#1a1411,#0d0b0a)'],
+  linho:['Linho','radial-gradient(60% 80% at 85% 10%,#e7d8c6,transparent 65%),radial-gradient(60% 70% at 10% 95%,#d9c4ae,transparent 60%),#f4ece3'],
   aurora:['Aurora','radial-gradient(60% 80% at 15% 20%,#6d28d9,transparent 60%),radial-gradient(60% 70% at 85% 25%,#0ea5e9,transparent 60%),radial-gradient(70% 80% at 50% 105%,#10b981,transparent 60%),#0b1020'],
   ocaso:['Pôr do sol','radial-gradient(70% 80% at 85% 15%,#f59e0b,transparent 60%),linear-gradient(135deg,#f97316,#db2777 45%,#4c1d95)'],
   mar:['Mar','radial-gradient(80% 90% at 20% 10%,#0ea5e9,transparent 60%),radial-gradient(70% 80% at 90% 90%,#14b8a6,transparent 60%),#06283d'],
@@ -1783,7 +1996,8 @@ const UIBG={
   dourado:['Dourado','radial-gradient(60% 70% at 80% 10%,#b45309,transparent 62%),radial-gradient(60% 70% at 10% 95%,#78350f,transparent 60%),#1c1209'],
   pastel:['Pastel','radial-gradient(50% 60% at 10% 10%,#c7d2fe,transparent 70%),radial-gradient(50% 60% at 90% 15%,#fbcfe8,transparent 70%),radial-gradient(60% 70% at 50% 105%,#bbf7d0,transparent 70%),#f8fafc']
 };
-const UIDEF={theme:'noite',bg:'none',blur:0,dim:.25,acc:'',view:'list'};
+const LIGHTUI=['claro','boutique'];
+const UIDEF={theme:'atelier',bg:'none',blur:0,dim:.25,acc:'',view:'list'};
 function uiGet(){try{return{...UIDEF,...JSON.parse(localStorage.ui||'{}')}}catch(e){return{...UIDEF}}}
 function uiSet(o){const ts=Object.keys(o).some(k=>k!=='view')?{ts:Date.now()}:{};localStorage.ui=JSON.stringify({...uiGet(),...o,...ts});applyUI();if(ts.ts)dispatchEvent(new Event('uichange'))}
 function stageBg(){
@@ -1791,6 +2005,13 @@ function stageBg(){
   return{img,css:img?null:(UIBG[u.bg]||[])[1]||`radial-gradient(90% 100% at 15% 10%,${th.p},${th.bg} 70%)`,blur:img||UIBG[u.bg]?u.blur:0,dim:u.bg==='none'?0:u.dim,color:th.bg,ts:u.ts||0};
 }
 const shade=(h,k)=>'#'+[1,3,5].map(i=>Math.max(0,Math.min(255,Math.round(parseInt(h.slice(i,i+2),16)*(1+k))))).map(v=>v.toString(16).padStart(2,'0')).join('');
+function applyLoja(){
+  let o={};try{o=JSON.parse(localStorage.loja||'{}')}catch(e){}
+  for(const id of ['pcBrand','homeBrand']){const b=document.getElementById(id);if(!b)continue;const sp=b.querySelector('span'),em=b.querySelector('em');
+    if(!b._ic)b._ic=sp.innerHTML;
+    if(o.logo){sp.innerHTML=`<img class="blg" src="${o.logo}" alt="">`;sp.classList.add('hl')}else{sp.innerHTML=b._ic;sp.classList.remove('hl')}
+    em.innerHTML=o.nome?`${esc(o.nome)}<small>Apresentação na TV</small>`:'Apresentação na TV'}
+  if(mode==='pc'||mode==='home')document.title=o.nome?o.nome+' · Apresentação na TV':'Apresentação na TV'}
 function applyUI(){
   if(mode==='tv'||mode==='play'||mode==='cast')return;
   const u=uiGet(),h=document.documentElement;
@@ -1804,11 +2025,11 @@ function applyUI(){
   document.body.classList.toggle('hasbg',!!css);
   const m=document.querySelector('meta[name=theme-color]');if(m)m.content=(UITH[u.theme]||UITH.noite).bg;
 }
-applyUI();
+applyUI();applyLoja();
 
 paint();showInstall();
 document.querySelectorAll('.mcredit').forEach((a,i)=>{a.href=MERCATTO_WA;a.title='Mercatto Labs · WhatsApp (82) 99662-2036';a.querySelector('.dk').innerHTML=mlogo('dark','c'+i);a.querySelector('.lt').innerHTML=mlogo('light','l'+i)});
-$('#brand').innerHTML=mlogo('dark','tv');$('#brandQR .q').innerHTML=MLOGO.qr;$('#idleMcr').innerHTML=mlogo('dark','idle');
+$('#brand').innerHTML=mlogo('dark','tv');$('#intro .ilg').innerHTML=mlogo('dark','intro');$('#brandQR .q').innerHTML=MLOGO.qr;$('#idleMcr').innerHTML=mlogo('dark','idle');
 {const tv=$('#tv'),idle=$('#idle'),upd=()=>tv.classList.toggle('isidle',!idle.hidden);new MutationObserver(upd).observe(idle,{attributes:true,attributeFilter:['hidden']});upd()}
 if(!mode)$('#home').hidden=false;
 else if(mode==='pc'){$('#pc').hidden=false;bootPC()}
@@ -1854,15 +2075,15 @@ function bootPC(){
   $('#bMute').onclick=()=>{cfg.mute=!cfg.mute;saveCfg()};
 
   /* ---------- editor de modelos ---------- */
-  const KEYS=['eyebrow','title','ig','big','old','when','text','foot'];
+  const KEYS=['eyebrow','ref','title','ig','wa','big','old','when','sz','cores','text','foot'];
   let lcat='a',pvUrls=[],layUrls=[],kitUrls=[],pplUrls=[];
   function newDraft(){
-    const th=dr.theme||localStorage.lastTheme||'executivo';
+    const th=dr.theme||(THEMES[localStorage.lastTheme]?localStorage.lastTheme:'couture');
     for(const k in dr)delete dr[k];
-    Object.assign(dr,{layout:'capa',theme:th,pair:'',acc:'',size:'M',dur:10,ov:.55,img:null,imgName:'',snd:null,sndName:'',untilEnd:false});
-    sample('capa');editId=null;
+    Object.assign(dr,{layout:'colecao',theme:th,pair:'',acc:'',size:'M',dur:10,ov:.55,img:null,imgName:'',snd:null,sndName:'',untilEnd:false});
+    sample('colecao');editId=null;
   }
-  function sample(L){if(L==='data'&&!OCC[dr.occ])dr.occ=nextOcc();const S=L==='data'?occText(dr.occ):LAYOUTS[L].s;KEYS.forEach(k=>dr[k]=S[k]||'');dr.people=(S.people||[]).map(x=>({...x}));dr.sampled=true}
+  function sample(L){if(L==='data'&&!OCC[dr.occ])dr.occ=nextOcc();const S=L==='data'?SUB(occText(dr.occ)):SS(L);KEYS.forEach(k=>dr[k]=S[k]||'');dr.lg=S.lg||'';dr.people=(S.people||[]).map(x=>({...x}));dr.sampled=true}
   function pickLayout(L){dr.layout=L;if(dr.sampled||!KEYS.some(k=>(dr[k]||'').trim())&&!(dr.people||[]).length)sample(L);else if(LAYOUTS[L].f.people&&!(dr.people||[]).length&&dr.text)dr.people=ppl0(dr.text);fillForm()}
   const ppl0=t=>String(t||'').split('\n').map(x=>x.trim()).filter(Boolean).map(x=>{const q=x.split(/\s+[—–-]\s+|\s*[;|]\s*/);return{n:q[0],v:q.slice(1).join(' '),ig:''}});
   async function shrink(f,max=1920){
@@ -1877,41 +2098,45 @@ function bootPC(){
     const box=$('#lays');box.innerHTML='';
     Object.entries(LAYOUTS).filter(([,v])=>v.cat===lcat).forEach(([k,v])=>{
       const b=document.createElement('button');b.className='lay'+(dr.layout===k?' on':'');b.dataset.l=k;box.appendChild(b);
-      mini(b,{...v.s,layout:k,theme:dr.theme,pair:dr.pair,acc:dr.acc},layUrls);
+      mini(b,{...SS(k),layout:k,theme:dr.theme,pair:dr.pair,acc:dr.acc},layUrls);
       b.insertAdjacentHTML('beforeend',`<small>${v.n}</small>`);
     });
     document.querySelectorAll('#lcat button').forEach(b=>b.classList.toggle('on',b.dataset.c===lcat));
   }
   function renderFields(){
     const L=LAYOUTS[dr.layout];
-    $('#fields').innerHTML=Object.entries(L.f).map(([k,lbl])=>`<label class="l">${esc(lbl)}</label>`+(k==='people'?`<div id="ppl"></div><div class="row" style="justify-content:space-between"><div class="row" style="gap:6px"><button id="pAdd"><i class="i-plus"></i>Adicionar pessoa</button><label class="fbtn" id="pMulti">${ic('image')} Várias fotos<input type="file" accept="image/*" multiple hidden id="pMultiIn"></label></div><span class="mu" id="pMax" style="font-size:12px"></span></div><p class="mu" style="font-size:12px;margin:8px 0 0">Toque no círculo para escolher a foto de cada pessoa.</p>`:k==='occ'?`<select data-f="occ">${Object.entries(OCC).sort((a,b)=>a[1].md-b[1].md).map(([c,o])=>`<option value="${c}">${esc(o.n)} · ${esc(o.dt)}</option>`).join('')}</select>`:k==='text'?`<textarea data-f="${k}" rows="${/linha/.test(lbl)?4:3}" style="resize:vertical"></textarea>`:`<input data-f="${k}">`)).join('');
-    const S=dr.layout==='data'?occText(dr.occ):L.s;
+    $('#fields').innerHTML=Object.entries(L.f).map(([k,lbl])=>`<label class="l">${esc(lbl)}</label>`+(k==='people'?`<div id="ppl"></div><div class="row" style="justify-content:space-between"><div class="row" style="gap:6px"><button id="pAdd"><i class="i-plus"></i>Adicionar pessoa</button><label class="fbtn" id="pMulti">${ic('image')} Várias fotos<input type="file" accept="image/*" multiple hidden id="pMultiIn"></label></div><span class="mu" id="pMax" style="font-size:12px"></span></div><p class="mu" id="pHint" style="font-size:12px;margin:8px 0 0"></p>`:k==='occ'?`<select data-f="occ">${Object.entries(OCC).sort((a,b)=>a[1].md-b[1].md).map(([c,o])=>`<option value="${c}">${esc(o.n)} · ${esc(o.dt)}</option>`).join('')}</select>`:k==='text'?`<textarea data-f="${k}" rows="${/linha/.test(lbl)?4:3}" style="resize:vertical"></textarea>`:`<input data-f="${k}">`)).join('');
+    const S=dr.layout==='data'?SUB(occText(dr.occ)):SS(dr.layout);
     $('#fields').querySelectorAll('[data-f]').forEach(x=>{x.value=dr[x.dataset.f]||'';if(x.dataset.f!=='occ')x.placeholder=S[x.dataset.f]||''});
-    $('#thBox').hidden=dr.layout==='data'||dr.layout==='blackfriday';
+    $('#thBox').hidden=['data','blackfriday','liquida'].includes(dr.layout);
     if(L.f.people)renderPeople();
   }
+  const PCF=()=>{const L=dr.layout;
+    if(L==='lookbook'||L==='maisvendidos')return{max:L==='maisvendidos'?5:6,n:'Peça (nome ou referência)',v:'Preço (ex.: R$ 59,90)',k3:'g',p3:L==='maisvendidos'?'Detalhe (ex.: 980 peças)':'Tamanhos ou cores',add:'Adicionar peça',hint:'Toque no quadrado para escolher a foto de cada peça. Em "Várias fotos" você escolhe todas de uma vez.',sq:1,rk:L==='maisvendidos'};
+    if(L==='ranking')return{max:5,n:'Nome',v:'Resultado (ex.: R$ 186 mil)',k3:'ig',p3:'@instagram',add:'Adicionar pessoa',hint:'Toque no círculo para escolher a foto de cada pessoa.',rk:1};
+    return{max:8,n:'Nome',v:'Data (ex.: 03/11)',k3:'ig',p3:'@instagram',add:'Adicionar pessoa',hint:'Toque no círculo para escolher a foto de cada pessoa.'}};
   function renderPeople(){
     pplUrls.forEach(u=>URL.revokeObjectURL(u));pplUrls=[];
-    const rk=dr.layout==='ranking',P=dr.people||(dr.people=[]),max=rk?5:8;
+    const C=PCF(),rk=C.rk,P=dr.people||(dr.people=[]),max=C.max;
     $('#ppl').innerHTML=P.map((x,i)=>{let u='';if(x.ph instanceof Blob){u=URL.createObjectURL(x.ph);pplUrls.push(u)}
-      return `<div class="prow" data-i="${i}"><label class="pph${u?' has':''}" title="Escolher foto"${u?` style="background-image:url(${u})"`:''}>${u?'':ic('image')}<input type="file" accept="image/*" hidden data-pf="${i}"></label>
-      <div class="pin"><div class="pn">${rk?`<b class="pos">${i+1}º</b>`:''}<input data-p="n" placeholder="Nome" value="${esc(x.n||'')}"></div>
-      <div class="row" style="gap:6px;flex-wrap:nowrap"><input data-p="v" placeholder="${rk?'Resultado (ex.: R$ 6,3 mi)':'Data (ex.: 03/11)'}" value="${esc(x.v||'')}"><input data-p="ig" placeholder="@instagram" value="${esc(x.ig||'')}"></div></div>
-      <div class="pac"><button class="ic" data-pa="up" title="Subir uma posição"${i?'':' disabled'}>${ic('chev-up')}</button>${u?`<button class="ic" data-pa="noph" title="Remover foto">${ic('x')}</button>`:''}<button class="ic dg" data-pa="rm" title="Remover pessoa">${ic('trash')}</button></div></div>`}).join('');
-    $('#pAdd').innerHTML=ic('plus')+'Adicionar pessoa';$('#pAdd').disabled=P.length>=max;$('#pMulti').style.display=P.length>=max?'none':'';$('#pMax').textContent=`${P.length} de ${max}`;
+      return `<div class="prow" data-i="${i}"><label class="pph${u?' has':''}${C.sq?' sq':''}" title="Escolher foto"${u?` style="background-image:url(${u})"`:''}>${u?'':ic('image')}<input type="file" accept="image/*" hidden data-pf="${i}"></label>
+      <div class="pin"><div class="pn">${rk?`<b class="pos">${i+1}º</b>`:''}<input data-p="n" placeholder="${C.n}" value="${esc(x.n||'')}"></div>
+      <div class="row" style="gap:6px;flex-wrap:nowrap"><input data-p="v" placeholder="${C.v}" value="${esc(x.v||'')}"><input data-p="${C.k3}" placeholder="${C.p3}" value="${esc(x[C.k3]||'')}"></div></div>
+      <div class="pac"><button class="ic" data-pa="up" title="Subir uma posição"${i?'':' disabled'}>${ic('chev-up')}</button>${u?`<button class="ic" data-pa="noph" title="Remover foto">${ic('x')}</button>`:''}<button class="ic dg" data-pa="rm" title="Remover">${ic('trash')}</button></div></div>`}).join('');
+    $('#pAdd').innerHTML=ic('plus')+C.add;$('#pHint').textContent=C.hint;$('#pAdd').disabled=P.length>=max;$('#pMulti').style.display=P.length>=max?'none':'';$('#pMax').textContent=`${P.length} de ${max}`;
   }
   $('#fields').addEventListener('input',e=>{const k=e.target.dataset.p;if(!k)return;const i=+e.target.closest('.prow').dataset.i;dr.people[i][k]=e.target.value;dr.sampled=false;drawPv()});
   $('#fields').addEventListener('change',e=>{const t=e.target;if(t.dataset.p==='ig'||t.dataset.f==='ig'){const h=igH(t.value);if(h!==t.value){t.value=h;t.dispatchEvent(new Event('input',{bubbles:true}))}}});
   $('#fields').addEventListener('change',async e=>{
     if(e.target.id==='pMultiIn'){const fs=[...e.target.files].sort((a,b)=>a.name.localeCompare(b.name,'pt',{numeric:true}));e.target.value='';
       if(dr.sampled)dr.people=[];
-      const P=dr.people||(dr.people=[]),max=dr.layout==='ranking'?5:8;
+      const P=dr.people||(dr.people=[]),max=PCF().max;
       // fotos sem pessoa ainda: preenche as linhas existentes sem foto primeiro
       let added=0;for(const f of fs){const nm=f.name.replace(/\.[^.]+$/,'').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim().replace(/\b\w/g,c=>c.toUpperCase());
         const free=P.find(x=>!x.ph&&(!x.n||dr.sampled));const ph=await shrink(f,800);
         if(free){free.ph=ph;if(dr.sampled||!free.n)free.n=nm;added++}else if(P.length<max){P.push({n:nm,v:'',ig:'',ph});added++}}
       dr.sampled=false;renderPeople();drawPv();
-      toast(added<fs.length?`${added} foto${added>1?'s':''} adicionada${added>1?'s':''} (limite de ${max} pessoas)`:`${added} foto${added>1?'s':''} adicionada${added>1?'s':''}. Ajuste os nomes se precisar.`);return}
+      toast(added<fs.length?`${added} foto${added>1?'s':''} adicionada${added>1?'s':''} (limite de ${max})`:`${added} foto${added>1?'s':''} adicionada${added>1?'s':''}. Ajuste os nomes se precisar.`);return}
     const i=e.target.dataset.pf;if(i===undefined)return;const f=e.target.files[0];e.target.value='';if(!f)return;
     dr.people[+i].ph=await shrink(f,800);dr.sampled=false;renderPeople();drawPv()});
   $('#fields').addEventListener('click',e=>{
@@ -1930,7 +2155,8 @@ function bootPC(){
     $('#pair').value=dr.pair||'';$('#acc').value=dr.acc||(THEMES[dr.theme]||THEMES.executivo).ac;$('#accRm').hidden=!dr.acc;
     $('#tDur').value=dr.dur;$('#ov').value=Math.round((dr.ov??.55)*100);
     $('#imgNm').textContent=dr.img?(dr.imgName||'Foto escolhida'):'Nenhuma foto';$('#imgRm').hidden=!dr.img;
-    $('#ovRow').hidden=!dr.img||dr.layout==='destaque'||dr.layout==='pessoa';
+    $('#ovRow').hidden=!dr.img||['destaque','pessoa','produto','colecao','contato','promo'].includes(dr.layout);
+    $('#imgLbl').textContent=dr.layout==='contato'?'Logo da loja (opcional — usa a de "Sua loja")':['produto','promo'].includes(dr.layout)?'Foto da peça':dr.layout==='destaque'?'Foto':['pessoa','premio','aniver1'].includes(dr.layout)?'Foto da pessoa':dr.layout==='colecao'?'Foto da campanha (opcional)':'Foto de fundo (opcional)';
     $('#sndNm').textContent=dr.snd?(dr.sndName||'Música escolhida'):'Nenhuma (toca a trilha de fundo)';$('#sndRm').hidden=!dr.snd;$('#ueRow').hidden=!dr.snd;$('#ue').checked=!!dr.untilEnd;
     $('#bAddText span').textContent=editId?'Salvar alterações':'Adicionar à programação';$('#bCancel').hidden=!editId;
     drawPv();
@@ -1975,13 +2201,13 @@ function bootPC(){
     kitUrls.forEach(u=>URL.revokeObjectURL(u));kitUrls=[];
     $('#kitThemes').innerHTML=themesHTML();
     $('#kits').innerHTML=KITS.map((k,i)=>`<div class="kit"><div class="kprev" data-k="${i}"></div><div class="row" style="justify-content:space-between;margin-top:10px;flex-wrap:nowrap"><div class="nm"><b>${esc(k.n)}</b><small class="mu">${k.s.length} slides · ${esc(k.d)}</small></div><button class="pri" data-kit="${i}">Criar</button></div></div>`).join('');
-    KITS.forEach((k,i)=>{const box=$(`.kprev[data-k="${i}"]`);k.s.slice(0,4).forEach(([L,o])=>mini(box,{...(L==='data'?occText(nextOcc()):LAYOUTS[L].s),...o,layout:L,theme:dr.theme},kitUrls))});
+    KITS.forEach((k,i)=>{const box=$(`.kprev[data-k="${i}"]`);k.s.slice(0,4).forEach(([L,o])=>mini(box,SUB({...(L==='data'?occText(nextOcc()):LAYOUTS[L].s),...o,layout:L,theme:dr.theme}),kitUrls))});
   }
   $('#bKit').onclick=()=>{$('#kitDlg').showModal();renderKits()};
   $('#kitThemes').onclick=e=>{const b=e.target.closest('.thm');if(!b)return;dr.theme=b.dataset.th;dr.acc='';localStorage.lastTheme=dr.theme;renderKits();fillForm()};
   $('#kits').onclick=async e=>{
     const b=e.target.closest('[data-kit]');if(!b)return;const k=KITS[b.dataset.kit];let o=Date.now();
-    for(const[L,ov]of k.s){const S={...(L==='data'?occText(nextOcc()):LAYOUTS[L].s),...ov};if(S.people)S.people=S.people.map(x=>({...x}));
+    for(const[L,ov]of k.s){const S=SUB({...(L==='data'?occText(nextOcc()):LAYOUTS[L].s),...ov});if(S.people)S.people=S.people.map(x=>({...x}));
       await put({...S,layout:L,theme:dr.theme,pair:'',acc:'',size:'M',ov:.55,dur:10,id:uid(),kind:'item',type:'text',name:S.title||S.eyebrow||LAYOUTS[L].n,order:o++})}
     $('#kitDlg').close();load();view('list');toast(`${k.s.length} slides criados. Use o lápis para personalizar cada um.`);
   };
@@ -2468,7 +2694,7 @@ function bootPC(){
   $('#bOpenDock').onclick=()=>{
     if(!isOn())return openPicker();
     if(!items.length)return toast('Adicione itens à programação primeiro');
-    ctl({t:'cmd',c:'show',id:items[0].id});
+    ctl({t:'cmd',c:'show',id:items[0].id,start:true});
   };
   $('#dOk').onclick=()=>{const c=$('#code').value.replace(/[^A-Za-z0-9]/g,'').toUpperCase();if(c.length<4)return toast('Digite o endereço mostrado na TV');$('#dlg').close();const o=savedGet().find(x=>x.code===c);connectTV(o||{code:c,name:'TV '+c})};
   $('#code').onkeydown=e=>{if(e.key==='Enter')$('#dOk').click()};
@@ -2524,13 +2750,24 @@ function bootPC(){
     document.querySelectorAll('#uiView button').forEach(b=>b.classList.toggle('on',b.dataset.v===u.view));
   }
   $('#bUi').onclick=()=>{renderUI();$('#uiDlg').showModal()};
-  $('#uiTh').onclick=e=>{const b=e.target.closest('.uit');if(!b)return;const u=uiGet(),light=b.dataset.t==='claro';
+  const ljGet=()=>{try{return JSON.parse(localStorage.loja||'{}')}catch(e){return{}}};
+  const ljSet=o=>{localStorage.loja=JSON.stringify({...ljGet(),...o});applyLoja();try{renderLays();drawPv()}catch(e){}};
+  function renderLoja(){const o=ljGet();document.querySelectorAll('[data-lj]').forEach(x=>{if(document.activeElement!==x)x.value=o[x.dataset.lj]||''});
+    const b=$('#ljLogo');b.style.backgroundImage=o.logo?`url(${o.logo})`:'';b.textContent=o.logo?'':'Sem logo';$('#ljLogoRm').hidden=!o.logo}
+  $('#bLoja').onclick=()=>{renderLoja();$('#lojaDlg').showModal()};
+  $('#lojaDlg').addEventListener('input',e=>{const k=e.target.dataset.lj;if(k)ljSet({[k]:e.target.value})});
+  $('#lojaDlg').addEventListener('change',e=>{if(e.target.dataset.lj==='ig'){const h=igH(e.target.value);e.target.value=h;ljSet({ig:h})}});
+  $('#ljLogoIn').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+    try{const bm=await createImageBitmap(f),k=Math.min(1,600/Math.max(bm.width,bm.height)),c=document.createElement('canvas');c.width=Math.round(bm.width*k);c.height=Math.round(bm.height*k);c.getContext('2d').drawImage(bm,0,0,c.width,c.height);
+      ljSet({logo:c.toDataURL('image/png')});renderLoja();toast('Logo salva')}catch(err){toast('Não foi possível usar esta imagem')}};
+  $('#ljLogoRm').onclick=()=>{ljSet({logo:''});renderLoja()};
+  $('#uiTh').onclick=e=>{const b=e.target.closest('.uit');if(!b)return;const u=uiGet(),light=LIGHTUI.includes(b.dataset.t);
     uiSet({theme:b.dataset.t,acc:'',dim:u.bg!=='none'&&u.bg!=='pastel'&&light?Math.max(u.dim,.6):u.dim});renderUI();render()};
   $('#uiBg').onclick=e=>{const b=e.target.closest('button.uib');if(!b)return;const u=uiGet(),k=b.dataset.b;
-    uiSet({bg:k,blur:0,dim:k==='none'?u.dim:(u.theme==='claro'&&k!=='pastel'?.6:k==='pastel'&&u.theme!=='claro'?.55:.22)});renderUI()};
+    uiSet({bg:k,blur:0,dim:k==='none'?u.dim:(LIGHTUI.includes(u.theme)&&!['pastel','linho'].includes(k)?.6:['pastel','linho'].includes(k)&&!LIGHTUI.includes(u.theme)?.55:.22)});renderUI()};
   $('#uiBg').onchange=async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;e.target.value='';
     try{const bm=await createImageBitmap(f),k=Math.min(1,1920/Math.max(bm.width,bm.height)),c=document.createElement('canvas');c.width=Math.round(bm.width*k);c.height=Math.round(bm.height*k);
-      c.getContext('2d').drawImage(bm,0,0,c.width,c.height);localStorage.uiImg=c.toDataURL('image/jpeg',.8);uiSet({bg:'foto',blur:4,dim:uiGet().theme==='claro'?.55:.45});renderUI()}
+      c.getContext('2d').drawImage(bm,0,0,c.width,c.height);localStorage.uiImg=c.toDataURL('image/jpeg',.8);uiSet({bg:'foto',blur:4,dim:LIGHTUI.includes(uiGet().theme)?.55:.45});renderUI()}
     catch(err){toast('Não foi possível usar esta foto. Tente uma imagem menor.')}};
   $('#uiBlur').oninput=e=>uiSet({blur:+e.target.value});
   $('#uiDim').oninput=e=>uiSet({dim:e.target.value/100});
@@ -2705,7 +2942,15 @@ function bootTV(kind){
     else bgA.pause();
   }
 
+  let introT=null;
+  function intro(i){const o=$('#intro');if(!o||!pl.length)return show(i);
+    clearTimeout(timer);clearTimeout(introT);pauseMedia();o.hidden=false;o.classList.remove('out');clearTimeout(o._t);
+    o.querySelectorAll('.ilg,.its').forEach(x=>{x.style.animation='none';void x.offsetWidth;x.style.animation=''});
+    $('#tv').classList.add('intro');$('#idle').hidden=true;
+    introT=setTimeout(()=>{introT=null;show(i);endIntro()},3600)}
+  function endIntro(){const o=$('#intro');if(!o||o.hidden)return;o.classList.add('out');$('#tv').classList.remove('intro');clearTimeout(o._t);o._t=setTimeout(()=>{if(!introT)o.hidden=true},900)}
   async function show(i){
+    if(introT){clearTimeout(introT);introT=null;endIntro()}
     clearTimeout(timer);if(aud){aud.pause();aud=null}if(ytp){try{ytp.destroy()}catch(e){}ytp=null}
     if(!pl.length){stage.innerHTML='';cur=null;$('#idle').hidden=false;bgSync();report();return}
     idx=((i%pl.length)+pl.length)%pl.length;
@@ -2772,7 +3017,7 @@ function bootTV(kind){
     applyCfg();
     if(JSON.stringify(bg)!==oldBg)await bgNext(true);
     const k=pl.findIndex(x=>x.id===curId);
-    if(wasEmpty||k<0)show(0);else{idx=k;bgSync();report()}
+    if(wasEmpty&&pl.length)intro(0);else if(wasEmpty||k<0)show(0);else{idx=k;bgSync();report()}
   }
   async function loadLocal(){
     const prev=[cur&&cur.id,!pl.length,JSON.stringify(bg)],a=await all();
@@ -2820,7 +3065,7 @@ function bootTV(kind){
       else if(d.c==='pause'){playing=false;clearTimeout(timer);pauseMedia();bgSync();report()}
       else if(d.c==='next')show(idx+1);
       else if(d.c==='prev')show(idx-1);
-      else if(d.c==='show'){const k=pl.findIndex(x=>x.id===d.id);if(k>=0){playing=true;show(k)}}
+      else if(d.c==='show'){const k=pl.findIndex(x=>x.id===d.id);if(k>=0){playing=true;d.start?intro(k):show(k)}}
     }else if(d.t==='clear'){
       if(d.all||local){await clr();pl=[];bg=[];bgm={}}
       else{const own=info.dev||'_';pl=pl.filter(x=>x.owner!==own);delete bgm[own];bg=[...new Set(Object.values(bgm).flat())];
@@ -2901,7 +3146,7 @@ function bootTV(kind){
     bc.onmessage=e=>{const d=e.data;if(d.t==='reload')loadLocal();else onData(d)};
     addEventListener('pagehide',()=>bc.postMessage({t:'closed'}));
     loadLocal();
-  }else{applyCfg();bgNext(true);show(0)}
+  }else{applyCfg();bgNext(true);intro(0)}
 }
 </script>
 </body>

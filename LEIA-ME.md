@@ -69,6 +69,23 @@ Clique no ícone de **paleta** no topo:
 - Mantenha o app aberto enquanto converte. Vídeos 4K longos podem levar alguns minutos.
 - Arquivos muito longos podem demorar para converter. O limite é cerca de 1,8 GB por arquivo.
 
+## Edição Moda Atacado
+O sistema vem preparado para lojas de moda no atacado.
+
+**Sua loja** (ícone de loja no topo): cadastre o nome, a logo (de preferência PNG com fundo transparente), a frase, o WhatsApp de vendas, o Instagram, o endereço e o horário. O nome e a logo aparecem no topo do sistema. Esses dados também já preenchem os modelos, como contato, rodapés e QR code do WhatsApp.
+
+**Modelos** (aba Modelos), em 6 grupos:
+- **Coleção**: Lançamento de coleção, Acabou de chegar (selo giratório "Novidade" ou "Reposição"), Peça em destaque (referência, preço de atacado, tamanhos e cores), Vitrine de peças (até 6 fotos com preço) e Mais vendidos.
+- **Atacado**: Tabela de preços, Como comprar (pedido mínimo, pagamento, frete…), Tabela de medidas e Contato e redes (com QR code do WhatsApp).
+- **Promoções**: Promoção, Liquidação (com contagem regressiva) e Black Friday.
+- **Apresentação**, **Informativo** e **Celebrações**, incluindo as datas do varejo: Dia do Consumidor, Dia da Costureira, Dia do Comerciante, Dia do Vendedor, Mães, Namorados, Pais, Cliente, Natal e outras.
+
+**Apresentações prontas**: Lançamento de coleção, Atacado: como comprar, Vitrine da semana, Liquidação, Black Friday no atacado, Datas do varejo de moda, Reunião de resultados, Informativo da semana, Reconhecimento da equipe e Fim de ano.
+
+**Temas de moda** para os slides: Couture, Off-white, Nude, Rosé, Champagne e Oliva. **Temas do sistema**: Atelier (padrão) e Boutique (claro), com os fundos Seda e Linho.
+
+**Abertura**: toda apresentação começa com a marca Mercatto Labs em transparência e a frase "Fazendo Acontecer", por cerca de 3,5 segundos. Isso acontece quando a programação chega a uma TV vazia, quando a TV liga com conteúdo e ao tocar em "Do início". Para pular, use ▶ no controle.
+
 ## Slides com avanço manual ou automático
 - **Automático**: cada item fica na TV pelo tempo definido e passa sozinho; vídeos passam ao terminar.
 - **Manual**: a TV para em cada slide até você avançar. Troque no botão de mão/relógio na barra inferior, ou em Tela > Avanço.
