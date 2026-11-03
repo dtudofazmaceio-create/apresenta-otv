@@ -145,7 +145,7 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 #idle .pair{display:flex;align-items:center;gap:3vw;margin-top:3vw}#idle .pair .mc{margin-top:0}
 #tvQR{display:flex;align-items:center;gap:1.4vw;text-align:left}#tvQR .qr{width:9vw;height:9vw;background:#fff;border-radius:.8vw;padding:.4vw}#tvQR .qr svg{width:100%;height:100%;display:block}
 #tvQR small{font-size:1.05vw;color:var(--mu);line-height:1.4}
-.tag.off{background:#f8717122;color:var(--er)}
+.tag.off{background:#f8717122;color:var(--er)}.tag.sh{background:#5b8cff22;color:var(--ac)}
 #code{font-size:16px;letter-spacing:.14em;text-align:left;font-weight:700;font-family:'JetBrains Mono',monospace}#code::placeholder{text-transform:none;letter-spacing:0;font-weight:400;font-family:Inter,sans-serif}.tag.chk{background:transparent;color:var(--mu);font-weight:500}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.hc{grid-template-columns:1fr}}
 /* ===== modelos profissionais (1em = 1% da largura do slide) ===== */
@@ -381,12 +381,12 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 @media(max-width:760px){#list.gview{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#list.gview .it{min-width:0}#list.gview .nm b{font-size:13px}#list.gview .ac button{padding:6px}#list.gview .sec input{width:60px}.uith{grid-template-columns:repeat(2,1fr)}.uibg{grid-template-columns:repeat(3,1fr)}}
 
 /* assinatura Mercatto Labs na TV */
-#brand{position:absolute;top:1.8vw;left:2vw;height:3.9vw;padding:.55vw 1vw .55vw .55vw;box-sizing:content-box;border-radius:1.1vw;background:rgba(8,10,20,.5);backdrop-filter:blur(.6vw);-webkit-backdrop-filter:blur(.6vw);opacity:.72;pointer-events:none;z-index:4;transition:opacity .6s}
+#brand{position:absolute;top:2vw;left:2.2vw;height:4vw;opacity:.42;pointer-events:none;z-index:4;transition:opacity .6s;filter:drop-shadow(0 .1vw .25vw rgba(0,0,0,.55)) drop-shadow(0 0 .9vw rgba(0,0,0,.25))}
 #brand .mlsvg{height:100%;width:auto;display:block}
 #brandQR{position:absolute;right:2vw;bottom:2vw;display:flex;align-items:center;gap:.9vw;padding:.6vw .9vw .6vw .6vw;border-radius:1.1vw;background:rgba(8,10,20,.55);backdrop-filter:blur(.6vw);-webkit-backdrop-filter:blur(.6vw);opacity:.88;pointer-events:none;z-index:4;transition:bottom .4s,opacity .6s}
 #brandQR .q{width:6.6vw;height:6.6vw;border-radius:.5vw;overflow:hidden;background:#fff}#brandQR .q svg{width:100%;height:100%;display:block}
 #brandQR .t{display:flex;flex-direction:column;gap:.35vw;color:#fff;font-family:Inter,system-ui,sans-serif;line-height:1.25}
-#brandQR .t b{font-size:.95vw;font-weight:700}#brandQR .t span{font-size:.85vw;opacity:.8}
+#brandQR .t b{font-size:1.15vw;font-weight:700;line-height:1.2}#brandQR .t span{font-size:.85vw;opacity:.8}
 #tv.hastick #brandQR{bottom:6.4vw}
 #tv.hasclock #brand{top:2vw}
 #tv.isidle #brand,#tv.isidle #brandQR{opacity:0}
@@ -632,10 +632,19 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
   <div id="tick" hidden><span></span></div>
   <div id="badge"></div>
   <div id="brand"></div>
-  <div id="brandQR"><div class="q"></div><div class="t"><b>Fale com a<br>Mercatto Labs</b><span>WhatsApp<br>(82) 99662-2036</span></div></div>
+  <div id="brandQR"><div class="q"></div><div class="t"><b>Fale com<br>a gente</b></div></div>
 </div>
 <div id="toast"></div>
 <div id="upd" hidden><i data-i="refresh"></i><span>Nova versão disponível</span><button class="pri" id="bUpd">Atualizar</button></div>
+<dialog id="clrDlg" style="width:min(94vw,460px)">
+  <h3 style="margin:0 0 6px">Limpar a TV</h3>
+  <p class="mu" style="font-size:13px;margin:0 0 14px">A programação deste aparelho continua salva aqui; só sai da TV.</p>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <button data-clr="mine" style="justify-content:flex-start"><i data-i="trash"></i>Remover só o conteúdo deste aparelho</button>
+    <button class="dg" data-clr="all" style="justify-content:flex-start"><i data-i="trash"></i>Remover tudo da TV (inclusive de outros aparelhos)</button>
+    <button data-clr="x">Cancelar</button>
+  </div>
+</dialog>
 <dialog id="logDlg" style="width:min(94vw,720px)">
   <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><h3 style="margin:0">Detalhes da conversão</h3><button class="ic" onclick="this.closest('dialog').close()"><i data-i="x"></i></button></div>
   <p class="mu" style="font-size:13px">Se o problema continuar, copie este texto e envie para o suporte.</p>
@@ -2203,7 +2212,7 @@ function bootPC(){
   addEventListener('paste',e=>{const f=[...(e.clipboardData?.files||[])];if(f.length)addFiles(f)});
 
   /* ---------- conexão com a TV ---------- */
-  const PCNAME=devName();
+  const PCNAME=devName(),DEVID=localStorage.devId||(localStorage.devId=uid());
   let takenMsg='',tvs=[],lobSt='w',target=null,screens=null,retryT,localOn=false,syncing=false,again=false,autoT;
   const isOn=()=>!!(conn&&conn.open);
   const setConn=(s,t)=>{$('#dot').className='dot '+s;$('#cTxt').textContent=t};
@@ -2215,7 +2224,8 @@ function bootPC(){
   }
   const send=m=>{if(!isOn()){toast('Conecte uma TV primeiro');return false}conn.send(m);return true};
   const ctl=m=>{bc.postMessage(m);if(isOn())conn.send(m)};
-  function onState(d){curId=d.id;tvPlaying=d.playing;syncUI();document.querySelectorAll('#list .it').forEach(x=>x.classList.toggle('now',x.dataset.id===curId))}
+  function onState(d){curId=d.id;tvPlaying=d.playing;syncUI();document.querySelectorAll('#list .it').forEach(x=>x.classList.toggle('now',x.dataset.id===curId));
+    if(isOn())$('#msg').textContent=curId&&!items.some(x=>x.id===curId)?`Na TV agora: conteúdo de ${d.by||'outro aparelho'}`:(tvPlaying?'Na TV agora: sua programação':'TV pausada')}
   bc.onmessage=e=>{
     const d=e.data;
     if(d.t==='vfail')onVfail(d.id);
@@ -2256,13 +2266,13 @@ function bootPC(){
       else if(d.t==='state')onState(d);
       else if(d.t==='vfail')onVfail(d.id);
       else if(d.t==='info'&&d.name&&info.code){info.name=d.name;if(target&&target.code===info.code){target.name=d.name;localStorage.last=JSON.stringify(target)}saveTV({code:info.code,name:d.name});setConn('on',d.name);renderSaved()}
-      else if(d.t==='taken'&&c===conn){want=false;clearTimeout(retryT);toast(`Outro aparelho assumiu o controle de ${info.name}`);takenMsg=`${info.name} está sendo controlada por outro aparelho`;setConn('',takenMsg)}
+      else if(d.t==='taken'&&c===conn){want=false;clearTimeout(retryT);toast(d.msg||`Outro aparelho assumiu o controle de ${info.name}`);takenMsg=d.msg||`${info.name} está sendo controlada por outro aparelho`;setConn('',takenMsg)}
     });
   }
   /* TVs salvas (qualquer rede) */
   const savedGet=()=>{try{return JSON.parse(localStorage.savedTVs||'[]')}catch(e){return[]}},savedPut=a=>localStorage.savedTVs=JSON.stringify(a.slice(0,20));
   function saveTV(t){const a=savedGet(),o=a.find(x=>x.code===t.code);savedPut([{code:t.code,name:(t.name&&!/^TV [A-Z0-9]+$/.test(t.name))?t.name:(o&&o.name)||t.name||('TV '+t.code)},...a.filter(x=>x.code!==t.code)])}
-  const st={},probing=new Map();
+  const st={},busyN={},probing=new Map();
   function probe(code){
     if(probing.has(PREFIX+code))return;st[code]='chk';renderSaved();
     ensurePeer(p=>{const c=p.connect(PREFIX+code,{reliable:true});let done=false;
@@ -2271,7 +2281,7 @@ function bootPC(){
         setTimeout(()=>{try{c.close()}catch(e){}},300);renderSaved()};
       const to=setTimeout(()=>fin('off'),8000);probing.set(PREFIX+code,fin);
       c.on('open',()=>c.send({t:'ping'}));
-      c.on('data',d=>{if(d.t==='pong')fin(d.busy?'busy':'on',d)});
+      c.on('data',d=>{if(d.t==='pong'){busyN[code]=d.busy;fin(d.busy?'busy':'on',d)}});
       c.on('error',()=>fin('off'));
     });
   }
@@ -2279,7 +2289,7 @@ function bootPC(){
     const a=savedGet(),cc=isOn()&&target&&target.code;
     $('#saved').innerHTML=a.map(t=>{const s=cc===t.code?'cur':st[t.code]||'';
       return `<div class="dev${s==='cur'?' cur':''}" data-sc="${esc(t.code)}"><div class="di">${ic('tv')}</div><div class="nm"><b>${esc(t.name)}</b><small class="mu">${
-        s==='cur'?'<span class="tag ok">Conectada</span>':s==='on'?'<span class="tag ok">Online</span>':s==='busy'?'<span class="tag">Em uso</span>':s==='off'?'<span class="tag off">Offline</span>':s==='chk'?'<span class="tag chk">verificando…</span>':''} Endereço <b style="font-family:JetBrains Mono,monospace;letter-spacing:.08em;display:inline">${esc(t.code)}</b></small></div>
+        s==='cur'?'<span class="tag ok">Conectada</span>':s==='on'?'<span class="tag ok">Online</span>':s==='busy'?`<span class="tag sh">Conectada a ${esc(busyN[t.code]||'outro aparelho')}</span>`:s==='off'?'<span class="tag off">Offline</span>':s==='chk'?'<span class="tag chk">verificando…</span>':''} Endereço <b style="font-family:JetBrains Mono,monospace;letter-spacing:.08em;display:inline">${esc(t.code)}</b></small></div>
         <button class="ic" data-sa="link" title="Copiar link de controle remoto (para usar em outro aparelho)">${ic('link')}</button><button class="ic dg" data-sa="rm" title="Remover da lista">${ic('x')}</button>${s==='cur'?'':`<button class="pri" data-sa="go">Conectar</button>`}</div>`}).join('')
       ||'<p class="mu" style="font-size:12px;margin:6px 2px">As TVs que você conectar ficam salvas aqui, prontas para usar de qualquer rede.</p>';
   }
@@ -2325,8 +2335,8 @@ function bootPC(){
     $('#devs').innerHTML=tvs.map(t=>{
       const me=cc===t.code,busy=!me&&t.busy;
       return `<div class="dev${me?' cur':''}" data-code="${esc(t.code)}"><div class="di">${ic('tv')}</div>
-      <div class="nm"><b>${esc(t.name)}</b><small class="mu">${me?'<span class="tag ok">Conectada</span>':busy?`<span class="tag">Em uso · ${esc(t.busy)}</span>`:''}${esc([t.name!==t.model&&t.model,t.res].filter(Boolean).join(' · '))}</small></div>
-      ${me?`<button class="ic" data-a="ren" title="Renomear esta TV">${ic('edit')}</button><button data-a="off">Desconectar</button>`:`<button class="pri" data-a="go">${busy?'Assumir':'Conectar'}</button>`}</div>`;
+      <div class="nm"><b>${esc(t.name)}</b><small class="mu">${me?'<span class="tag ok">Conectada</span>':busy?`<span class="tag sh">Conectada a ${esc(t.busy)}</span>`:''}${esc([t.name!==t.model&&t.model,t.res].filter(Boolean).join(' · '))}</small></div>
+      ${me?`<button class="ic" data-a="ren" title="Renomear esta TV">${ic('edit')}</button><button data-a="off">Desconectar</button>`:`<button class="pri" data-a="go">${busy?'Conectar junto':'Conectar'}</button>`}</div>`;
     }).join('')||(lobSt==='off'?'':`<div class="dev hint">Nenhuma TV ainda. Abra o endereço da TV no navegador dela (veja abaixo) — ela aparece aqui automaticamente.</div>`);
     {const a=savedGet();let ch=false;for(const t of tvs){const x=a.find(y=>y.code===t.code);if(x&&x.name!==t.name){x.name=t.name;ch=true}}if(ch){savedPut(a);renderSaved()}}
     if(on&&target){const t=tvs.find(x=>x.code===target.code);if(t&&t.name!==target.name){target.name=t.name;localStorage.last=JSON.stringify(target);setConn('on',t.name)}}
@@ -2335,7 +2345,7 @@ function bootPC(){
   $('#devs').onclick=e=>{
     const b=e.target.closest('button');if(!b)return;
     const t=tvs.find(x=>x.code===b.closest('.dev').dataset.code);if(!t)return;
-    if(b.dataset.a==='go'){if(t.busy&&!confirm(`${t.name} está sendo usada por ${t.busy}. Assumir o controle?`))return;$('#dlg').close();connectTV(t)}
+    if(b.dataset.a==='go'){$('#dlg').close();connectTV(t)}
     else if(b.dataset.a==='off')disconnect();
     else if(b.dataset.a==='ren'){
       const n=(prompt('Nome desta TV (ex.: TV da Recepção)',t.name)||'').trim().slice(0,40);
@@ -2418,7 +2428,7 @@ function bootPC(){
     if(syncing){again=true;return}
     syncing=true;$('#bSync').disabled=true;
     try{
-      const c=conn;c.send({t:'hello',from:PCNAME,v:APPV});
+      const c=conn;c.send({t:'hello',from:PCNAME,v:APPV,dev:DEVID});
       tvHas=null;for(let i=0;i<50&&!tvHas&&c.open;i++)await sleep(100);
       const has=new Set(tvHas||[]),todo=[...items,...bgs].filter(x=>!has.has(x.id));let n=0;
       for(const it of todo){
@@ -2442,7 +2452,8 @@ function bootPC(){
   $('#bPlay').onclick=()=>ctl({t:'cmd',c:tvPlaying?'pause':'play'});
   $('#bNext').onclick=()=>ctl({t:'cmd',c:'next'});
   $('#bPrev').onclick=()=>ctl({t:'cmd',c:'prev'});
-  $('#bClear').onclick=()=>{if(confirm('Remover todo o conteúdo da TV? (a biblioteca do computador é mantida)'))send({t:'clear'})};
+  $('#bClear').onclick=()=>$('#clrDlg').showModal();
+  $('#clrDlg').onclick=e=>{const b=e.target.closest('[data-clr]');if(!b)return;$('#clrDlg').close();if(b.dataset.clr==='x')return;send({t:'clear',all:b.dataset.clr==='all'});toast(b.dataset.clr==='all'?'Todo o conteúdo da TV foi removido':'Seu conteúdo foi removido da TV')};
   /* aparência */
   const stPv=()=>{const b=stageBg(),e=$('#stPv');e.style.background=b.img?`url(${b.img}) center/cover`:b.css;e.style.filter=b.blur?'blur(1px)':''};
   let stT;addEventListener('uichange',()=>{stPv();clearTimeout(stT);stT=setTimeout(()=>{bc.postMessage({t:'stbg'});if(conn&&conn.open)conn.send({t:'stbg',bg:stageBg()})},700)});
@@ -2525,10 +2536,10 @@ function bootPC(){
 /* ================= TV ================= */
 function bootTV(kind){
   const local=kind==='local';
-  let pl=[],bg=[],cfg={...DEF},idx=0,timer,playing=true,url=null,skip=0,peer,conn,tries=0,aud=null,cur=null,bgi=0,bgUrl=null;
-  let sUrls=[],busyBy=null,lob=null,lobSt='w',peerOk=false,netErr=false,myCode=null;
+  let pl=[],bg=[],bgm={},onames={},cfg={...DEF},idx=0,timer,playing=true,url=null,skip=0,peer,tries=0,aud=null,cur=null,bgi=0,bgUrl=null;
+  const peers=new Map();let sUrls=[],lob=null,lobSt='w',peerOk=false,netErr=false,myCode=null;
   const stage=$('#stage'),bgA=new Audio(),bc=local?new BroadcastChannel('apres'):null;
-  if(kind==='net')try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
+  if(kind==='net')try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');bgm=JSON.parse(localStorage.bgm||'{}');onames=JSON.parse(localStorage.onames||'{}');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
   let SB=null;try{SB=local?stageBg():JSON.parse(localStorage.stbg||'null')}catch(e){}
   if(!local)kv.get('stbg').then(v=>{if(v&&(!SB||(v.ts||0)>=(SB.ts||0))){SB=v;applyBg()}});
   function applyBg(){
@@ -2539,10 +2550,13 @@ function bootTV(kind){
   }
   applyBg();
   const badge=t=>{const b=$('#badge');b.textContent=t;b.classList.add('show');clearTimeout(badge.t);badge.t=setTimeout(()=>b.classList.remove('show'),3500)};
-  const persist=()=>{localStorage.pl=JSON.stringify(pl);localStorage.bg=JSON.stringify(bg);localStorage.tvcfg=JSON.stringify(cfg)};
+  const persist=()=>{localStorage.pl=JSON.stringify(pl);localStorage.bg=JSON.stringify(bg);localStorage.bgm=JSON.stringify(bgm);localStorage.onames=JSON.stringify(onames);localStorage.tvcfg=JSON.stringify(cfg)};
   const vid=()=>stage.querySelector('video')||aud;
-  const report=()=>{const m={t:'state',id:cur&&cur.id,playing};if(local)bc.postMessage(m);else if(conn&&conn.open)conn.send(m)};
-  const vfail=id=>{const m={t:'vfail',id};if(local)bc.postMessage(m);else if(conn&&conn.open)conn.send(m)};
+  const openPeers=()=>[...peers.keys()].filter(c=>c.open);
+  const sendAll=m=>{for(const c of openPeers())try{c.send(m)}catch(e){}};
+  const ctlNames=()=>[...new Set([...peers.values()].filter((v,i)=>v.name&&[...peers.keys()][i].open).map(v=>v.name))];
+  const report=()=>{const o=cur&&pl.find(x=>x.id===cur.id),m={t:'state',id:cur&&cur.id,playing,by:o&&onames[o.owner]||null};if(local)bc.postMessage(m);else sendAll(m)};
+  const vfail=id=>{const m={t:'vfail',id};if(local)bc.postMessage(m);else sendAll(m)};
 
   function applyCfg(){
     stage.classList.toggle('cover',cfg.fit==='cover');
@@ -2627,11 +2641,14 @@ function bootTV(kind){
     SB=stageBg();applyBg();
     await refresh(...prev);
   }
-  async function onData(d){
+  async function onData(d,c){
+    const R=c||{send(){}},info=c&&peers.get(c)||{};
     if(d.t==='hello'){
       if(d.v&&d.v!==APPV&&!local){const last=+sessionStorage.updTry||0;if(Date.now()-last>300000){sessionStorage.updTry=Date.now();badge('Atualizando o aplicativo…');setTimeout(()=>location.reload(),1500);return}}
-      if(d.from&&d.from!==busyBy){busyBy=d.from;lob&&lob.update();stat()}
-      conn.send({t:'has',ids:(await all()).map(x=>x.id)});
+      if(c){info.name=d.from||info.name||'Computador';info.dev=d.dev||info.dev||('c'+Math.random().toString(36).slice(2,8));peers.set(c,info);onames[info.dev]=info.name;
+        for(const[o,v]of[...peers])if(o!==c&&v.dev===info.dev){peers.delete(o);try{o.send({t:'taken',msg:'Este aparelho foi conectado à TV em outra janela'})}catch(e){}setTimeout(()=>{try{o.close()}catch(e){}},400)} // mesmo aparelho em outra janela
+        lob&&lob.update();stat()}
+      R.send({t:'has',ids:(await all()).map(x=>x.id)});
     }
     else if(d.t==='ice'){if(Array.isArray(d.turn)&&d.turn.length)localStorage.iceTurn=JSON.stringify(d.turn)}
     else if(d.t==='name'){localStorage.tvname=d.name;lob&&lob.update();stat();badge('Nome da TV: '+d.name)}
@@ -2640,14 +2657,18 @@ function bootTV(kind){
       const rec={...d};['t','data','imgData','sndData'].forEach(k=>delete rec[k]);
       if(d.data)rec.blob=B(d.data,d.mime);if(d.imgData)rec.img=B(d.imgData,d.imgMime);if(d.sndData)rec.snd=B(d.sndData,d.sndMime);
       for(const k of Object.keys(rec)){const q=/^pp(\d+)(Data|Mime)$/.exec(k);if(!q)continue;if(q[2]==='Data'&&rec.people&&rec.people[q[1]])rec.people[q[1]].ph=B(d[k],d['pp'+q[1]+'Mime']);delete rec[k]}
-      await put(rec);conn.send({t:'ack',id:d.id});
+      await put(rec);R.send({t:'ack',id:d.id});
     }else if(d.t==='playlist'){
       const curId=cur&&cur.id,wasEmpty=!pl.length,oldBg=JSON.stringify(bg);
-      pl=d.list;bg=d.bg||[];cfg={...DEF,...d.cfg};persist();
+      const own=info.dev||'_',seg=d.list.map(x=>({id:x.id,dur:x.dur,owner:own})),ids=new Set(seg.map(x=>x.id));
+      const at=pl.findIndex(x=>x.owner===own),before=at<0?Infinity:pl.slice(0,at).filter(x=>x.owner!==own&&!ids.has(x.id)).length;
+      const rest=pl.filter(x=>x.owner!==own&&!ids.has(x.id));
+      pl=at<0?rest.concat(seg):[...rest.slice(0,before),...seg,...rest.slice(before)];
+      bgm[own]=d.bg||[];bg=[...new Set(Object.values(bgm).flat())];cfg={...DEF,...d.cfg};persist();
       const keep=new Set([...pl.map(x=>x.id),...bg]);
       for(const x of await all())if(!keep.has(x.id))await del(x.id);
       playing=true;await refresh(curId,wasEmpty,oldBg);
-      badge('Conteúdo atualizado');
+      badge(peers.size>1?`Conteúdo de ${info.name||'um aparelho'} atualizado`:'Conteúdo atualizado');
     }else if(d.t==='cfg'){cfg={...DEF,...d.cfg};persist();applyCfg();bgSync()}
     else if(d.t==='stbg'){
       if(local&&!d.bg)SB=stageBg();
@@ -2659,17 +2680,22 @@ function bootTV(kind){
       else if(d.c==='next')show(idx+1);
       else if(d.c==='prev')show(idx-1);
       else if(d.c==='show'){const k=pl.findIndex(x=>x.id===d.id);if(k>=0){playing=true;show(k)}}
-    }else if(d.t==='clear'){await clr();pl=[];bg=[];persist();bgA.pause();bgA.removeAttribute('src');show(0)}
+    }else if(d.t==='clear'){
+      if(d.all||local){await clr();pl=[];bg=[];bgm={}}
+      else{const own=info.dev||'_';pl=pl.filter(x=>x.owner!==own);delete bgm[own];bg=[...new Set(Object.values(bgm).flat())];
+        const keep=new Set([...pl.map(x=>x.id),...bg]);for(const x of await all())if(!keep.has(x.id))await del(x.id)}
+      persist();if(!bg.length){bgA.pause();bgA.removeAttribute('src')}show(cur&&pl.some(x=>x.id===cur.id)?pl.findIndex(x=>x.id===cur.id):0);
+      badge(d.all?'Conteúdo da TV removido':`Conteúdo de ${info.name||'um aparelho'} removido`)}
   }
 
   /* identidade e status da TV na rede */
   const tvName=()=>localStorage.tvname||devName();
-  const me=()=>({code:myCode,name:tvName(),model:devName(),res:`${Math.round(screen.width*devicePixelRatio)}×${Math.round(screen.height*devicePixelRatio)}`,busy:busyBy});
+  const me=()=>({code:myCode,name:tvName(),model:devName(),res:`${Math.round(screen.width*devicePixelRatio)}×${Math.round(screen.height*devicePixelRatio)}`,busy:ctlNames().join(', ')||null});
   function stat(){
     const s=$('#tvStat'),n=$('#tvName');if(!s)return;
     n.textContent=tvName();
     let d='w',t='Conectando ao serviço…';
-    if(conn&&conn.open)d='on',t=`Conectada a ${busyBy||'um computador'} · aguardando conteúdo`;
+    const nm=ctlNames(),cnt=openPeers().filter(c=>(peers.get(c)||{}).name).length;if(cnt)d='on',t=`Conectada a ${cnt>1&&(nm.length<cnt||cnt>2)?cnt+' aparelhos':nm.join(' e ')} · aguardando conteúdo`;
     else if(netErr)d='',t='Sem conexão com a internet — tentando de novo…';
     else if(peerOk)d='on',t=lobSt==='on'?'Pronta · aparece automaticamente nos computadores desta rede':lobSt==='off'?'Pronta · conecte usando o código abaixo':'Pronta · anunciando na rede…';
     s.innerHTML=`<span class="dot ${d}"></span>${esc(t)}`;
@@ -2692,11 +2718,11 @@ function bootTV(kind){
     peer.on('connection',c=>{
       // só assume o controle quando o computador manda a primeira mensagem (verificações de status não derrubam quem está conectado)
       c.on('data',d=>{
-        if(d.t==='ping'){c.send({t:'pong',name:tvName(),busy:conn&&conn.open&&conn!==c?(busyBy||'outro aparelho'):null});setTimeout(()=>{try{c.close()}catch(e){}},2000);return}
-        if(conn!==c){if(conn){const o=conn;conn=null;try{o.send({t:'taken'})}catch(e){}setTimeout(()=>{try{o.close()}catch(e){}},400)}conn=c;badge('Computador conectado');try{c.send({t:'info',name:tvName()})}catch(e){}report();stat()}
-        onData(d);
+        if(d.t==='ping'){c.send({t:'pong',name:tvName(),busy:ctlNames().join(', ')||null});setTimeout(()=>{try{c.close()}catch(e){}},2000);return}
+        if(!peers.has(c)){peers.set(c,{});badge(peers.size>1?'Mais um aparelho conectado':'Computador conectado');try{c.send({t:'info',name:tvName()})}catch(e){}report();stat()}
+        onData(d,c);
       });
-      c.on('close',()=>{if(conn!==c)return;conn=null;busyBy=null;lob&&lob.update();stat();badge('Computador desconectado')});
+      c.on('close',()=>{if(!peers.has(c))return;const v=peers.get(c);peers.delete(c);lob&&lob.update();stat();badge(`${v.name||'Aparelho'} desconectado`)});
     });
     peer.on('disconnected',()=>{peerOk=false;stat();setTimeout(()=>!peer.destroyed&&peer.reconnect(),2000)});
     peer.on('error',e=>{
@@ -2708,7 +2734,7 @@ function bootTV(kind){
   if(kind==='cast'){
     $('#idle').innerHTML=`<div class="lg">${ic('cast')}</div><h1>Transmissão iniciada</h1><p>Recebendo a programação do computador…</p>`;
     navigator.presentation.receiver.connectionList.then(l=>{
-      const use=pc=>{const c=link(pc);conn=c;c.on('data',onData);c.on('open',report)};
+      const use=pc=>{const c=link(pc);peers.set(c,{});c.on('data',d=>onData(d,c));c.on('open',report);c.on('close',()=>peers.delete(c))};
       l.connections.forEach(use);l.onconnectionavailable=e=>use(e.connection);
     });
   }

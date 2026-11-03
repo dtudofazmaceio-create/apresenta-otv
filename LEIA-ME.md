@@ -39,7 +39,7 @@ Na aba **Modelos**:
 - **Mesma rede:** a TV aparece sozinha em "TVs na sua rede".
 - **Qualquer rede (pelo endereço):** cada TV mostra na tela um **Endereço** fixo (ex.: `K7M2QX`) e um **QR Code**. Digite o endereço em **Conectar TV**, ou aponte a câmera do celular para o QR Code. Funciona com a TV em outro prédio ou outra cidade; os dois aparelhos só precisam de internet.
 - As TVs usadas ficam em **"TVs salvas"**, com status Online / Em uso / Offline. O botão 🔗 copia um **link de controle remoto** para abrir em outro aparelho.
-- Se outro aparelho assumir a TV, o anterior para de tentar reconectar e mostra o aviso.
+- **Vários aparelhos na mesma TV:** computadores e celulares podem ficar conectados juntos, inclusive de redes diferentes. Cada aparelho envia a sua programação, e a TV exibe tudo em sequência, em blocos por aparelho. Qualquer um pode pausar, avançar ou voltar. Quando a TV está exibindo o conteúdo de outro aparelho, o rodapé mostra "Na TV agora: conteúdo de …". Em **Limpar TV**, escolha entre remover só o conteúdo deste aparelho ou tudo.
 - **Redes restritas (empresas, 4G):** se a TV aparecer Online mas a conexão não completar, cadastre um servidor de retransmissão (TURN) em **Conectar TV › Conexão entre redes diferentes (avançado)**. A Metered oferece 20 GB/mês grátis com cadastro. A configuração é enviada para a TV automaticamente.
 - Por limitação dos navegadores, não é possível conectar digitando o IP da TV. O endereço da TV cumpre esse papel e funciona mesmo quando o IP muda.
 
@@ -70,7 +70,7 @@ Clique no ícone de **paleta** no topo:
 - Arquivos muito longos podem demorar para converter. O limite é cerca de 1,8 GB por arquivo.
 
 ## Assinatura Mercatto Labs
-- Em todas as apresentações na TV, a logo da **Mercatto Labs** aparece semitransparente no canto superior esquerdo, e um **QR Code do WhatsApp** (82) 99662-2036 aparece no canto inferior direito, com o link `wa.me/5582996622036`. Os dois somem na tela de espera e o QR sobe quando a faixa rolante está ativa.
+- Em todas as apresentações na TV, a logo da **Mercatto Labs** aparece transparente, como marca-d'água, no canto superior esquerdo, e um **QR Code do WhatsApp** (82) 99662-2036, com a mensagem "Fale com a gente", aparece no canto inferior direito, com o link `wa.me/5582996622036`. Os dois somem na tela de espera e o QR sobe quando a faixa rolante está ativa.
 - Os arquivos da logo (SVG e PNG, versões para fundo escuro, fundo claro, branca e só o ícone) estão na pasta `brand/`.
 
 ## Recursos do app
