@@ -329,6 +329,25 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 .conv .cic{width:42px;height:42px;border-radius:10px;background:var(--p2);display:flex;align-items:center;justify-content:center;color:var(--ac);flex:none}
 .conv:not(.wait) .cic{animation:pulse 1.4s ease-in-out infinite}@keyframes pulse{50%{opacity:.45}}
 .conv small{color:var(--mu)}.cbar{height:6px;border-radius:6px;background:var(--p2);margin-top:6px;overflow:hidden}.cbar i{display:block;height:100%;background:var(--g);transition:width .3s}
+
+/* YouTube e apresentador */
+.ytadd{display:flex;gap:8px;align-items:center;margin-top:10px;padding:6px 6px 6px 10px;border:1px solid var(--ln);border-radius:12px;background:var(--in)}
+.ytadd .yti{color:#ff3b30;display:flex}.ytadd input{border:0;background:transparent;padding:6px 2px}.ytadd button{padding:8px 12px;font-size:13px}
+#bAdv.on{background:var(--ac);color:#fff;outline:0}
+#pres{position:fixed;inset:0;z-index:40;background:var(--bg);display:flex;flex-direction:column;padding:max(14px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));gap:14px}
+.pr-top{display:flex;align-items:center;gap:12px}.pr-top b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:16px}
+.pr-count{font:700 15px 'JetBrains Mono',monospace;background:var(--p2);padding:6px 10px;border-radius:9px}
+.pr-clock{font:700 15px 'JetBrains Mono',monospace;padding:6px 10px}
+.pr-main{flex:1;min-height:0;display:grid;grid-template-columns:1fr 300px;gap:16px}
+.pr-cur{display:flex;align-items:center;justify-content:center;min-height:0}
+.pr-cur .prv{width:100%;max-height:100%;aspect-ratio:16/9;border-radius:14px;box-shadow:var(--sh)}
+.pr-side{display:flex;flex-direction:column;gap:8px;min-width:0}.pr-side small{color:var(--mu);font-weight:700;letter-spacing:.1em}.pr-side p{font-size:12px;margin-top:auto}
+.prv{position:relative;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;width:100%}
+.prv img,.prv video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.prx{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;color:#aab;font-size:14px;text-align:center;padding:10px;background:var(--p2)}
+.pr-ctl{display:grid;grid-template-columns:1fr auto 1fr;gap:12px}.pr-ctl button{padding:18px;font-size:17px}.pr-ctl .ic{padding:18px 24px}
+body.prmode{overflow:hidden}
+@media(max-width:760px){.pr-main{grid-template-columns:1fr;grid-template-rows:auto auto}.pr-side p{display:none}.pr-side #prNext .prv{max-width:46%}.pr-ctl button{padding:22px 10px;font-size:16px}#prAdv{display:none}#bPres .lbl{display:none}#bAdv{display:none}}
 /* editor de pessoas */
 .prow{display:flex;gap:10px;align-items:center;padding:8px;border:1px solid var(--ln);border-radius:12px;background:var(--it);margin-bottom:8px}
 .pph{width:58px;height:58px;border-radius:50%;flex:none;background:var(--p2) center/cover no-repeat;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--mu);border:2px dashed var(--ln)}
@@ -394,6 +413,13 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 .mcredit .mlsvg{height:22px;width:auto}
 html[data-ui=claro] .mcredit .dk,html:not([data-ui=claro]) .mcredit .lt{display:none}
 #idle .mcr{position:absolute;right:2vw;bottom:1.6vw;height:2.4vw;opacity:.6}#idle .mcr .mlsvg{height:100%;width:auto}
+
+/* avanço manual, YouTube e tela cheia na TV */
+#slideNo{position:absolute;left:50%;bottom:2.2vw;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font:600 1.3vw Inter,sans-serif;padding:.4vw 1.2vw;border-radius:2vw;opacity:0;transition:.4s;z-index:5;pointer-events:none}#slideNo.show{opacity:1}
+#fsHint{position:absolute;left:50%;top:1.6vw;transform:translateX(-50%);background:rgba(0,0,0,.7);color:#fff;font:500 1.15vw Inter,sans-serif;padding:.6vw 1.4vw;border-radius:2vw;z-index:9;animation:fa .6s}
+#fsHint b{color:#8fb0ff}
+.ytw{position:absolute;inset:0}.ytw iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+#idle .tvinst{position:absolute;left:2vw;bottom:1.4vw;font-size:1vw;padding:.6vw 1vw}
 /* ===== app: base ===== */
 html{-webkit-text-size-adjust:100%;overscroll-behavior:none}
 body{-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
@@ -509,6 +535,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
       <div id="p-files">
         <label class="drop" id="drop"><i data-i="upload"></i><br><b class="desk">Solte arquivos aqui</b><b class="mob">Toque para escolher</b><br>fotos, vídeos, PDFs, áudios e .txt<br><small class="desk">ou clique para escolher (vários de uma vez) · Ctrl+O · Ctrl+V cola imagens</small><small class="mob">da galeria, da câmera ou dos arquivos</small>
           <input type="file" id="file" multiple accept="image/*,video/*,audio/*,.pdf,.txt,.mp4,.m4v,.mov,.webm,.mkv,.avi,.wmv,.asf,.flv,.f4v,.mpg,.mpeg,.m2v,.ts,.m2ts,.mts,.3gp,.3g2,.vob,.ogv,.divx,.rm,.rmvb,.hevc,.mxf,.dv,.mp3,.m4a,.aac,.wav,.ogg,.oga,.opus,.flac,.wma,.ac3,.aiff,.aif,.amr,.mka" hidden></label>
+        <div class="ytadd"><span class="yti"><i data-i="youtube"></i></span><input id="ytIn" placeholder="Cole aqui um link do YouTube" autocomplete="off"><button class="pri" id="ytAdd">Adicionar</button></div>
         <div class="row" style="margin-top:10px;gap:8px;flex-wrap:nowrap"><button id="bPick" style="flex:1"><i data-i="upload"></i>Escolher arquivos</button><button id="bPickDir" class="desk" style="flex:1"><i data-i="folder"></i>Escolher pasta</button>
           <input type="file" id="dirIn" webkitdirectory multiple hidden></div>
         <p class="mu" style="font-size:12px;margin-top:8px"><b>Vários de uma vez:</b> na janela de seleção, segure <kbd>Ctrl</kbd> e clique em cada arquivo, use <kbd>Shift</kbd> para um intervalo ou <kbd>Ctrl</kbd>+<kbd>A</kbd> para todos. No celular, toque e segure o primeiro e depois marque os outros. Com "Escolher pasta", entra tudo o que estiver na pasta.</p>
@@ -550,7 +577,10 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
       </div>
 
       <div id="p-screen" hidden>
-        <label class="l" style="margin-top:0">Transição</label>
+        <label class="l" style="margin-top:0">Avanço dos slides</label>
+        <div class="seg" data-k="adv"><button data-v="auto">Automático</button><button data-v="manual">Manual</button></div>
+        <p class="mu" style="font-size:12px;margin:6px 0 0">No <b>manual</b>, a TV só avança quando alguém aperta Próximo: no app, no modo apresentador, no controle remoto da TV ou num passador de slides.</p>
+        <label class="l">Transição</label>
         <div class="seg" data-k="tr"><button data-v="fade">Suave</button><button data-v="slide">Deslizar</button><button data-v="zoom">Zoom</button><button data-v="none">Nenhuma</button></div>
         <label class="l">Imagens</label>
         <div class="seg" data-k="fit"><button data-v="contain">Ajustar</button><button data-v="cover">Preencher</button></div>
@@ -572,6 +602,8 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
     <button class="ic" id="bNext" title="Próximo"><i data-i="skip-forward"></i></button>
     <button class="ic" id="bLoop" title="Repetir"><i data-i="repeat"></i></button>
     <button class="ic" id="bMute" title="Sem som na TV"></button>
+    <button class="ic" id="bAdv" title="Avanço: automático ou manual (A)"></button>
+    <button id="bPres" title="Modo apresentador (P)"><i data-i="presenter"></i><span class="lbl">Apresentador</span></button>
     <div id="msg" class="mu"></div>
     <button class="dg" id="bClear" hidden><i data-i="trash"></i>Limpar TV</button>
     <button id="bSync" hidden><i data-i="refresh"></i>Atualizar TV</button>
@@ -627,15 +659,24 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
       <div id="tvQR" hidden><div class="qr"></div><small>Controle de qualquer lugar:<br>aponte a câmera do celular</small></div></div>
     <small class="keys">OK/Enter: tela cheia · ◀ ▶ trocar · Espaço pausar</small>
     <div class="mcr" id="idleMcr"></div>
+    <button class="pri inst tvinst" data-install hidden><i data-i="download"></i>Instalar como app de tela cheia</button>
   </div>
   <div id="clock" hidden></div>
   <div id="tick" hidden><span></span></div>
   <div id="badge"></div>
+  <div id="slideNo"></div>
+  <div id="fsHint" hidden>Pressione <b>OK</b> no controle (ou clique) para tela cheia</div>
   <div id="brand"></div>
   <div id="brandQR"><div class="q"></div><div class="t"><b>Fale com<br>a gente</b></div></div>
 </div>
 <div id="toast"></div>
 <div id="upd" hidden><i data-i="refresh"></i><span>Nova versão disponível</span><button class="pri" id="bUpd">Atualizar</button></div>
+<div id="pres" hidden>
+  <div class="pr-top"><button class="ic" id="prX" title="Sair do modo apresentador (Esc)"><i data-i="x"></i></button><b id="prName"></b><span class="pr-count" id="prCount">—</span>
+    <div class="vseg" id="prAdv"><button data-v="auto">Automático</button><button data-v="manual">Manual</button></div><button class="pr-clock" id="prClock" title="Tempo de apresentação (clique para zerar)">00:00</button></div>
+  <div class="pr-main"><div class="pr-cur" id="prCur"></div><div class="pr-side"><small>A SEGUIR</small><div id="prNext"></div><p class="mu">Teclado ou passador: → / PageDown avança · ← / PageUp volta · B pausa · Esc sai</p></div></div>
+  <div class="pr-ctl"><button id="prPrevB"><i data-i="skip-back"></i>Anterior</button><button class="pri ic" id="prPlay"></button><button class="pri" id="prNextB">Próximo<i data-i="skip-forward"></i></button></div>
+</div>
 <dialog id="clrDlg" style="width:min(94vw,460px)">
   <h3 style="margin:0 0 6px">Limpar a TV</h3>
   <p class="mu" style="font-size:13px;margin:0 0 14px">A programação deste aparelho continua salva aqui; só sai da TV.</p>
@@ -1259,6 +1300,9 @@ function needsConv(i){
 const MLOGO={dark:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 120"><defs><linearGradient id="mlg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7C3AED"/><stop offset=".55" stop-color="#2563EB"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs><rect width="120" height="120" rx="30" fill="url(#mlg)"/>\n<path d="M28 88V47L56 75L84 47V88" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>\n<path d="M95 13Q96.6 25.4 107 27Q96.6 28.6 95 41Q93.4 28.6 83 27Q93.4 25.4 95 13Z" fill="#A5F3FC"/><path d="M152.06 74.0V33.4H161.514L175.782 56.832L189.702 33.4H199.156L199.272 74.0H188.716L188.6 52.482L178.16 69.998H173.056L162.674 53.062V74.0ZM222.84199999999998 74.522Q217.274 74.522 213.127 72.405Q208.98 70.288 206.689 66.60499999999999Q204.398 62.922 204.398 58.224Q204.398 53.525999999999996 206.631 49.842999999999996Q208.864 46.16 212.808 44.101Q216.75199999999998 42.042 221.682 42.042Q226.322 42.042 230.15 43.927Q233.978 45.812 236.24 49.465999999999994Q238.502 53.12 238.502 58.34Q238.502 58.92 238.44400000000002 59.674Q238.386 60.428 238.328 61.066H215.476Q215.708 61.936 216.172 62.632Q217.1 64.314 218.898 65.213Q220.696 66.112 223.19 66.112Q225.51 66.112 227.163 65.445Q228.816 64.77799999999999 230.44 63.385999999999996L236.24 69.418Q233.978 71.912 230.672 73.21700000000001Q227.36599999999999 74.522 222.84199999999998 74.522ZM215.302 55.266H228.178Q228.004 54.105999999999995 227.54 53.178Q226.67 51.611999999999995 225.19099999999997 50.742Q223.712 49.872 221.74 49.872Q219.768 49.872 218.289 50.742Q216.81 51.611999999999995 215.998 53.178Q215.534 54.164 215.302 55.266ZM243.106 74.0V42.564H253.60399999999998V46.334Q254.82199999999997 44.82599999999999 256.562 43.782Q259.69399999999996 42.042 264.15999999999997 42.042V51.959999999999994Q263.406 51.843999999999994 262.855 51.815Q262.304 51.786 261.666 51.786Q258.30199999999996 51.786 256.21399999999994 53.613Q254.12599999999998 55.44 254.12599999999998 59.558V74.0ZM284.366 74.522Q279.146 74.522 275.057 72.434Q270.968 70.346 268.648 66.663Q266.328 62.98 266.328 58.224Q266.328 53.468 268.648 49.814Q270.968 46.16 275.057 44.101Q279.146 42.042 284.366 42.042Q289.702 42.042 293.58799999999997 44.304Q297.474 46.566 299.098 50.684L290.572 55.034Q289.47 52.83 287.846 51.815Q286.222 50.8 284.308 50.8Q282.394 50.8 280.828 51.67Q279.262 52.54 278.363 54.193Q277.464 55.846000000000004 277.464 58.224Q277.464 60.66 278.363 62.342Q279.262 64.024 280.828 64.894Q282.394 65.764 284.308 65.764Q286.222 65.764 287.846 64.749Q289.47 63.734 290.572 61.53L299.098 65.88Q297.474 69.998 293.58799999999997 72.26Q289.702 74.522 284.366 74.522ZM321.972 74.0V69.94Q321.044 71.738 319.36199999999997 72.84Q316.81 74.522 312.692 74.522Q308.92199999999997 74.522 306.312 73.24600000000001Q303.702 71.97 302.339 69.76599999999999Q300.976 67.562 300.976 64.836Q300.976 61.936 302.455 59.819Q303.93399999999997 57.702 307.008 56.571Q310.082 55.44 314.954 55.44H321.218Q321.102 53.178 319.652 51.843999999999994Q318.028 50.452 314.548 50.452Q312.286 50.452 309.966 51.177Q307.646 51.902 306.022 53.178L302.31 45.696Q304.978 43.956 308.719 42.999Q312.46 42.042 316.17199999999997 42.042Q323.828 42.042 328.033 45.551Q332.238 49.06 332.238 56.542V74.0ZM321.218 61.182H316.462Q313.794 61.182 312.721 62.052Q311.64799999999997 62.922 311.64799999999997 64.372Q311.64799999999997 65.822 312.75 66.69200000000001Q313.852 67.562 315.76599999999996 67.562Q317.56399999999996 67.562 319.043 66.663Q320.522 65.764 321.218 63.908ZM352.734 74.522Q346.70199999999994 74.522 343.33799999999997 71.535Q339.974 68.548 339.974 62.516V50.742H335.392V42.564H339.974V35.546H350.99399999999997V42.564H358.186V50.742H350.99399999999997V62.4Q350.99399999999997 64.082 351.92199999999997 65.03899999999999Q352.84999999999997 65.996 354.29999999999995 65.996Q356.272 65.996 357.664 65.01L360.39 72.724Q358.998 73.652 356.96799999999996 74.087Q354.938 74.522 352.734 74.522ZM378.15999999999997 74.522Q372.12799999999993 74.522 368.76399999999995 71.535Q365.4 68.548 365.4 62.516V50.742H360.818V42.564H365.4V35.546H376.41999999999996V42.564H383.61199999999997V50.742H376.41999999999996V62.4Q376.41999999999996 64.082 377.34799999999996 65.03899999999999Q378.27599999999995 65.996 379.72599999999994 65.996Q381.698 65.996 383.09 65.01L385.816 72.724Q384.424 73.652 382.394 74.087Q380.364 74.522 378.15999999999997 74.522ZM405.32599999999996 74.522Q400.16399999999993 74.522 396.1619999999999 72.434Q392.15999999999997 70.346 389.8689999999999 66.663Q387.5779999999999 62.98 387.5779999999999 58.224Q387.5779999999999 53.468 389.8689999999999 49.814Q392.15999999999997 46.16 396.1619999999999 44.101Q400.16399999999993 42.042 405.32599999999996 42.042Q410.48799999999994 42.042 414.51899999999995 44.101Q418.54999999999995 46.16 420.81199999999995 49.814Q423.07399999999996 53.468 423.07399999999996 58.224Q423.07399999999996 62.98 420.81199999999995 66.663Q418.54999999999995 70.346 414.51899999999995 72.434Q410.48799999999994 74.522 405.32599999999996 74.522ZM405.32599999999996 65.764Q407.23999999999995 65.764 408.71899999999994 64.894Q410.1979999999999 64.024 411.0679999999999 62.313Q411.93799999999993 60.602 411.93799999999993 58.224Q411.93799999999993 55.846000000000004 411.0679999999999 54.193Q410.1979999999999 52.54 408.71899999999994 51.67Q407.23999999999995 50.8 405.32599999999996 50.8Q403.46999999999997 50.8 401.991 51.67Q400.51199999999994 52.54 399.61299999999994 54.193Q398.71399999999994 55.846000000000004 398.71399999999994 58.224Q398.71399999999994 60.602 399.61299999999994 62.313Q400.51199999999994 64.024 401.991 64.894Q403.46999999999997 65.764 405.32599999999996 65.764Z" fill="#FFFFFF"/><path d="M153.068 106.0V90.6H155.928V103.58H163.98V106.0ZM171.56799999999998 106.0 178.498 90.6H181.314L188.266 106.0H185.274L183.734 102.436H176.034L174.516 106.0ZM182.788 100.19200000000001 179.884 93.46000000000001 177.002 100.19200000000001ZM197.72400000000002 106.0V90.6H204.94Q207.71200000000002 90.6 209.16400000000002 91.689Q210.616 92.778 210.616 94.604Q210.616 95.836 210.044 96.694Q209.494 97.53 208.614 97.992Q208.9 98.08 209.16400000000002 98.19Q210.198 98.674 210.803 99.576Q211.40800000000002 100.478 211.40800000000002 101.82Q211.40800000000002 103.8 209.89000000000001 104.9Q208.372 106.0 205.38 106.0ZM200.584 103.756H205.204Q206.81 103.756 207.668 103.22800000000001Q208.526 102.7 208.526 101.534Q208.526 100.39 207.668 99.851Q206.81 99.312 205.204 99.312H200.584ZM200.584 97.09H204.632Q206.12800000000001 97.09 206.931 96.56200000000001Q207.734 96.034 207.734 94.978Q207.734 93.9 206.931 93.372Q206.12800000000001 92.844 204.632 92.844H200.584ZM226.74 106.22Q224.936 106.22 223.286 105.703Q221.636 105.186 220.668 104.372L221.658 102.15Q222.582 102.876 223.946 103.36Q225.31 103.844 226.74 103.844Q227.95 103.844 228.69799999999998 103.58Q229.446 103.316 229.798 102.86500000000001Q230.15 102.414 230.15 101.842Q230.15 101.138 229.644 100.709Q229.138 100.28 228.33499999999998 100.027Q227.53199999999998 99.774 226.553 99.554Q225.57399999999998 99.334 224.59499999999997 99.037Q223.61599999999999 98.74 222.813 98.267Q222.01 97.794 221.504 97.00200000000001Q220.998 96.21000000000001 220.998 94.978Q220.998 93.724 221.66899999999998 92.679Q222.34 91.634 223.715 91.007Q225.09 90.38 227.202 90.38Q228.588 90.38 229.952 90.732Q231.316 91.084 232.328 91.744L231.426 93.96600000000001Q230.392 93.35 229.292 93.053Q228.192 92.756 227.18 92.756Q225.992 92.756 225.255 93.042Q224.518 93.328 224.177 93.78999999999999Q223.83599999999998 94.252 223.83599999999998 94.846Q223.83599999999998 95.55 224.331 95.979Q224.826 96.408 225.629 96.65Q226.432 96.892 227.422 97.12299999999999Q228.412 97.354 229.39100000000002 97.64Q230.37 97.926 231.173 98.388Q231.976 98.85 232.471 99.642Q232.966 100.434 232.966 101.644Q232.966 102.876 232.29500000000002 103.92099999999999Q231.624 104.966 230.238 105.59299999999999Q228.852 106.22 226.74 106.22Z" fill="#67E8F9"/></svg>',light:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 120"><defs><linearGradient id="mlg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7C3AED"/><stop offset=".55" stop-color="#2563EB"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs><rect width="120" height="120" rx="30" fill="url(#mlg)"/>\n<path d="M28 88V47L56 75L84 47V88" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>\n<path d="M95 13Q96.6 25.4 107 27Q96.6 28.6 95 41Q93.4 28.6 83 27Q93.4 25.4 95 13Z" fill="#A5F3FC"/><path d="M152.06 74.0V33.4H161.514L175.782 56.832L189.702 33.4H199.156L199.272 74.0H188.716L188.6 52.482L178.16 69.998H173.056L162.674 53.062V74.0ZM222.84199999999998 74.522Q217.274 74.522 213.127 72.405Q208.98 70.288 206.689 66.60499999999999Q204.398 62.922 204.398 58.224Q204.398 53.525999999999996 206.631 49.842999999999996Q208.864 46.16 212.808 44.101Q216.75199999999998 42.042 221.682 42.042Q226.322 42.042 230.15 43.927Q233.978 45.812 236.24 49.465999999999994Q238.502 53.12 238.502 58.34Q238.502 58.92 238.44400000000002 59.674Q238.386 60.428 238.328 61.066H215.476Q215.708 61.936 216.172 62.632Q217.1 64.314 218.898 65.213Q220.696 66.112 223.19 66.112Q225.51 66.112 227.163 65.445Q228.816 64.77799999999999 230.44 63.385999999999996L236.24 69.418Q233.978 71.912 230.672 73.21700000000001Q227.36599999999999 74.522 222.84199999999998 74.522ZM215.302 55.266H228.178Q228.004 54.105999999999995 227.54 53.178Q226.67 51.611999999999995 225.19099999999997 50.742Q223.712 49.872 221.74 49.872Q219.768 49.872 218.289 50.742Q216.81 51.611999999999995 215.998 53.178Q215.534 54.164 215.302 55.266ZM243.106 74.0V42.564H253.60399999999998V46.334Q254.82199999999997 44.82599999999999 256.562 43.782Q259.69399999999996 42.042 264.15999999999997 42.042V51.959999999999994Q263.406 51.843999999999994 262.855 51.815Q262.304 51.786 261.666 51.786Q258.30199999999996 51.786 256.21399999999994 53.613Q254.12599999999998 55.44 254.12599999999998 59.558V74.0ZM284.366 74.522Q279.146 74.522 275.057 72.434Q270.968 70.346 268.648 66.663Q266.328 62.98 266.328 58.224Q266.328 53.468 268.648 49.814Q270.968 46.16 275.057 44.101Q279.146 42.042 284.366 42.042Q289.702 42.042 293.58799999999997 44.304Q297.474 46.566 299.098 50.684L290.572 55.034Q289.47 52.83 287.846 51.815Q286.222 50.8 284.308 50.8Q282.394 50.8 280.828 51.67Q279.262 52.54 278.363 54.193Q277.464 55.846000000000004 277.464 58.224Q277.464 60.66 278.363 62.342Q279.262 64.024 280.828 64.894Q282.394 65.764 284.308 65.764Q286.222 65.764 287.846 64.749Q289.47 63.734 290.572 61.53L299.098 65.88Q297.474 69.998 293.58799999999997 72.26Q289.702 74.522 284.366 74.522ZM321.972 74.0V69.94Q321.044 71.738 319.36199999999997 72.84Q316.81 74.522 312.692 74.522Q308.92199999999997 74.522 306.312 73.24600000000001Q303.702 71.97 302.339 69.76599999999999Q300.976 67.562 300.976 64.836Q300.976 61.936 302.455 59.819Q303.93399999999997 57.702 307.008 56.571Q310.082 55.44 314.954 55.44H321.218Q321.102 53.178 319.652 51.843999999999994Q318.028 50.452 314.548 50.452Q312.286 50.452 309.966 51.177Q307.646 51.902 306.022 53.178L302.31 45.696Q304.978 43.956 308.719 42.999Q312.46 42.042 316.17199999999997 42.042Q323.828 42.042 328.033 45.551Q332.238 49.06 332.238 56.542V74.0ZM321.218 61.182H316.462Q313.794 61.182 312.721 62.052Q311.64799999999997 62.922 311.64799999999997 64.372Q311.64799999999997 65.822 312.75 66.69200000000001Q313.852 67.562 315.76599999999996 67.562Q317.56399999999996 67.562 319.043 66.663Q320.522 65.764 321.218 63.908ZM352.734 74.522Q346.70199999999994 74.522 343.33799999999997 71.535Q339.974 68.548 339.974 62.516V50.742H335.392V42.564H339.974V35.546H350.99399999999997V42.564H358.186V50.742H350.99399999999997V62.4Q350.99399999999997 64.082 351.92199999999997 65.03899999999999Q352.84999999999997 65.996 354.29999999999995 65.996Q356.272 65.996 357.664 65.01L360.39 72.724Q358.998 73.652 356.96799999999996 74.087Q354.938 74.522 352.734 74.522ZM378.15999999999997 74.522Q372.12799999999993 74.522 368.76399999999995 71.535Q365.4 68.548 365.4 62.516V50.742H360.818V42.564H365.4V35.546H376.41999999999996V42.564H383.61199999999997V50.742H376.41999999999996V62.4Q376.41999999999996 64.082 377.34799999999996 65.03899999999999Q378.27599999999995 65.996 379.72599999999994 65.996Q381.698 65.996 383.09 65.01L385.816 72.724Q384.424 73.652 382.394 74.087Q380.364 74.522 378.15999999999997 74.522ZM405.32599999999996 74.522Q400.16399999999993 74.522 396.1619999999999 72.434Q392.15999999999997 70.346 389.8689999999999 66.663Q387.5779999999999 62.98 387.5779999999999 58.224Q387.5779999999999 53.468 389.8689999999999 49.814Q392.15999999999997 46.16 396.1619999999999 44.101Q400.16399999999993 42.042 405.32599999999996 42.042Q410.48799999999994 42.042 414.51899999999995 44.101Q418.54999999999995 46.16 420.81199999999995 49.814Q423.07399999999996 53.468 423.07399999999996 58.224Q423.07399999999996 62.98 420.81199999999995 66.663Q418.54999999999995 70.346 414.51899999999995 72.434Q410.48799999999994 74.522 405.32599999999996 74.522ZM405.32599999999996 65.764Q407.23999999999995 65.764 408.71899999999994 64.894Q410.1979999999999 64.024 411.0679999999999 62.313Q411.93799999999993 60.602 411.93799999999993 58.224Q411.93799999999993 55.846000000000004 411.0679999999999 54.193Q410.1979999999999 52.54 408.71899999999994 51.67Q407.23999999999995 50.8 405.32599999999996 50.8Q403.46999999999997 50.8 401.991 51.67Q400.51199999999994 52.54 399.61299999999994 54.193Q398.71399999999994 55.846000000000004 398.71399999999994 58.224Q398.71399999999994 60.602 399.61299999999994 62.313Q400.51199999999994 64.024 401.991 64.894Q403.46999999999997 65.764 405.32599999999996 65.764Z" fill="#0F172A"/><path d="M153.068 106.0V90.6H155.928V103.58H163.98V106.0ZM171.56799999999998 106.0 178.498 90.6H181.314L188.266 106.0H185.274L183.734 102.436H176.034L174.516 106.0ZM182.788 100.19200000000001 179.884 93.46000000000001 177.002 100.19200000000001ZM197.72400000000002 106.0V90.6H204.94Q207.71200000000002 90.6 209.16400000000002 91.689Q210.616 92.778 210.616 94.604Q210.616 95.836 210.044 96.694Q209.494 97.53 208.614 97.992Q208.9 98.08 209.16400000000002 98.19Q210.198 98.674 210.803 99.576Q211.40800000000002 100.478 211.40800000000002 101.82Q211.40800000000002 103.8 209.89000000000001 104.9Q208.372 106.0 205.38 106.0ZM200.584 103.756H205.204Q206.81 103.756 207.668 103.22800000000001Q208.526 102.7 208.526 101.534Q208.526 100.39 207.668 99.851Q206.81 99.312 205.204 99.312H200.584ZM200.584 97.09H204.632Q206.12800000000001 97.09 206.931 96.56200000000001Q207.734 96.034 207.734 94.978Q207.734 93.9 206.931 93.372Q206.12800000000001 92.844 204.632 92.844H200.584ZM226.74 106.22Q224.936 106.22 223.286 105.703Q221.636 105.186 220.668 104.372L221.658 102.15Q222.582 102.876 223.946 103.36Q225.31 103.844 226.74 103.844Q227.95 103.844 228.69799999999998 103.58Q229.446 103.316 229.798 102.86500000000001Q230.15 102.414 230.15 101.842Q230.15 101.138 229.644 100.709Q229.138 100.28 228.33499999999998 100.027Q227.53199999999998 99.774 226.553 99.554Q225.57399999999998 99.334 224.59499999999997 99.037Q223.61599999999999 98.74 222.813 98.267Q222.01 97.794 221.504 97.00200000000001Q220.998 96.21000000000001 220.998 94.978Q220.998 93.724 221.66899999999998 92.679Q222.34 91.634 223.715 91.007Q225.09 90.38 227.202 90.38Q228.588 90.38 229.952 90.732Q231.316 91.084 232.328 91.744L231.426 93.96600000000001Q230.392 93.35 229.292 93.053Q228.192 92.756 227.18 92.756Q225.992 92.756 225.255 93.042Q224.518 93.328 224.177 93.78999999999999Q223.83599999999998 94.252 223.83599999999998 94.846Q223.83599999999998 95.55 224.331 95.979Q224.826 96.408 225.629 96.65Q226.432 96.892 227.422 97.12299999999999Q228.412 97.354 229.39100000000002 97.64Q230.37 97.926 231.173 98.388Q231.976 98.85 232.471 99.642Q232.966 100.434 232.966 101.644Q232.966 102.876 232.29500000000002 103.92099999999999Q231.624 104.966 230.238 105.59299999999999Q228.852 106.22 226.74 106.22Z" fill="#2563EB"/></svg>',qr:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 33 33" shape-rendering="crispEdges"><rect x="-2" y="-2" width="33" height="33" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM17 0h1v1h-1zM20 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM12 1h1v1h-1zM15 1h1v1h-1zM17 1h1v1h-1zM18 1h1v1h-1zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM18 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM12 4h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM15 4h1v1h-1zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM8 7h1v1h-1zM9 7h1v1h-1zM10 7h1v1h-1zM11 7h1v1h-1zM13 7h1v1h-1zM18 7h1v1h-1zM19 7h1v1h-1zM20 7h1v1h-1zM0 8h1v1h-1zM6 8h1v1h-1zM8 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM21 8h1v1h-1zM22 8h1v1h-1zM25 8h1v1h-1zM26 8h1v1h-1zM27 8h1v1h-1zM1 9h1v1h-1zM2 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM23 9h1v1h-1zM24 9h1v1h-1zM26 9h1v1h-1zM27 9h1v1h-1zM0 10h1v1h-1zM1 10h1v1h-1zM3 10h1v1h-1zM4 10h1v1h-1zM6 10h1v1h-1zM9 10h1v1h-1zM11 10h1v1h-1zM12 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM23 10h1v1h-1zM24 10h1v1h-1zM3 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM8 11h1v1h-1zM11 11h1v1h-1zM14 11h1v1h-1zM15 11h1v1h-1zM16 11h1v1h-1zM18 11h1v1h-1zM21 11h1v1h-1zM23 11h1v1h-1zM25 11h1v1h-1zM1 12h1v1h-1zM4 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM12 12h1v1h-1zM13 12h1v1h-1zM14 12h1v1h-1zM18 12h1v1h-1zM21 12h1v1h-1zM22 12h1v1h-1zM23 12h1v1h-1zM28 12h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM7 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM19 13h1v1h-1zM22 13h1v1h-1zM23 13h1v1h-1zM24 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM2 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM10 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM14 14h1v1h-1zM15 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM18 14h1v1h-1zM20 14h1v1h-1zM22 14h1v1h-1zM25 14h1v1h-1zM26 14h1v1h-1zM0 15h1v1h-1zM1 15h1v1h-1zM2 15h1v1h-1zM5 15h1v1h-1zM8 15h1v1h-1zM11 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM16 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM23 15h1v1h-1zM26 15h1v1h-1zM28 15h1v1h-1zM1 16h1v1h-1zM3 16h1v1h-1zM6 16h1v1h-1zM8 16h1v1h-1zM9 16h1v1h-1zM10 16h1v1h-1zM11 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM21 16h1v1h-1zM25 16h1v1h-1zM26 16h1v1h-1zM0 17h1v1h-1zM1 17h1v1h-1zM2 17h1v1h-1zM5 17h1v1h-1zM7 17h1v1h-1zM9 17h1v1h-1zM11 17h1v1h-1zM16 17h1v1h-1zM19 17h1v1h-1zM21 17h1v1h-1zM22 17h1v1h-1zM24 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM28 17h1v1h-1zM0 18h1v1h-1zM1 18h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM6 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM16 18h1v1h-1zM19 18h1v1h-1zM20 18h1v1h-1zM22 18h1v1h-1zM24 18h1v1h-1zM25 18h1v1h-1zM28 18h1v1h-1zM0 19h1v1h-1zM5 19h1v1h-1zM8 19h1v1h-1zM9 19h1v1h-1zM10 19h1v1h-1zM12 19h1v1h-1zM14 19h1v1h-1zM15 19h1v1h-1zM16 19h1v1h-1zM18 19h1v1h-1zM19 19h1v1h-1zM21 19h1v1h-1zM24 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM7 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM16 20h1v1h-1zM18 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM26 20h1v1h-1zM27 20h1v1h-1zM28 20h1v1h-1zM8 21h1v1h-1zM12 21h1v1h-1zM13 21h1v1h-1zM16 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM9 22h1v1h-1zM13 22h1v1h-1zM14 22h1v1h-1zM15 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM26 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM13 23h1v1h-1zM17 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM27 23h1v1h-1zM28 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM17 24h1v1h-1zM19 24h1v1h-1zM20 24h1v1h-1zM21 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM25 24h1v1h-1zM27 24h1v1h-1zM0 25h1v1h-1zM2 25h1v1h-1zM3 25h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM9 25h1v1h-1zM13 25h1v1h-1zM16 25h1v1h-1zM18 25h1v1h-1zM25 25h1v1h-1zM26 25h1v1h-1zM27 25h1v1h-1zM0 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM6 26h1v1h-1zM9 26h1v1h-1zM12 26h1v1h-1zM14 26h1v1h-1zM18 26h1v1h-1zM20 26h1v1h-1zM22 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM25 26h1v1h-1zM26 26h1v1h-1zM27 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM9 27h1v1h-1zM11 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM19 27h1v1h-1zM21 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM25 27h1v1h-1zM26 27h1v1h-1zM28 27h1v1h-1zM0 28h1v1h-1zM1 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM16 28h1v1h-1zM18 28h1v1h-1zM23 28h1v1h-1zM24 28h1v1h-1zM25 28h1v1h-1zM26 28h1v1h-1z" fill="#0b0f1d"/></svg>'};
 const mlogo=(v,id)=>MLOGO[v].replace(/mlg/g,'mlg'+id).replace('<svg ','<svg class="mlsvg" role="img" aria-label="Mercatto Labs" ');
 const MERCATTO_WA='https://wa.me/5582996622036';
+function parseYT(u){u=String(u||'').trim();let m=/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/|v\/))([A-Za-z0-9_-]{11})/.exec(u)||/^([A-Za-z0-9_-]{11})$/.exec(u);if(!m)return null;
+  const t=/[?&#](?:t|start)=(\d+h)?(\d+m)?(\d+)s?/.exec(u);const start=t?(parseInt(t[1]||0)*3600+parseInt(t[2]||0)*60+parseInt(t[3]||0)):0;return{id:m[1],start}}
+const ytThumb=id=>`https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 const STUNS=[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302','stun:stun.cloudflare.com:3478']}];
 function iceTurn(){try{return JSON.parse(localStorage.iceTurn||'[]')}catch(e){return[]}}
 const peerOpts=()=>({config:{iceServers:STUNS.concat(iceTurn())}});
@@ -1278,6 +1322,7 @@ let mode={'#tv':'tv','#pc':'pc','#play':'play','#cast':'cast','#home':'home'}[lo
 if(!mode&&/[?&](open|share|tv)=/.test(location.search))mode='pc';
 if(!mode&&STANDALONE&&localStorage.role){mode=localStorage.role;history.replaceState(null,'','#'+mode)}
 if(mode==='home')mode='';
+if(mode==='tv'){const ml=document.querySelector('link[rel=manifest]');if(ml)ml.href='manifest-tv.webmanifest'}
 addEventListener('hashchange',()=>location.reload());
 
 /* ---------- ícones vetoriais ---------- */
@@ -1311,6 +1356,9 @@ grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width=
 folder:'<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>',
 'check-sq':'<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
 link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+youtube:'<rect x="2" y="5" width="20" height="14" rx="4"/><polygon points="10 9 15 12 10 15 10 9" fill="currentColor"/>',
+presenter:'<rect x="2" y="3" width="20" height="13" rx="2"/><path d="M12 16v5M8 21h8"/><path d="M9 8l3 2.5L9 13"/>',
+hand:'<path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-6-2.4l-3.6-3.6a2 2 0 0 1 2.8-2.8L6 15"/>',
 refresh:'<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
 download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
 list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
@@ -1336,7 +1384,7 @@ const TPL=[
 {n:'Natureza',c1:'#064e3b',c2:'#22c55e',fg:'#f0fff4',font:'arredondada',al:'center'},
 {n:'Pôr do sol',c1:'#f97316',c2:'#be123c',fg:'#fff7ed',font:'arredondada',al:'left'},
 {n:'Noite',c1:'#0f172a',c2:'#3730a3',fg:'#e0e7ff',font:'mono',al:'left'}];
-const DEF={tr:'fade',fit:'contain',mbg:'sys',clock:false,tick:'',vol:.4,mute:false,loop:true};
+const DEF={tr:'fade',fit:'contain',mbg:'sys',adv:'auto',clock:false,tick:'',vol:.4,mute:false,loop:true};
 function slide(r){
   const d=document.createElement('div'),f=FONTS[r.font]||FONTS.moderna,k={P:.75,M:1,G:1.3,X:1.6}[r.size]||1;
   d.className='slide';
@@ -1792,6 +1840,7 @@ function bootPC(){
     $('#bSync').hidden=$('#bClear').hidden=!on;
     $('#bOpenDock').innerHTML=on?ic('play')+'Do início':ic('cast')+'Apresentar';
     $('#bDisc').hidden=!on;$('#bConn span').textContent=on?'Trocar TV':'Conectar TV';
+    try{advUI()}catch(e){}
   }
   function saveCfg(){localStorage.cfg=JSON.stringify(cfg);syncUI();bc.postMessage({t:'reload'});if(conn&&conn.open)conn.send({t:'cfg',cfg})}
   document.addEventListener('click',e=>{
@@ -1939,7 +1988,7 @@ function bootPC(){
   newDraft();
 
   /* biblioteca */
-  const ICON={image:'image',video:'video',audio:'music',text:'layout'},LBL={image:'Imagem',video:'Vídeo',audio:'Áudio',text:'Texto'};
+  const ICON={image:'image',video:'video',audio:'music',text:'layout',youtube:'youtube'},LBL={image:'Imagem',video:'Vídeo',audio:'Áudio',text:'Texto',youtube:'YouTube'};
   async function load(){
     const a=await all();
     items=a.filter(x=>x.kind!=='bg').sort((x,y)=>x.order-y.order);
@@ -1955,12 +2004,13 @@ function bootPC(){
       let th='';
       if(it.blob&&it.type!=='audio'){const u=URL.createObjectURL(it.blob);urls.push(u);th=it.type==='video'?`<video src="${u}#t=0.5" muted preload="metadata"></video>`:`<img src="${u}">`}
       else if(it.type==='audio')th=ic('music');
-      const own=it.type==='video'||it.type==='audio';
+      else if(it.type==='youtube')th=`<img src="${ytThumb(it.yt)}" alt="" loading="lazy">`;
+      const own=it.type==='video'||it.type==='audio'||it.type==='youtube',canConv=it.type==='video'||it.type==='audio';
       return `<div class="it${it.id===curId?' now':''}${sel.has(it.id)?' sel':''}" data-id="${it.id}"><span class="ck"><input type="checkbox" tabindex="-1"${sel.has(it.id)?' checked':''}></span><span class="grip">${ic('grip')}</span>
       <div class="th">${th}<b class="ty">${ic(ICON[it.type])}</b></div>
       <div class="nm"><b>${esc(it.name)}</b><small>${it.type==='text'&&LAYOUTS[it.layout]?LAYOUTS[it.layout].n:LBL[it.type]}${it.snd?' · com música':''}${it.conv?' · convertido':''}${own||(it.snd&&it.untilEnd)?' · toca até o fim':''}</small></div>
       ${own?'':`<span class="sec">${ic('clock')}<input type="number" min="2" max="600" value="${it.dur}" data-dur="${it.id}" title="segundos"></span>`}
-      <div class="ac"><button class="ic" data-a="show" title="Mostrar agora na TV">${ic('eye')}</button>${it.type==='text'?`<button class="ic" data-a="edit" title="Editar">${ic('edit')}</button>`:''}${own&&!it.conv?`<button class="ic" data-a="conv" title="Converter para formato universal (MP4/M4A) — use se a TV não reproduzir">${ic('refresh')}</button>`:''}<button class="ic" data-a="dup" title="Duplicar">${ic('copy')}</button><button class="ic dg" data-a="rm" title="Remover">${ic('trash')}</button></div></div>`}).join('')
+      <div class="ac"><button class="ic" data-a="show" title="Mostrar agora na TV">${ic('eye')}</button>${it.type==='text'?`<button class="ic" data-a="edit" title="Editar">${ic('edit')}</button>`:''}${canConv&&!it.conv?`<button class="ic" data-a="conv" title="Converter para formato universal (MP4/M4A) — use se a TV não reproduzir">${ic('refresh')}</button>`:''}<button class="ic" data-a="dup" title="Duplicar">${ic('copy')}</button><button class="ic dg" data-a="rm" title="Remover">${ic('trash')}</button></div></div>`}).join('')
       ||`<div class="empty">${ic('tv')}<br><b>Programação vazia</b><br>Adicione arquivos ou crie um texto no painel ao lado.</div>`;
     items.filter(x=>x.type==='text').forEach(it=>{const t=$(`[data-id="${it.id}"] .th`);const s=it.layout?tpl(it,urls):slide(it);t.prepend(s);fit(s)});
     $('#list').classList.toggle('selmode',selMode);bulkUI();
@@ -2146,7 +2196,8 @@ function bootPC(){
     }}finally{scanning=false}
   }
   function onVfail(id){
-    const it=items.find(x=>x.id===id);if(!it||!(it.type==='video'||it.type==='audio'))return;
+    const it=items.find(x=>x.id===id);if(it&&it.type==='youtube')return toast(`O vídeo do YouTube "${it.name}" não pôde ser exibido: o dono pode ter bloqueado a exibição fora do YouTube.`);
+    if(!it||!(it.type==='video'||it.type==='audio'))return;
     if(it.conv)return toast(`A TV não conseguiu reproduzir "${it.name}".`);
     toast(`A TV não reproduziu "${it.name}". Convertendo para um formato compatível…`);reconvert(it);
   }
@@ -2224,7 +2275,7 @@ function bootPC(){
   }
   const send=m=>{if(!isOn()){toast('Conecte uma TV primeiro');return false}conn.send(m);return true};
   const ctl=m=>{bc.postMessage(m);if(isOn())conn.send(m)};
-  function onState(d){curId=d.id;tvPlaying=d.playing;syncUI();document.querySelectorAll('#list .it').forEach(x=>x.classList.toggle('now',x.dataset.id===curId));
+  function onState(d){tvst=d;if(d.adv&&d.adv!==cfg.adv){cfg.adv=d.adv;localStorage.cfg=JSON.stringify(cfg)}setTimeout(()=>{advUI();prRender()});curId=d.id;tvPlaying=d.playing;syncUI();document.querySelectorAll('#list .it').forEach(x=>x.classList.toggle('now',x.dataset.id===curId));
     if(isOn())$('#msg').textContent=curId&&!items.some(x=>x.id===curId)?`Na TV agora: conteúdo de ${d.by||'outro aparelho'}`:(tvPlaying?'Na TV agora: sua programação':'TV pausada')}
   bc.onmessage=e=>{
     const d=e.data;
@@ -2388,6 +2439,7 @@ function bootPC(){
   function renderScr(){
     const ext=extScreens();
     $('#scrs').innerHTML=ext.map((s,i)=>`<div class="dev"><div class="di">${ic('monitor')}</div><div class="nm"><b>${esc(s.label||'Tela '+(i+2))}</b><small class="mu">Tela estendida · ${s.width}×${s.height}</small></div><button class="pri" data-s="${i}">Apresentar</button></div>`).join('')
+      +`<div class="dev"><div class="di">${ic('download')}</div><div class="nm"><b>Computador ligado à TV</b><small class="mu">Atalho do Windows que abre a tela da TV em tela cheia, sem barra nem botões</small></div><button id="bBat">Baixar atalho</button></div>`
       +`<div class="dev"><div class="di">${ic('copy')}</div><div class="nm"><b>Janela de apresentação</b><small class="mu">Abre nesta tela · para espelhar com Win+K ou AirPlay</small></div><button data-s="w">Abrir</button></div>`
       +(('getScreenDetails' in window)&&!screens?`<button class="ghost" data-s="ask">${ic('monitor')}Detectar monitores e TVs ligados por cabo</button>`:'')
       +(screens&&!ext.length?'<p class="mu" style="font-size:12px;margin:8px 2px 0">Nenhuma tela extra ligada a este computador.</p>':'');
@@ -2489,6 +2541,75 @@ function bootPC(){
   $('#viewSeg').onclick=e=>{const b=e.target.closest('button');if(b)setView(b.dataset.v)};
   $('#uiReset').onclick=()=>{localStorage.removeItem('ui');localStorage.removeItem('uiImg');localStorage.ui=JSON.stringify({ts:Date.now()});applyUI();dispatchEvent(new Event('uichange'));renderUI();render();toast('Aparência restaurada')};
 
+  /* links do YouTube */
+  async function addYT(txt){
+    const y=parseYT(txt);if(!y){toast('Link do YouTube não reconhecido');return false}
+    const o=items.length?Math.max(...items.map(x=>x.order))+1:Date.now(),id=uid();
+    await put({id,kind:'item',type:'youtube',yt:y.id,start:y.start,name:'Vídeo do YouTube',dur:0,order:o});
+    load();view('list');toast('Vídeo do YouTube adicionado');
+    try{const j=await(await fetch('https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+y.id))).json();
+      if(j&&j.title){const it=await get(id);if(it){it.name=j.title;await put(it);load()}}}catch(e){}
+    return true;
+  }
+  $('#ytAdd').onclick=async()=>{if(await addYT($('#ytIn').value))$('#ytIn').value=''};
+  $('#ytIn').onkeydown=e=>{if(e.key==='Enter')$('#ytAdd').click()};
+  addEventListener('paste',e=>{if(/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;const t=e.clipboardData&&e.clipboardData.getData('text');if(t&&parseYT(t)&&/youtu/.test(t)){e.preventDefault();addYT(t)}});
+
+  /* avanço automático / manual */
+  const advUI=()=>{const m=cfg.adv==='manual';$('#bAdv').innerHTML=ic(m?'hand':'clock');$('#bAdv').classList.toggle('on',m);$('#bAdv').title=m?'Avanço manual (clique para automático)':'Avanço automático (clique para manual)';
+    const pa=$('#prAdv');if(pa)pa.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===(cfg.adv||'auto')))};
+  $('#bAdv').onclick=()=>{cfg.adv=cfg.adv==='manual'?'auto':'manual';saveCfg();advUI();toast(cfg.adv==='manual'?'Avanço manual: a TV só muda quando você apertar Próximo':'Avanço automático')};
+
+  /* modo apresentador */
+  let prOn=false,prT0=Date.now(),prTimer=null,prUrls=[],tvst={};
+  function prThumb(id,by){
+    const it=items.find(x=>x.id===id),box=document.createElement('div');box.className='prv';
+    if(!it){box.innerHTML=`<div class="prx">${id?`Conteúdo de ${esc(by||'outro aparelho')}`:'Nada na TV'}</div>`;return box}
+    if(it.type==='text'){const s=it.layout?tpl(it,prUrls):slide(it);box.appendChild(s);requestAnimationFrame(()=>fit(s))}
+    else if(it.type==='youtube')box.innerHTML=`<img src="${ytThumb(it.yt)}">`;
+    else if(it.type==='audio')box.innerHTML=`<div class="prx">${ic('music')} ${esc(it.name)}</div>`;
+    else if(it.blob){const u=URL.createObjectURL(it.blob);prUrls.push(u);box.innerHTML=it.type==='video'?`<video src="${u}#t=0.5" muted preload="metadata"></video>`:`<img src="${u}">`}
+    return box;
+  }
+  function prRender(){
+    if(!prOn)return;prUrls.forEach(u=>URL.revokeObjectURL(u));prUrls=[];
+    const st=tvst,on=isOn()||localOn;
+    $('#prCount').textContent=st.n?`${(st.i||0)+1} / ${st.n}`:'—';
+    const it=items.find(x=>x.id===st.id);$('#prName').textContent=on?(it?it.name:st.id?`Conteúdo de ${st.by||'outro aparelho'}`:'Nada na TV'):'Nenhuma TV conectada';
+    $('#prCur').innerHTML='';$('#prCur').appendChild(prThumb(st.id,st.by));
+    $('#prNext').innerHTML='';$('#prNext').appendChild(prThumb(st.nx,st.nxBy));
+    $('#prPlay').innerHTML=ic(tvPlaying?'pause':'play');advUI();
+  }
+  const prTick=()=>{const s=Math.floor((Date.now()-prT0)/1000);$('#prClock').textContent=`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`};
+  function prOpen(){prOn=true;$('#pres').hidden=false;document.body.classList.add('prmode');prT0=Date.now();prTick();prTimer=setInterval(prTick,1000);prRender();
+    try{document.documentElement.requestFullscreen&&matchMedia('(max-width:760px)').matches&&document.documentElement.requestFullscreen().catch(()=>{})}catch(e){}}
+  function prClose(){prOn=false;$('#pres').hidden=true;document.body.classList.remove('prmode');clearInterval(prTimer);prUrls.forEach(u=>URL.revokeObjectURL(u));prUrls=[];if(document.fullscreenElement)document.exitFullscreen().catch(()=>{})}
+  $('#bPres').onclick=()=>{if(!(isOn()||localOn))toast('Conecte uma TV para controlar a apresentação');prOpen()};
+  $('#prX').onclick=prClose;
+  $('#prPrevB').onclick=()=>ctl({t:'cmd',c:'prev'});$('#prNextB').onclick=()=>ctl({t:'cmd',c:'next'});
+  $('#prPlay').onclick=()=>ctl({t:'cmd',c:tvPlaying?'pause':'play'});
+  $('#prClock').onclick=()=>{prT0=Date.now();prTick()};
+  $('#prAdv').onclick=e=>{const b=e.target.closest('button');if(!b)return;cfg.adv=b.dataset.v;saveCfg();advUI()};
+  {let x0=null;$('#prCur').addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});$('#prCur').addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50)ctl({t:'cmd',c:dx<0?'next':'prev'})})}
+  addEventListener('keydown',e=>{
+    if(!prOn){if(e.key.toLowerCase()==='p'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!e.ctrlKey&&!e.metaKey&&!document.querySelector('dialog[open]'))$('#bPres').click();
+      else if(e.key.toLowerCase()==='a'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!e.ctrlKey&&!e.metaKey&&!document.querySelector('dialog[open]'))$('#bAdv').click();return}
+    const k=e.key;if(['ArrowRight','PageDown',' ','Enter','ArrowDown','n','N'].includes(k)){e.preventDefault();e.stopImmediatePropagation();ctl({t:'cmd',c:'next'})}
+    else if(['ArrowLeft','PageUp','ArrowUp','Backspace','p','P'].includes(k)){e.preventDefault();e.stopImmediatePropagation();ctl({t:'cmd',c:'prev'})}
+    else if(k==='Escape'){prClose()}
+    else if(k==='b'||k==='B'||k==='.'){ctl({t:'cmd',c:tvPlaying?'pause':'play'})}
+  },true);
+
+  /* atalho de tela cheia para Windows (computador ligado à TV) */
+  $('#scrs').addEventListener('click',e=>{if(!e.target.closest('#bBat'))return;e.stopImmediatePropagation();
+    const u=BASE+'#tv',bat=['@echo off','REM Apresentacao na TV - abre a tela da TV em tela cheia, sem barra de endereco.','REM Para fechar: Alt+F4. Para abrir ao ligar o computador, copie este arquivo para a pasta shell:startup',
+      `set "URL=${u}"`,'set "PERFIL=%LocalAppData%\\ApresentacaoTV-Tela"','set "CH=%ProgramFiles%\\Google\\Chrome\\Application\\chrome.exe"',
+      'if not exist "%CH%" set "CH=%ProgramFiles(x86)%\\Google\\Chrome\\Application\\chrome.exe"','if not exist "%CH%" set "CH=%LocalAppData%\\Google\\Chrome\\Application\\chrome.exe"',
+      'if exist "%CH%" (','  start "" "%CH%" --kiosk "%URL%" --autoplay-policy=no-user-gesture-required --user-data-dir="%PERFIL%" --no-first-run --disable-session-crashed-bubble','  exit /b',')',
+      'start "" msedge --kiosk "%URL%" --edge-kiosk-type=fullscreen --autoplay-policy=no-user-gesture-required --no-first-run --user-data-dir="%PERFIL%"'].join('\r\n')+'\r\n';
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([bat],{type:'application/octet-stream'}));a.download='Abrir TV em tela cheia.bat';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+    toast('Atalho baixado: dê dois cliques nele no computador ligado à TV');},true);
+
   /* navegação do celular */
   const pcEl=$('#pc');
   function view(v){pcEl.dataset.v=v;document.querySelectorAll('#mnav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='add'&&!$('#p-text').hidden)drawPv()}
@@ -2555,7 +2676,7 @@ function bootTV(kind){
   const openPeers=()=>[...peers.keys()].filter(c=>c.open);
   const sendAll=m=>{for(const c of openPeers())try{c.send(m)}catch(e){}};
   const ctlNames=()=>[...new Set([...peers.values()].filter((v,i)=>v.name&&[...peers.keys()][i].open).map(v=>v.name))];
-  const report=()=>{const o=cur&&pl.find(x=>x.id===cur.id),m={t:'state',id:cur&&cur.id,playing,by:o&&onames[o.owner]||null};if(local)bc.postMessage(m);else sendAll(m)};
+  const report=()=>{const o=cur&&pl.find(x=>x.id===cur.id),nx=pl.length>1?pl[(idx+1)%pl.length]:null,m={t:'state',id:cur&&cur.id,playing,by:o&&onames[o.owner]||null,i:idx,n:pl.length,nx:nx&&nx.id,nxBy:nx&&onames[nx.owner]||null,adv:cfg.adv};if(local)bc.postMessage(m);else sendAll(m)};
   const vfail=id=>{const m={t:'vfail',id};if(local)bc.postMessage(m);else sendAll(m)};
 
   function applyCfg(){
@@ -2564,7 +2685,7 @@ function bootTV(kind){
     $('#clock').hidden=!cfg.clock;
     const t=$('#tick');t.hidden=!cfg.tick;$('#tv').classList.toggle('hastick',!!cfg.tick);$('#tv').classList.toggle('hasclock',!!cfg.clock);
     if(cfg.tick){const s=t.firstChild;s.textContent=cfg.tick;s.style.animationDuration=Math.max(14,cfg.tick.length*.22)+'s'}
-    bgA.volume=cfg.vol;bgA.muted=cfg.mute;const m=vid();if(m)m.muted=cfg.mute;
+    bgA.volume=cfg.vol;bgA.muted=cfg.mute;const m=vid();if(m)m.muted=cfg.mute;if(ytp)try{cfg.mute?ytp.mute():ytp.unMute()}catch(e){}
   }
   const tickClock=()=>{const d=new Date();$('#clock').innerHTML=`<b>${d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</b><small>${d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})}</small>`};
   tickClock();setInterval(tickClock,5000);
@@ -2579,13 +2700,13 @@ function bootTV(kind){
   }
   bgA.onended=()=>bgNext();
   function bgSync(){
-    const media=cur&&(cur.type==='video'||cur.type==='audio'||(cur.type==='text'&&cur.snd));
+    const media=cur&&(cur.type==='video'||cur.type==='audio'||cur.type==='youtube'||(cur.type==='text'&&cur.snd));
     if(playing&&bg.length&&!media){if(bgA.paused&&bgA.src)bgA.play().catch(()=>badge('Pressione OK para ativar a música'))}
     else bgA.pause();
   }
 
   async function show(i){
-    clearTimeout(timer);if(aud){aud.pause();aud=null}
+    clearTimeout(timer);if(aud){aud.pause();aud=null}if(ytp){try{ytp.destroy()}catch(e){}ytp=null}
     if(!pl.length){stage.innerHTML='';cur=null;$('#idle').hidden=false;bgSync();report();return}
     idx=((i%pl.length)+pl.length)%pl.length;
     const p=pl[idx],r=await get(p.id);
@@ -2599,18 +2720,28 @@ function bootTV(kind){
       el=r.layout?tpl(r,sUrls):slide(r);
       if(r.snd instanceof Blob){
         url=URL.createObjectURL(r.snd);aud=new Audio(url);aud.muted=cfg.mute;aud.volume=1;
-        if(r.untilEnd){aud.onended=advance;aud.onerror=advance;aud.loop=pl.length===1&&cfg.loop}else aud.loop=true;
+        if(r.untilEnd){aud.onended=autoNext;aud.onerror=autoNext;aud.loop=pl.length===1&&cfg.loop}else aud.loop=true;
         if(playing)aud.play().catch(()=>badge('Pressione OK para ativar o som'));
       }
     }
     else if(r.type==='audio'){
       el=slide({title:'♪',text:r.name.replace(/\.[^.]+$/,''),c1:'#141a3a',c2:'#3b1d6b',fg:'#fff',font:'elegante',al:'center'});
-      url=URL.createObjectURL(r.blob);aud=new Audio(url);aud.muted=cfg.mute;aud.loop=pl.length===1&&cfg.loop;aud.onended=advance;aud.onerror=()=>{vfail(r.id);advance()};
+      url=URL.createObjectURL(r.blob);aud=new Audio(url);aud.muted=cfg.mute;aud.loop=pl.length===1&&cfg.loop;aud.onended=autoNext;aud.onerror=()=>{vfail(r.id);advance()};
       if(playing)aud.play().catch(()=>badge('Pressione OK para ativar o som'));
+    }else if(r.type==='youtube'){
+      el=document.createElement('div');el.className='ytw';el.innerHTML='<div></div>';
+      const box=el.firstChild;
+      ytApi().then(()=>{if(cur!==r)return;
+        ytp=new YT.Player(box,{videoId:r.yt,width:'100%',height:'100%',playerVars:{autoplay:1,controls:0,rel:0,modestbranding:1,playsinline:1,iv_load_policy:3,fs:0,disablekb:1,start:r.start||0,mute:cfg.mute?1:0},
+          events:{onReady:e=>{if(cur!==r)return;if(!playing){e.target.pauseVideo();return}e.target.playVideo();
+              setTimeout(()=>{if(cur===r&&ytp===e.target&&playing&&e.target.getPlayerState()!==1){e.target.mute();e.target.playVideo();if(!cfg.mute)badge('Pressione OK para ativar o som do YouTube')}},2500)},
+            onStateChange:e=>{if(e.data===0&&cur===r){if(pl.length===1&&cfg.loop){e.target.seekTo(r.start||0);e.target.playVideo()}else autoNext()}},
+            onError:e=>{if(cur!==r)return;badge([101,150,100].includes(e.data)?'O dono deste vídeo não permite exibição fora do YouTube':'Não foi possível abrir o vídeo do YouTube');vfail(r.id);setTimeout(()=>cur===r&&advance(),3500)}}});
+      }).catch(()=>{badge('Sem acesso ao YouTube no momento');setTimeout(()=>cur===r&&advance(),3500)});
     }else{
       url=URL.createObjectURL(r.blob);
       if(r.type==='video'){
-        el=document.createElement('video');el.src=url;el.muted=cfg.mute;el.playsInline=true;el.loop=pl.length===1&&cfg.loop;el.onended=advance;
+        el=document.createElement('video');el.src=url;el.muted=cfg.mute;el.playsInline=true;el.loop=pl.length===1&&cfg.loop;el.onended=autoNext;
         let failed=false;const fail=()=>{if(failed||cur!==r)return;failed=true;vfail(r.id);advance()};el.onerror=fail;el.onloadeddata=()=>{if(!el.videoWidth)fail()};
         el.onplaying=()=>{if(el._chk)return;el._chk=setTimeout(()=>{if(cur!==r||el.paused||!el.isConnected)return;
           const q=el.getVideoPlaybackQuality?el.getVideoPlaybackQuality().totalVideoFrames:(typeof el.webkitDecodedFrameCount==='number'?el.webkitDecodedFrameCount:-1);
@@ -2621,10 +2752,20 @@ function bootTV(kind){
     }
     if(cfg.tr!=='none')el.classList.add('tr-'+cfg.tr);
     stage.appendChild(el);if(el.classList.contains('slide'))fit(el);
-    if(playing&&r.type!=='video'&&r.type!=='audio'&&!(r.snd&&r.untilEnd)&&pl.length>1)timer=setTimeout(advance,(p.dur||8)*1000);
+    if(playing&&cfg.adv!=='manual'&&!['video','audio','youtube'].includes(r.type)&&!(r.snd&&r.untilEnd)&&pl.length>1)timer=setTimeout(advance,(p.dur||8)*1000);
+    if(cfg.adv==='manual'&&pl.length>1){const n=$('#slideNo');n.textContent=`${idx+1} / ${pl.length}`;n.classList.add('show');clearTimeout(n._t);n._t=setTimeout(()=>n.classList.remove('show'),2200)}
     bgSync();report();
   }
   function advance(){if(!cfg.loop&&idx>=pl.length-1){playing=false;report();return}show(idx+1)}
+  function advSwitch(){clearTimeout(timer);const p=pl[idx];
+    if(cfg.adv==='manual'){if(pl.length>1){const n=$('#slideNo');n.textContent=`${idx+1} / ${pl.length}`;n.classList.add('show');clearTimeout(n._t);n._t=setTimeout(()=>n.classList.remove('show'),2200)}}
+    else if(playing&&p&&cur&&!['video','audio','youtube'].includes(cur.type)&&!(cur.snd&&cur.untilEnd)&&pl.length>1)timer=setTimeout(advance,(p.dur||8)*1000);
+    report()}
+  function autoNext(){if(cfg.adv==='manual'){report();return}advance()}
+  let ytp=null,ytP=null;
+  const ytApi=()=>ytP||(ytP=new Promise((ok,no)=>{if(window.YT&&YT.Player)return ok();const prev=window.onYouTubeIframeAPIReady;window.onYouTubeIframeAPIReady=()=>{prev&&prev();ok()};
+    const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';sc.onerror=()=>{ytP=null;no()};document.head.appendChild(sc);setTimeout(()=>{if(!(window.YT&&YT.Player)){ytP=null;no()}},15000)}));
+  const pauseMedia=()=>{const m=vid();m&&m.pause();if(ytp)try{ytp.pauseVideo()}catch(e){}};
   addEventListener('resize',()=>{const s=stage.querySelector('.slide');s&&fit(s)});
 
   async function refresh(curId,wasEmpty,oldBg){
@@ -2669,14 +2810,14 @@ function bootTV(kind){
       for(const x of await all())if(!keep.has(x.id))await del(x.id);
       playing=true;await refresh(curId,wasEmpty,oldBg);
       badge(peers.size>1?`Conteúdo de ${info.name||'um aparelho'} atualizado`:'Conteúdo atualizado');
-    }else if(d.t==='cfg'){cfg={...DEF,...d.cfg};persist();applyCfg();bgSync()}
+    }else if(d.t==='cfg'){const pa=cfg.adv;cfg={...DEF,...d.cfg};persist();applyCfg();bgSync();if(pa!==cfg.adv)advSwitch()}
     else if(d.t==='stbg'){
       if(local&&!d.bg)SB=stageBg();
       else if(d.bg&&(d.force||!SB||(d.bg.ts||0)>=(SB.ts||0))){SB=d.bg;kv.set('stbg',SB);try{localStorage.removeItem('stbg')}catch(e){}if(d.force)badge('Fundo atualizado')}
       applyBg()}
     else if(d.t==='cmd'){
       if(d.c==='play'){playing=true;show(idx)}
-      else if(d.c==='pause'){playing=false;clearTimeout(timer);const m=vid();m&&m.pause();bgSync();report()}
+      else if(d.c==='pause'){playing=false;clearTimeout(timer);pauseMedia();bgSync();report()}
       else if(d.c==='next')show(idx+1);
       else if(d.c==='prev')show(idx-1);
       else if(d.c==='show'){const k=pl.findIndex(x=>x.id===d.id);if(k>=0){playing=true;show(k)}}
@@ -2742,15 +2883,19 @@ function bootTV(kind){
   /* manter a tela da TV sempre acesa */
   let wl=null;const wake=async()=>{try{if('wakeLock' in navigator&&document.visibilityState==='visible'&&!wl){wl=await navigator.wakeLock.request('screen');wl.onrelease=()=>wl=null}}catch(e){}};
   wake();document.addEventListener('visibilitychange',wake);addEventListener('click',wake);
-  const fs=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{});
+  /* tela cheia sempre: entra no primeiro OK/clique e volta sozinha se sair */
+  const isFull=()=>!!document.fullscreenElement||matchMedia('(display-mode: fullscreen)').matches||(Math.abs(innerHeight-screen.height)<3&&Math.abs(innerWidth-screen.width)<3);
+  const fsHint=()=>{const h=$('#fsHint');if(h)h.hidden=isFull()};
+  const fs=()=>{if(document.fullscreenElement||!document.documentElement.requestFullscreen)return;
+    document.documentElement.requestFullscreen({navigationUI:'hide'}).then(()=>{try{navigator.keyboard&&navigator.keyboard.lock&&navigator.keyboard.lock(['Escape']).catch(()=>{})}catch(e){}}).catch(()=>{}).finally(fsHint)};
+  document.addEventListener('fullscreenchange',fsHint);addEventListener('resize',fsHint);fs();setTimeout(fsHint,600);
   addEventListener('keydown',e=>{
-    bgSync();
-    if(e.key==='Enter'||e.key==='f')fs();
-    else if(e.key==='ArrowRight')show(idx+1);
-    else if(e.key==='ArrowLeft')show(idx-1);
-    else if(e.key===' '){playing=!playing;if(playing)show(idx);else{clearTimeout(timer);const m=vid();m&&m.pause();bgSync();report()}}
+    bgSync();fs();
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key==='MediaTrackNext')show(idx+1);
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='MediaTrackPrevious')show(idx-1);
+    else if(e.key===' '||e.key==='MediaPlayPause'){playing=!playing;if(playing)show(idx);else{clearTimeout(timer);pauseMedia();bgSync();report()}}
   });
-  addEventListener('click',()=>{fs();bgSync();const m=vid();if(m&&playing&&m.paused)m.play().catch(()=>{})});
+  addEventListener('click',()=>{fs();bgSync();const m=vid();if(m&&playing&&m.paused)m.play().catch(()=>{});if(ytp&&!cfg.mute)try{ytp.unMute()}catch(e){}});
   if(local){
     $('#idle').innerHTML=`<div class="lg">${ic('tv')}</div><h1>Programação vazia</h1><p>Adicione itens no computador e eles aparecem aqui.</p><small>Enter: tela cheia · ◀ ▶ trocar · Espaço pausar</small>`;
     bc.onmessage=e=>{const d=e.data;if(d.t==='reload')loadLocal();else onData(d)};

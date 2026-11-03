@@ -69,6 +69,21 @@ Clique no ícone de **paleta** no topo:
 - Mantenha o app aberto enquanto converte. Vídeos 4K longos podem levar alguns minutos.
 - Arquivos muito longos podem demorar para converter. O limite é cerca de 1,8 GB por arquivo.
 
+## Slides com avanço manual ou automático
+- **Automático**: cada item fica na TV pelo tempo definido e passa sozinho; vídeos passam ao terminar.
+- **Manual**: a TV para em cada slide até você avançar. Troque no botão de mão/relógio na barra inferior, ou em Tela > Avanço.
+- **Modo Apresentador** (botão "Apresentador" ou tecla P): mostra o slide atual, o próximo, o contador (ex.: 3 / 8) e um cronômetro. Avance com → / PageDown / Espaço e volte com ← / PageUp. Também funciona com passadores de slide (clicker USB) e, no celular, deslizando o dedo.
+
+## Vídeos do YouTube
+Cole o link na caixa "Cole aqui um link do YouTube" (aba Arquivos) e toque em Adicionar. Também dá para colar com Ctrl+V. Funcionam links youtube.com/watch, youtu.be, Shorts e links com tempo inicial (?t=42). O título e a miniatura aparecem sozinhos.
+- A TV precisa de internet para tocar o vídeo.
+- Alguns vídeos têm a exibição fora do YouTube bloqueada pelo dono. Nesses casos a TV avisa e passa para o próximo item.
+
+## Tela cheia na TV
+- **Navegador da TV**: aperte **OK** no controle (ou clique) uma vez e a apresentação entra em tela cheia. Se não estiver em tela cheia, a TV mostra um aviso. Por segurança, os navegadores só permitem tela cheia depois de um toque ou clique.
+- **Instalar como app na TV/computador** (botão "Instalar" na tela de espera): o app da TV abre direto em tela cheia, sem barra de endereço.
+- **Computador ligado à TV (Windows)**: em "Trocar TV", baixe o atalho **"Abrir TV em tela cheia"**. Ele abre o Chrome (ou o Edge) em modo quiosque: sem barra de endereço e sem os botões de minimizar e fechar. Para sair, use **Alt+F4**.
+
 ## Assinatura Mercatto Labs
 - Em todas as apresentações na TV, a logo da **Mercatto Labs** aparece transparente, como marca-d'água, no canto superior esquerdo, e um **QR Code do WhatsApp** (82) 99662-2036, com a mensagem "Fale com a gente", aparece no canto inferior direito, com o link `wa.me/5582996622036`. Os dois somem na tela de espera e o QR sobe quando a faixa rolante está ativa.
 - Os arquivos da logo (SVG e PNG, versões para fundo escuro, fundo claro, branca e só o ícone) estão na pasta `brand/`.
