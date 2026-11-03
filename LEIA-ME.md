@@ -69,6 +69,17 @@ Clique no ícone de **paleta** no topo:
 - Mantenha o app aberto enquanto converte. Vídeos 4K longos podem levar alguns minutos.
 - Arquivos muito longos podem demorar para converter. O limite é cerca de 1,8 GB por arquivo.
 
+## Fundo musical das apresentações
+Na aba **Música** há 3 trilhas instrumentais originais, no estilo podcast, criadas para o sistema. Por serem originais, não têm direitos autorais de terceiros.
+- **Podcast Leve** (padrão): lo-fi tranquilo, para informativos e avisos.
+- **Boutique**: elegante e moderna, para coleções e vitrines.
+- **Corporativo**: piano inspirador, para reuniões e resultados.
+
+Toque em ▶ para ouvir antes de escolher. A música toca em loop por trás dos slides, pausa sozinha durante vídeos e áudios e para no encerramento.
+- **Silenciar**: escolha "Sem fundo musical" ou use o botão de som da barra inferior.
+- **Substituir**: adicione suas próprias músicas em "Suas músicas". Elas tocam no lugar da trilha.
+- **Volume**: use o controle "Volume da música".
+
 ## Encerramento e tela cheia automática
 - **Encerramento**: ao final da apresentação, a TV mostra a marca Mercatto Labs, a frase "Não é só um sistema, é uma solução!" e um QR code grande do WhatsApp. A tela fica assim até a próxima apresentação.
 - **Quando termina**: com "Repetir" desligado, termina sozinha depois do último item (ou ao avançar no último slide, no modo manual). A qualquer momento você pode usar o botão **Encerrar**, na barra inferior ou no modo Apresentador. No controle da TV, a tecla End/Stop também encerra.

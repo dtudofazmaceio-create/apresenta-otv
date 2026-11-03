@@ -471,6 +471,14 @@ body.prmode{overflow:hidden}
 .vseg{display:flex;gap:3px;background:var(--in);border:1px solid var(--ln);border-radius:11px;padding:3px}
 .vseg button{background:transparent;padding:6px 8px;border-radius:8px;color:var(--mu)}.vseg button.on{background:var(--p2);color:var(--tx);outline:0}
 .vseg.wide button{flex:1;padding:8px}
+.trks{display:grid;gap:8px}
+.trk{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:var(--p2);border:1px solid var(--ln);cursor:pointer;text-align:left;width:100%;color:var(--tx)}
+.trk.on{outline:2px solid var(--ac);background:var(--p)}.trk .nm{flex:1;min-width:0}.trk .nm b{display:block;font-size:14px}.trk .nm small{color:var(--mu);font-size:12px}
+.trk .tpl-ic{width:38px;height:38px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--g);color:#fff}
+.trk .pv{flex:none}.trk.off .tpl-ic{background:var(--in);color:var(--mu)}
+.trks.over .trk:not(.off){opacity:.55}
+.trk .eq{display:none;gap:2px;align-items:flex-end;height:14px}.trk.pl .eq{display:flex}.trk .eq i{width:3px;background:var(--ac);animation:eq .8s ease-in-out infinite alternate}.trk .eq i:nth-child(2){animation-delay:.25s}.trk .eq i:nth-child(3){animation-delay:.5s}
+@keyframes eq{from{height:3px}to{height:14px}}
 .uith{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .ljlogo{width:130px;height:72px;border-radius:12px;background:var(--in) center/contain no-repeat;border:1px dashed var(--ln);display:flex;align-items:center;justify-content:center;color:var(--mu);font-size:12px;flex:none;background-origin:content-box;padding:8px}
 .brand .blg{width:auto;max-width:120px;height:30px;object-fit:contain;display:block}.brand span.hl{background:none;width:auto;padding:0}
@@ -678,12 +686,15 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
       </div>
 
       <div id="p-music" hidden>
+        <label class="l" style="margin-top:0">Fundo musical das apresentações</label>
+        <div class="trks" id="trkList"></div>
+        <label class="l">Volume da música</label>
+        <div class="row"><i data-i="volume-2"></i><input type="range" id="vol" min="0" max="100" style="flex:1"><span class="mu" id="volTxt" style="font-size:12px;min-width:34px;text-align:right"></span></div>
+        <label class="l">Suas músicas (substituem o fundo musical)</label>
         <label class="drop" style="padding:18px"><i data-i="music"></i><br><b>Adicionar músicas</b><br><small>MP3, M4A, WAV…</small>
           <input type="file" id="bgFile" multiple accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.oga,.opus,.flac,.wma,.ac3,.aiff,.aif,.amr,.mka" hidden></label>
         <div id="bgList" style="margin-top:12px"></div>
-        <label class="l">Volume da música</label>
-        <div class="row"><i data-i="volume-2"></i><input type="range" id="vol" min="0" max="100" style="flex:1"></div>
-        <p class="mu" style="font-size:12px">A trilha toca em sequência e em loop por trás dos slides, e pausa sozinha durante vídeos e áudios.</p>
+        <p class="mu" style="font-size:12px">A música toca em loop por trás dos slides e pausa sozinha durante vídeos e áudios. As trilhas do sistema são originais, sem direitos autorais.</p>
       </div>
 
       <div id="p-screen" hidden>
@@ -1510,7 +1521,8 @@ const TPL=[
 {n:'Natureza',c1:'#064e3b',c2:'#22c55e',fg:'#f0fff4',font:'arredondada',al:'center'},
 {n:'Pôr do sol',c1:'#f97316',c2:'#be123c',fg:'#fff7ed',font:'arredondada',al:'left'},
 {n:'Noite',c1:'#0f172a',c2:'#3730a3',fg:'#e0e7ff',font:'mono',al:'left'}];
-const DEF={tr:'fade',fit:'contain',mbg:'sys',adv:'auto',clock:false,tick:'',vol:.4,mute:false,loop:true};
+const DEF={tr:'fade',fit:'contain',mbg:'sys',adv:'auto',clock:false,tick:'',vol:.4,mute:false,loop:true,trk:'leve'};
+const TRILHAS={leve:{n:'Podcast Leve',d:'Lo-fi tranquilo · informativos e avisos',f:'audio/podcast-leve.mp3'},boutique:{n:'Boutique',d:'Elegante e moderna · coleções e vitrines',f:'audio/boutique.mp3'},corporativo:{n:'Corporativo',d:'Piano inspirador · reuniões e resultados',f:'audio/corporativo.mp3'}};
 function slide(r){
   const d=document.createElement('div'),f=FONTS[r.font]||FONTS.moderna,k={P:.75,M:1,G:1.3,X:1.6}[r.size]||1;
   d.className='slide';
@@ -2078,7 +2090,7 @@ function bootPC(){
   });
   $('#clk').onchange=e=>{cfg.clock=e.target.checked;saveCfg()};
   $('#tickIn').oninput=e=>{cfg.tick=e.target.value;saveCfg()};
-  $('#vol').oninput=e=>{cfg.vol=e.target.value/100;saveCfg()};
+  $('#vol').oninput=e=>{cfg.vol=e.target.value/100;saveCfg();$('#volTxt').textContent=e.target.value+'%';if(pvA)pvA.volume=Math.max(.15,cfg.vol)};
   $('#bLoop').onclick=()=>{cfg.loop=!cfg.loop;saveCfg()};
   $('#bMute').onclick=()=>{cfg.mute=!cfg.mute;saveCfg()};
 
@@ -2248,8 +2260,22 @@ function bootPC(){
       ||`<div class="empty">${ic('tv')}<br><b>Programação vazia</b><br>Adicione arquivos ou crie um texto no painel ao lado.</div>`;
     items.filter(x=>x.type==='text').forEach(it=>{const t=$(`[data-id="${it.id}"] .th`);const s=it.layout?tpl(it,urls):slide(it);t.prepend(s);fit(s)});
     $('#list').classList.toggle('selmode',selMode);bulkUI();
-    $('#bgList').innerHTML=bgs.map(b=>`<div class="bg">${ic('music')}<span class="nm"><b>${esc(b.name)}</b></span><button class="ic dg" data-bg="${b.id}">${ic('trash')}</button></div>`).join('')||'<p class="mu">Nenhuma música na trilha.</p>';
+    $('#bgList').innerHTML=bgs.map(b=>`<div class="bg">${ic('music')}<span class="nm"><b>${esc(b.name)}</b></span><button class="ic dg" data-bg="${b.id}">${ic('trash')}</button></div>`).join('')||'<p class="mu" style="font-size:13px;margin:0">Nenhuma música sua. O fundo musical escolhido acima está tocando.</p>';
+    renderTrk();
   }
+  let pvA=null,pvK='';
+  function renderTrk(){const box=$('#trkList');if(!box)return;const cur=TRILHAS[cfg.trk]?cfg.trk:'none';
+    box.classList.toggle('over',bgs.length>0);
+    box.innerHTML=Object.entries(TRILHAS).map(([k,t])=>`<div class="trk${cur===k?' on':''}${pvK===k?' pl':''}" data-trk="${k}" role="button" tabindex="0"><span class="tpl-ic">${ic('music')}</span><span class="nm"><b>${esc(t.n)}</b><small>${esc(t.d)}</small></span><span class="eq"><i></i><i></i><i></i></span><button class="ic pv" data-pv="${k}" title="${pvK===k?'Parar':'Ouvir'}">${ic(pvK===k?'pause':'play')}</button></div>`).join('')
+      +`<div class="trk off${cur==='none'?' on':''}" data-trk="none" role="button" tabindex="0"><span class="tpl-ic">${ic('volume-x')}</span><span class="nm"><b>Sem fundo musical</b><small>Apresentação em silêncio</small></span></div>`
+      +(bgs.length?`<p class="mu" style="font-size:12px;margin:2px 0 0">Suas músicas estão tocando no lugar do fundo musical. Remova-as abaixo para voltar a usar a trilha escolhida.</p>`:'');
+    $('#volTxt').textContent=Math.round(cfg.vol*100)+'%'}
+  $('#trkList').onclick=e=>{const pv=e.target.closest('[data-pv]');
+    if(pv){const k=pv.dataset.pv;if(pvA){pvA.pause();pvA=null}if(pvK===k){pvK='';renderTrk();return}
+      pvK=k;pvA=new Audio(TRILHAS[k].f);pvA.volume=Math.max(.15,cfg.vol);pvA.play().catch(()=>{});pvA.onended=()=>{pvK='';renderTrk()};renderTrk();return}
+    const c=e.target.closest('[data-trk]');if(!c)return;cfg.trk=c.dataset.trk;saveCfg();renderTrk();
+    toast(cfg.trk==='none'?'Fundo musical desligado':bgs.length?'Trilha escolhida. Ela toca quando você remover suas músicas':'Fundo musical: '+TRILHAS[cfg.trk].n)};
+  $('#trkList').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.target.click()}};
   /* seleção de vários itens */
   let sel=new Set(),selMode=false,lastSel=null;
   function bulkUI(){
@@ -2906,9 +2932,9 @@ function bootPC(){
 /* ================= TV ================= */
 function bootTV(kind){
   const local=kind==='local';
-  let pl=[],bg=[],bgm={},onames={},cfg={...DEF},ended=false,idx=0,timer,playing=true,url=null,skip=0,peer,tries=0,aud=null,cur=null,bgi=0,bgUrl=null;
+  let pl=[],bg=[],bgm={},onames={},cfg={...DEF},ended=false,sysT='',idx=0,timer,playing=true,url=null,skip=0,peer,tries=0,aud=null,cur=null,bgi=0,bgUrl=null;
   const peers=new Map();let sUrls=[],lob=null,lobSt='w',peerOk=false,netErr=false,myCode=null;
-  const stage=$('#stage'),bgA=new Audio(),bc=local?new BroadcastChannel('apres'):null;
+  const stage=$('#stage'),bgA=window.__bgA=new Audio(),bc=local?new BroadcastChannel('apres'):null;
   if(kind==='net')try{pl=JSON.parse(localStorage.pl||'[]');bg=JSON.parse(localStorage.bg||'[]');bgm=JSON.parse(localStorage.bgm||'{}');onames=JSON.parse(localStorage.onames||'{}');cfg={...DEF,...JSON.parse(localStorage.tvcfg||'{}')}}catch(e){}
   let SB=null;try{SB=local?stageBg():JSON.parse(localStorage.stbg||'null')}catch(e){}
   if(!local)kv.get('stbg').then(v=>{if(v&&(!SB||(v.ts||0)>=(SB.ts||0))){SB=v;applyBg()}});
@@ -2934,14 +2960,20 @@ function bootTV(kind){
     $('#clock').hidden=!cfg.clock;
     const t=$('#tick');t.hidden=!cfg.tick;$('#tv').classList.toggle('hastick',!!cfg.tick);$('#tv').classList.toggle('hasclock',!!cfg.clock);
     if(cfg.tick){const s=t.firstChild;s.textContent=cfg.tick;s.style.animationDuration=Math.max(14,cfg.tick.length*.22)+'s'}
-    bgA.volume=cfg.vol;bgA.muted=cfg.mute;const m=vid();if(m)m.muted=cfg.mute;if(ytp)try{cfg.mute?ytp.mute():ytp.unMute()}catch(e){}
+    bgA.volume=cfg.vol;bgA.muted=cfg.mute;if(!bg.length&&sysT!==(TRILHAS[cfg.trk]?cfg.trk:''))bgNext(true);const m=vid();if(m)m.muted=cfg.mute;if(ytp)try{cfg.mute?ytp.mute():ytp.unMute()}catch(e){}
   }
   const tickClock=()=>{const d=new Date();$('#clock').innerHTML=`<b>${d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</b><small>${d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})}</small>`};
   tickClock();setInterval(tickClock,5000);
 
   /* música de fundo */
+  const sysU={};
+  async function sysUrl(f){if(sysU[f])return sysU[f];try{const r=await fetch(f);if(!r.ok)throw 0;return sysU[f]=URL.createObjectURL(await r.blob())}catch(e){return f}}
   async function bgNext(first){
-    if(!bg.length){bgA.pause();return}
+    if(!bg.length){bgA.loop=true;const k=TRILHAS[cfg.trk]?cfg.trk:'';
+      if(!k){sysT='';bgA.pause();bgA.removeAttribute('src');return}
+      if(sysT!==k||!bgA.getAttribute('src')){sysT=k;const u=await sysUrl(TRILHAS[k].f);if(sysT!==k)return;bgA.src=u}
+      bgSync();return}
+    bgA.loop=false;sysT='';
     bgi=first?0:(bgi+1)%bg.length;
     const r=await get(bg[bgi]);if(!r)return;
     if(bgUrl)URL.revokeObjectURL(bgUrl);
@@ -2950,7 +2982,7 @@ function bootTV(kind){
   bgA.onended=()=>bgNext();
   function bgSync(){
     const media=cur&&(cur.type==='video'||cur.type==='audio'||cur.type==='youtube'||(cur.type==='text'&&cur.snd));
-    if(playing&&bg.length&&!media){if(bgA.paused&&bgA.src)bgA.play().catch(()=>badge('Pressione OK para ativar a música'))}
+    if(playing&&pl.length&&!ended&&bgA.getAttribute('src')&&!media){if(bgA.paused)bgA.play().catch(()=>badge('Pressione OK para ativar a música'))}
     else bgA.pause();
   }
 
@@ -3096,7 +3128,7 @@ function bootTV(kind){
       if(d.all||local){await clr();pl=[];bg=[];bgm={}}
       else{const own=info.dev||'_';pl=pl.filter(x=>x.owner!==own);delete bgm[own];bg=[...new Set(Object.values(bgm).flat())];
         const keep=new Set([...pl.map(x=>x.id),...bg]);for(const x of await all())if(!keep.has(x.id))await del(x.id)}
-      persist();if(!bg.length){bgA.pause();bgA.removeAttribute('src')}show(cur&&pl.some(x=>x.id===cur.id)?pl.findIndex(x=>x.id===cur.id):0);
+      persist();if(!bg.length){sysT='';bgNext(true)}show(cur&&pl.some(x=>x.id===cur.id)?pl.findIndex(x=>x.id===cur.id):0);
       badge(d.all?'Conteúdo da TV removido':`Conteúdo de ${info.name||'um aparelho'} removido`)}
   }
 
