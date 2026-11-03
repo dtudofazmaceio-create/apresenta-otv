@@ -102,7 +102,7 @@ Cole o link na caixa "Cole aqui um link do YouTube" (aba Arquivos) e toque em Ad
 - **Computador ligado à TV (Windows)**: em "Trocar TV", baixe o atalho **"Abrir TV em tela cheia"**. Ele abre o Chrome (ou o Edge) em modo quiosque: sem barra de endereço e sem os botões de minimizar e fechar. Para sair, use **Alt+F4**.
 
 ## Assinatura Mercatto Labs
-- Em todas as apresentações na TV, a logo da **Mercatto Labs** aparece transparente, como marca-d'água, no canto superior esquerdo, e um **QR Code do WhatsApp** (82) 99662-2036, com a mensagem "Fale com a gente", aparece no canto inferior direito, com o link `wa.me/5582996622036`. Os dois somem na tela de espera e o QR sobe quando a faixa rolante está ativa.
+- Em todas as apresentações na TV, a logo da **Mercatto Labs** aparece transparente, como marca-d'água, no canto superior esquerdo, e um **QR Code do WhatsApp** (82) 99662-2036, pequeno e sem texto, aparece no canto inferior direito, com o link `wa.me/5582996622036`. Os dois somem na tela de espera e o QR sobe quando a faixa rolante está ativa.
 - Os arquivos da logo (SVG e PNG, versões para fundo escuro, fundo claro, branca e só o ícone) estão na pasta `brand/`.
 
 ## Recursos do app

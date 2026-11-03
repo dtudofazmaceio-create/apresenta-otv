@@ -498,11 +498,11 @@ body.prmode{overflow:hidden}
 /* assinatura Mercatto Labs na TV */
 #brand{position:absolute;top:2vw;left:2.2vw;height:4vw;opacity:.42;pointer-events:none;z-index:4;transition:opacity .6s;filter:drop-shadow(0 .1vw .25vw rgba(0,0,0,.55)) drop-shadow(0 0 .9vw rgba(0,0,0,.25))}
 #brand .mlsvg{height:100%;width:auto;display:block}
-#brandQR{position:absolute;right:2vw;bottom:2vw;display:flex;align-items:center;gap:.9vw;padding:.6vw .9vw .6vw .6vw;border-radius:1.1vw;background:rgba(8,10,20,.55);backdrop-filter:blur(.6vw);-webkit-backdrop-filter:blur(.6vw);opacity:.88;pointer-events:none;z-index:4;transition:bottom .4s,opacity .6s}
-#brandQR .q{width:6.6vw;height:6.6vw;border-radius:.5vw;overflow:hidden;background:#fff}#brandQR .q svg{width:100%;height:100%;display:block}
+#brandQR{position:absolute;right:1.4vw;bottom:1.4vw;display:flex;padding:.3vw;border-radius:.6vw;background:rgba(8,10,20,.45);backdrop-filter:blur(.6vw);-webkit-backdrop-filter:blur(.6vw);opacity:.88;pointer-events:none;z-index:4;transition:bottom .4s,opacity .6s}
+#brandQR .q{width:4.2vw;height:4.2vw;border-radius:.35vw;overflow:hidden;background:#fff}#brandQR .q svg{width:100%;height:100%;display:block}
 #brandQR .t{display:flex;flex-direction:column;gap:.35vw;color:#fff;font-family:Inter,system-ui,sans-serif;line-height:1.25}
 #brandQR .t b{font-size:1.15vw;font-weight:700;line-height:1.2}#brandQR .t span{font-size:.85vw;opacity:.8}
-#tv.hastick #brandQR{bottom:6.4vw}
+#tv.hastick #brandQR{bottom:5.8vw}
 #tv.hasclock #brand{top:2vw}
 #tv.isidle #brand,#tv.isidle #brandQR{opacity:0}
 .mcredit{display:inline-flex;align-items:center;gap:8px;color:var(--mu);font-size:12px;text-decoration:none;opacity:.85}.mcredit:hover{opacity:1}
@@ -773,7 +773,7 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
   <div id="slideNo"></div>
   <div id="fsHint" hidden>Pressione <b>OK</b> no controle (ou clique) para tela cheia</div>
   <div id="brand"></div>
-  <div id="brandQR"><div class="q"></div><div class="t"><b>Fale com<br>a gente</b></div></div>
+  <div id="brandQR" title="Fale com a gente"><div class="q"></div></div>
 </div>
 <div id="toast"></div>
 <div id="upd" hidden><i data-i="refresh"></i><span>Nova versão disponível</span><button class="pri" id="bUpd">Atualizar</button></div>
