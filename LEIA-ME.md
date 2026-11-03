@@ -69,6 +69,10 @@ Clique no ícone de **paleta** no topo:
 - Mantenha o app aberto enquanto converte. Vídeos 4K longos podem levar alguns minutos.
 - Arquivos muito longos podem demorar para converter. O limite é cerca de 1,8 GB por arquivo.
 
+## Assinatura Mercatto Labs
+- Em todas as apresentações na TV, a logo da **Mercatto Labs** aparece semitransparente no canto superior esquerdo, e um **QR Code do WhatsApp** (82) 99662-2036 aparece no canto inferior direito, com o link `wa.me/5582996622036`. Os dois somem na tela de espera e o QR sobe quando a faixa rolante está ativa.
+- Os arquivos da logo (SVG e PNG, versões para fundo escuro, fundo claro, branca e só o ícone) estão na pasta `brand/`.
+
 ## Recursos do app
 - O app abre direto no último modo usado (controle ou TV). Para trocar, clique no logotipo.
 - **Funciona sem internet** para montar a programação. Para conectar a uma TV é preciso internet.

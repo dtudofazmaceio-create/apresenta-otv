@@ -1,5 +1,5 @@
 /* Apresentação na TV — service worker (funciona offline e recebe arquivos compartilhados) */
-const VERSION='apres-v13';
+const VERSION='apres-v14';
 const SHELL=['./','./index.html','./manifest.webmanifest','./icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png','./icons/favicon-32.png'];
 const CDN=['https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
