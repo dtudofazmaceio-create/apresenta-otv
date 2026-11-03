@@ -142,6 +142,11 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 .mc{margin-top:3vw;display:flex;align-items:center;gap:1.4vw;background:#ffffff0d;border:1px solid #ffffff1f;border-radius:1vw;padding:.8vw 1.8vw}
 .mc span{font-size:1vw;color:var(--mu);text-transform:uppercase;letter-spacing:.12em}.mc b{font-size:2.2vw;letter-spacing:.35em;color:#8fb0ff}
 #idle .keys{position:absolute;bottom:2vw}
+#idle .pair{display:flex;align-items:center;gap:3vw;margin-top:3vw}#idle .pair .mc{margin-top:0}
+#tvQR{display:flex;align-items:center;gap:1.4vw;text-align:left}#tvQR .qr{width:9vw;height:9vw;background:#fff;border-radius:.8vw;padding:.4vw}#tvQR .qr svg{width:100%;height:100%;display:block}
+#tvQR small{font-size:1.05vw;color:var(--mu);line-height:1.4}
+.tag.off{background:#f8717122;color:var(--er)}
+#code{font-size:16px;letter-spacing:.14em;text-align:left;font-weight:700;font-family:'JetBrains Mono',monospace}#code::placeholder{text-transform:none;letter-spacing:0;font-weight:400;font-family:Inter,sans-serif}.tag.chk{background:transparent;color:var(--mu);font-weight:500}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.hc{grid-template-columns:1fr}}
 /* ===== modelos profissionais (1em = 1% da largura do slide) ===== */
 .tpl{padding:0;display:block;color:var(--fg);font-family:var(--bf);font-weight:400;text-align:left;background-color:var(--bg);
@@ -309,6 +314,15 @@ details.more{margin-top:20px;border-top:1px solid var(--ln);padding-top:14px}det
 .tpl .card2 .ig span{display:inline;margin:0;font-size:1em}
 #stage .tpl .card3{animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
 .L-aniver1 .tx{max-width:30em}
+/* seleção múltipla */
+.it .ck{display:none;align-items:center}.selmode .it .ck{display:flex}.selmode .it .grip{display:none}
+.it .ck input{width:20px;height:20px;accent-color:var(--ac);pointer-events:none;margin:0 2px}
+.selmode .it{cursor:pointer}.selmode .it.sel{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
+#list.gview .ck{position:absolute;top:12px;left:12px;z-index:3;background:rgba(0,0,0,.55);border-radius:8px;padding:5px}
+#bulk{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;margin-bottom:10px;border:1px solid var(--ac);border-radius:12px;background:var(--it);position:sticky;top:76px;z-index:3}
+#bulk .sec input{width:64px;padding:6px 8px}#bulk button{padding:7px 11px;font-size:13px}
+#bSel.on{background:var(--ac);color:#fff;outline:0}
+@media(max-width:760px){#bulk{top:64px}#bulk .row{margin-left:0!important;width:100%;justify-content:flex-start!important}}
 /* conversão */
 .conv{display:flex;gap:12px;align-items:center;padding:10px;border:1px dashed var(--ac);border-radius:12px;margin-bottom:8px;background:var(--it)}
 .conv.wait{border-color:var(--ln);opacity:.75}.conv.bad{border-color:var(--er)}.conv.bad .cic{color:var(--er)}.conv.bad small{color:var(--tx);opacity:.85;word-break:break-word}
@@ -465,8 +479,8 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
   </header>
   <div class="grid">
     <section class="card">
-      <div class="hd"><h2>Programação</h2><div class="row" style="gap:10px;flex-wrap:nowrap"><span class="mu" id="cnt"></span><div class="vseg" id="viewSeg"><button class="ic" data-v="list" title="Ver em lista"><i data-i="list"></i></button><button class="ic" data-v="grid" title="Ver em grade"><i data-i="grid"></i></button></div></div></div>
-      <div id="convBox"></div><div id="list"></div>
+      <div class="hd"><h2>Programação</h2><div class="row" style="gap:10px;flex-wrap:nowrap"><span class="mu" id="cnt"></span><button class="ic" id="bSel" title="Selecionar vários itens"><i data-i="check-sq"></i></button><div class="vseg" id="viewSeg"><button class="ic" data-v="list" title="Ver em lista"><i data-i="list"></i></button><button class="ic" data-v="grid" title="Ver em grade"><i data-i="grid"></i></button></div></div></div>
+      <div id="bulk" hidden></div><div id="convBox"></div><div id="list"></div>
     </section>
     <aside class="card" style="align-self:start">
       <div class="tabs">
@@ -477,8 +491,11 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
       </div>
 
       <div id="p-files">
-        <label class="drop" id="drop"><i data-i="upload"></i><br><b class="desk">Solte arquivos aqui</b><b class="mob">Toque para escolher</b><br>fotos, vídeos, PDFs, áudios e .txt<br><small class="desk">ou clique para escolher · Ctrl+O · Ctrl+V cola imagens</small><small class="mob">da galeria, da câmera ou dos arquivos</small>
+        <label class="drop" id="drop"><i data-i="upload"></i><br><b class="desk">Solte arquivos aqui</b><b class="mob">Toque para escolher</b><br>fotos, vídeos, PDFs, áudios e .txt<br><small class="desk">ou clique para escolher (vários de uma vez) · Ctrl+O · Ctrl+V cola imagens</small><small class="mob">da galeria, da câmera ou dos arquivos</small>
           <input type="file" id="file" multiple accept="image/*,video/*,audio/*,.pdf,.txt,.mp4,.m4v,.mov,.webm,.mkv,.avi,.wmv,.asf,.flv,.f4v,.mpg,.mpeg,.m2v,.ts,.m2ts,.mts,.3gp,.3g2,.vob,.ogv,.divx,.rm,.rmvb,.hevc,.mxf,.dv,.mp3,.m4a,.aac,.wav,.ogg,.oga,.opus,.flac,.wma,.ac3,.aiff,.aif,.amr,.mka" hidden></label>
+        <div class="row" style="margin-top:10px;gap:8px;flex-wrap:nowrap"><button id="bPick" style="flex:1"><i data-i="upload"></i>Escolher arquivos</button><button id="bPickDir" class="desk" style="flex:1"><i data-i="folder"></i>Escolher pasta</button>
+          <input type="file" id="dirIn" webkitdirectory multiple hidden></div>
+        <p class="mu" style="font-size:12px;margin-top:8px"><b>Vários de uma vez:</b> na janela de seleção, segure <kbd>Ctrl</kbd> e clique em cada arquivo, use <kbd>Shift</kbd> para um intervalo ou <kbd>Ctrl</kbd>+<kbd>A</kbd> para todos. No celular, toque e segure o primeiro e depois marque os outros. Com "Escolher pasta", entra tudo o que estiver na pasta.</p>
         <p class="mu" style="font-size:12px">Vídeos e áudios em <b>qualquer formato</b> (AVI, MKV, WMV, MOV, FLV, MPEG, 3GP, HEVC, WMA, FLAC…) são convertidos automaticamente para um formato que toca em qualquer TV. PDFs viram um slide por página. Áudios entram como itens da programação; para música de fundo use a aba Música.</p>
       </div>
 
@@ -555,6 +572,10 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
     <div class="sect">TVs na sua rede</div>
     <div class="scan"><span class="radar" id="radar"></span><span id="scanTxt">Procurando TVs…</span><button class="ic" id="bRescan" title="Procurar de novo" style="margin-left:auto"><i data-i="refresh"></i></button></div>
     <div id="devs"></div>
+    <div class="sect">TVs salvas · conecte de qualquer lugar</div>
+    <div id="saved"></div>
+    <div class="row" style="margin-top:10px;flex-wrap:nowrap"><input id="code" maxlength="8" placeholder="Endereço da TV (ex.: K7M2QX)" autocomplete="off" style="text-transform:uppercase;letter-spacing:.12em"><button class="pri" id="dOk">Conectar</button></div>
+    <p class="mu" style="font-size:12px;margin:6px 2px 0">O endereço aparece na tela da TV. Funciona com a TV em <b>outra rede, outro prédio ou outra cidade</b>: os dois aparelhos só precisam estar com internet.</p>
     <div id="castBox" hidden>
       <div class="sect">Transmissão</div>
       <div class="dev"><div class="di"><i data-i="cast"></i></div><div class="nm"><b>Chromecast / Google TV</b><small class="mu" id="castTxt">Busca pelos dispositivos de transmissão do navegador</small></div><button class="pri" id="bCast">Procurar</button></div>
@@ -564,11 +585,17 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
     <details class="more"><summary>Minha TV não aparece na lista</summary>
       <ol class="steps" style="margin-top:12px">
         <li>No navegador da TV, abra: <b id="tvUrl" style="word-break:break-all"></b></li>
-        <li>O computador e a TV precisam estar na <b>mesma rede</b> (mesmo Wi-Fi/roteador). A TV aparece aqui em poucos segundos.</li>
-        <li>Se ainda não aparecer, digite o código mostrado na tela da TV:</li>
+        <li>Para aparecer sozinha em "TVs na sua rede", a TV e este aparelho precisam estar na <b>mesma rede</b> (mesmo Wi-Fi/roteador).</li>
+        <li>Em redes diferentes, digite o <b>endereço</b> mostrado na tela da TV no campo acima, ou aponte a câmera do celular para o QR Code da TV.</li>
       </ol>
-      <div class="row"><input id="code" maxlength="6" placeholder="······" autocomplete="off"><button class="pri" id="dOk">Conectar</button></div>
       <p class="mu" style="font-size:12px;margin:12px 0 0">TV sem navegador? Use o espelhamento do sistema (Windows: Win+K · Mac: Central de Controle › Espelhamento de tela) e escolha <b>Janela de apresentação</b> acima.</p>
+    </details>
+    <details class="more" style="margin-top:10px"><summary>Conexão entre redes diferentes (avançado)</summary>
+      <p class="mu" style="font-size:13px">A maioria das conexões entre redes funciona direto. Se a TV aparecer como online mas a conexão ficar em "Conectando…" (comum em redes de empresa e no 4G), cadastre um <b>servidor de retransmissão (TURN)</b>. A Metered oferece 20 GB/mês grátis com cadastro em <b>metered.ca</b>. A configuração é enviada para a TV ao conectar.</p>
+      <label class="l">Link de credenciais da Metered</label><input id="iceUrl" placeholder="https://SEUAPP.metered.live/api/v1/turn/credentials?apiKey=…">
+      <label class="l">ou servidor TURN manual</label><input id="turnUrl" placeholder="turn:servidor.com:3478">
+      <div class="row" style="margin-top:8px;flex-wrap:nowrap"><input id="turnUser" placeholder="Usuário"><input id="turnPass" type="password" placeholder="Senha"></div>
+      <div class="row" style="margin-top:10px"><button class="pri" id="iceSave">Salvar e testar</button><button id="iceClr">Remover</button><span class="mu" id="iceSt" style="font-size:13px"></span></div>
     </details>
   </dialog>
 </div>
@@ -579,8 +606,9 @@ kbd{font:600 11px 'JetBrains Mono',monospace;background:var(--in);border:1px sol
     <div class="lg"><i data-i="tv"></i></div>
     <h1 id="tvName">Pronta para receber</h1>
     <p id="tvStat"><span class="dot w"></span>Iniciando…</p>
-    <p>No computador, clique em <b>Conectar TV</b> e escolha esta tela na lista.</p>
-    <div class="mc"><span>Código manual</span><b id="tvCode">······</b></div>
+    <p>No computador ou celular, clique em <b>Conectar TV</b>: na mesma rede ela aparece sozinha; de outra rede, use o endereço abaixo.</p>
+    <div class="pair"><div class="mc"><span>Endereço da TV</span><b id="tvCode">······</b></div>
+      <div id="tvQR" hidden><div class="qr"></div><small>Controle de qualquer lugar:<br>aponte a câmera do celular</small></div></div>
     <small class="keys">OK/Enter: tela cheia · ◀ ▶ trocar · Espaço pausar</small>
   </div>
   <div id="clock" hidden></div>
@@ -1199,6 +1227,14 @@ function needsConv(i){
   if(i.ac&&!['mp4a','.mp3','mp3 '].includes(i.ac))return 'áudio '+i.ac.trim().toUpperCase();
   return false;
 }
+const STUNS=[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302','stun:stun.cloudflare.com:3478']}];
+function iceTurn(){try{return JSON.parse(localStorage.iceTurn||'[]')}catch(e){return[]}}
+const peerOpts=()=>({config:{iceServers:STUNS.concat(iceTurn())}});
+async function refreshIce(){const u=localStorage.iceUrl;if(!u)return false;try{const j=await(await fetch(u)).json();const t=(Array.isArray(j)?j:j.iceServers||[]).filter(x=>/turns?:/.test(JSON.stringify(x.urls)));if(t.length){localStorage.iceTurn=JSON.stringify(t);return true}}catch(e){}return false}
+function testTurn(servers){return new Promise(ok=>{let pc;try{pc=new RTCPeerConnection({iceServers:servers,iceTransportPolicy:'relay'})}catch(e){return ok(false)}
+  const t=setTimeout(()=>{try{pc.close()}catch(e){}ok(false)},8000);
+  pc.onicecandidate=e=>{if(e.candidate&&/ typ relay/.test(e.candidate.candidate)){clearTimeout(t);try{pc.close()}catch(_){}ok(true)}};
+  pc.createDataChannel('t');pc.createOffer().then(o=>pc.setLocalDescription(o)).catch(()=>ok(false))})}
 const VEXT=/\.(mp4|m4v|mov|webm|mkv|avi|wmv|asf|flv|f4v|mpg|mpeg|m2v|ts|m2ts|mts|3gp|3g2|vob|ogv|divx|xvid|rm|rmvb|hevc|h264|h265|mxf|dv)$/i,AEXT=/\.(mp3|m4a|aac|wav|ogg|oga|opus|flac|wma|ac3|eac3|aiff|aif|amr|mka|caf)$/i;
 const kv=(()=>{const p=new Promise(ok=>{try{const r=indexedDB.open('apres-kv',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>ok(r.result);r.onerror=()=>ok(null)}catch(e){ok(null)}});
   return{get:async k=>{const d=await p;if(!d)return null;return new Promise(ok=>{const t=d.transaction('kv').objectStore('kv').get(k);t.onsuccess=()=>ok(t.result);t.onerror=()=>ok(null)})},
@@ -1207,7 +1243,7 @@ const BASE=location.href.split(/[?#]/)[0];
 const STANDALONE=matchMedia('(display-mode: standalone),(display-mode: window-controls-overlay),(display-mode: fullscreen)').matches||navigator.standalone===true;
 const IOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 let mode={'#tv':'tv','#pc':'pc','#play':'play','#cast':'cast','#home':'home'}[location.hash]||'';
-if(!mode&&/[?&](open|share)=/.test(location.search))mode='pc';
+if(!mode&&/[?&](open|share|tv)=/.test(location.search))mode='pc';
 if(!mode&&STANDALONE&&localStorage.role){mode=localStorage.role;history.replaceState(null,'','#'+mode)}
 if(mode==='home')mode='';
 addEventListener('hashchange',()=>location.reload());
@@ -1240,6 +1276,9 @@ layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22
 'chev-up':'<polyline points="18 15 12 9 6 15"/>',
 palette:'<circle cx="13.5" cy="6.5" r="1.2"/><circle cx="17.5" cy="10.5" r="1.2"/><circle cx="8.5" cy="7.5" r="1.2"/><circle cx="6.5" cy="12.5" r="1.2"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.6-.7 1.6-1.6 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.6 1.6-1.6H16c3.3 0 6-2.7 6-6 0-4.9-4.5-8.6-10-8.6z"/>',
 grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+folder:'<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>',
+'check-sq':'<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
 refresh:'<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
 download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
 list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
@@ -1761,7 +1800,7 @@ function bootPC(){
   }
   function renderFields(){
     const L=LAYOUTS[dr.layout];
-    $('#fields').innerHTML=Object.entries(L.f).map(([k,lbl])=>`<label class="l">${esc(lbl)}</label>`+(k==='people'?`<div id="ppl"></div><div class="row" style="justify-content:space-between"><button id="pAdd"><i class="i-plus"></i>Adicionar pessoa</button><span class="mu" id="pMax" style="font-size:12px"></span></div><p class="mu" style="font-size:12px;margin:8px 0 0">Toque no círculo para escolher a foto de cada pessoa.</p>`:k==='occ'?`<select data-f="occ">${Object.entries(OCC).sort((a,b)=>a[1].md-b[1].md).map(([c,o])=>`<option value="${c}">${esc(o.n)} · ${esc(o.dt)}</option>`).join('')}</select>`:k==='text'?`<textarea data-f="${k}" rows="${/linha/.test(lbl)?4:3}" style="resize:vertical"></textarea>`:`<input data-f="${k}">`)).join('');
+    $('#fields').innerHTML=Object.entries(L.f).map(([k,lbl])=>`<label class="l">${esc(lbl)}</label>`+(k==='people'?`<div id="ppl"></div><div class="row" style="justify-content:space-between"><div class="row" style="gap:6px"><button id="pAdd"><i class="i-plus"></i>Adicionar pessoa</button><label class="fbtn" id="pMulti">${ic('image')} Várias fotos<input type="file" accept="image/*" multiple hidden id="pMultiIn"></label></div><span class="mu" id="pMax" style="font-size:12px"></span></div><p class="mu" style="font-size:12px;margin:8px 0 0">Toque no círculo para escolher a foto de cada pessoa.</p>`:k==='occ'?`<select data-f="occ">${Object.entries(OCC).sort((a,b)=>a[1].md-b[1].md).map(([c,o])=>`<option value="${c}">${esc(o.n)} · ${esc(o.dt)}</option>`).join('')}</select>`:k==='text'?`<textarea data-f="${k}" rows="${/linha/.test(lbl)?4:3}" style="resize:vertical"></textarea>`:`<input data-f="${k}">`)).join('');
     const S=dr.layout==='data'?occText(dr.occ):L.s;
     $('#fields').querySelectorAll('[data-f]').forEach(x=>{x.value=dr[x.dataset.f]||'';if(x.dataset.f!=='occ')x.placeholder=S[x.dataset.f]||''});
     $('#thBox').hidden=dr.layout==='data'||dr.layout==='blackfriday';
@@ -1775,11 +1814,21 @@ function bootPC(){
       <div class="pin"><div class="pn">${rk?`<b class="pos">${i+1}º</b>`:''}<input data-p="n" placeholder="Nome" value="${esc(x.n||'')}"></div>
       <div class="row" style="gap:6px;flex-wrap:nowrap"><input data-p="v" placeholder="${rk?'Resultado (ex.: R$ 6,3 mi)':'Data (ex.: 03/11)'}" value="${esc(x.v||'')}"><input data-p="ig" placeholder="@instagram" value="${esc(x.ig||'')}"></div></div>
       <div class="pac"><button class="ic" data-pa="up" title="Subir uma posição"${i?'':' disabled'}>${ic('chev-up')}</button>${u?`<button class="ic" data-pa="noph" title="Remover foto">${ic('x')}</button>`:''}<button class="ic dg" data-pa="rm" title="Remover pessoa">${ic('trash')}</button></div></div>`}).join('');
-    $('#pAdd').innerHTML=ic('plus')+'Adicionar pessoa';$('#pAdd').disabled=P.length>=max;$('#pMax').textContent=`${P.length} de ${max}`;
+    $('#pAdd').innerHTML=ic('plus')+'Adicionar pessoa';$('#pAdd').disabled=P.length>=max;$('#pMulti').style.display=P.length>=max?'none':'';$('#pMax').textContent=`${P.length} de ${max}`;
   }
   $('#fields').addEventListener('input',e=>{const k=e.target.dataset.p;if(!k)return;const i=+e.target.closest('.prow').dataset.i;dr.people[i][k]=e.target.value;dr.sampled=false;drawPv()});
   $('#fields').addEventListener('change',e=>{const t=e.target;if(t.dataset.p==='ig'||t.dataset.f==='ig'){const h=igH(t.value);if(h!==t.value){t.value=h;t.dispatchEvent(new Event('input',{bubbles:true}))}}});
-  $('#fields').addEventListener('change',async e=>{const i=e.target.dataset.pf;if(i===undefined)return;const f=e.target.files[0];e.target.value='';if(!f)return;
+  $('#fields').addEventListener('change',async e=>{
+    if(e.target.id==='pMultiIn'){const fs=[...e.target.files].sort((a,b)=>a.name.localeCompare(b.name,'pt',{numeric:true}));e.target.value='';
+      if(dr.sampled)dr.people=[];
+      const P=dr.people||(dr.people=[]),max=dr.layout==='ranking'?5:8;
+      // fotos sem pessoa ainda: preenche as linhas existentes sem foto primeiro
+      let added=0;for(const f of fs){const nm=f.name.replace(/\.[^.]+$/,'').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim().replace(/\b\w/g,c=>c.toUpperCase());
+        const free=P.find(x=>!x.ph&&(!x.n||dr.sampled));const ph=await shrink(f,800);
+        if(free){free.ph=ph;if(dr.sampled||!free.n)free.n=nm;added++}else if(P.length<max){P.push({n:nm,v:'',ig:'',ph});added++}}
+      dr.sampled=false;renderPeople();drawPv();
+      toast(added<fs.length?`${added} foto${added>1?'s':''} adicionada${added>1?'s':''} (limite de ${max} pessoas)`:`${added} foto${added>1?'s':''} adicionada${added>1?'s':''}. Ajuste os nomes se precisar.`);return}
+    const i=e.target.dataset.pf;if(i===undefined)return;const f=e.target.files[0];e.target.value='';if(!f)return;
     dr.people[+i].ph=await shrink(f,800);dr.sampled=false;renderPeople();drawPv()});
   $('#fields').addEventListener('click',e=>{
     const b=e.target.closest('button');if(!b)return;
@@ -1872,15 +1921,50 @@ function bootPC(){
       if(it.blob&&it.type!=='audio'){const u=URL.createObjectURL(it.blob);urls.push(u);th=it.type==='video'?`<video src="${u}#t=0.5" muted preload="metadata"></video>`:`<img src="${u}">`}
       else if(it.type==='audio')th=ic('music');
       const own=it.type==='video'||it.type==='audio';
-      return `<div class="it${it.id===curId?' now':''}" data-id="${it.id}"><span class="grip">${ic('grip')}</span>
+      return `<div class="it${it.id===curId?' now':''}${sel.has(it.id)?' sel':''}" data-id="${it.id}"><span class="ck"><input type="checkbox" tabindex="-1"${sel.has(it.id)?' checked':''}></span><span class="grip">${ic('grip')}</span>
       <div class="th">${th}<b class="ty">${ic(ICON[it.type])}</b></div>
       <div class="nm"><b>${esc(it.name)}</b><small>${it.type==='text'&&LAYOUTS[it.layout]?LAYOUTS[it.layout].n:LBL[it.type]}${it.snd?' · com música':''}${it.conv?' · convertido':''}${own||(it.snd&&it.untilEnd)?' · toca até o fim':''}</small></div>
       ${own?'':`<span class="sec">${ic('clock')}<input type="number" min="2" max="600" value="${it.dur}" data-dur="${it.id}" title="segundos"></span>`}
       <div class="ac"><button class="ic" data-a="show" title="Mostrar agora na TV">${ic('eye')}</button>${it.type==='text'?`<button class="ic" data-a="edit" title="Editar">${ic('edit')}</button>`:''}${own&&!it.conv?`<button class="ic" data-a="conv" title="Converter para formato universal (MP4/M4A) — use se a TV não reproduzir">${ic('refresh')}</button>`:''}<button class="ic" data-a="dup" title="Duplicar">${ic('copy')}</button><button class="ic dg" data-a="rm" title="Remover">${ic('trash')}</button></div></div>`}).join('')
       ||`<div class="empty">${ic('tv')}<br><b>Programação vazia</b><br>Adicione arquivos ou crie um texto no painel ao lado.</div>`;
     items.filter(x=>x.type==='text').forEach(it=>{const t=$(`[data-id="${it.id}"] .th`);const s=it.layout?tpl(it,urls):slide(it);t.prepend(s);fit(s)});
+    $('#list').classList.toggle('selmode',selMode);bulkUI();
     $('#bgList').innerHTML=bgs.map(b=>`<div class="bg">${ic('music')}<span class="nm"><b>${esc(b.name)}</b></span><button class="ic dg" data-bg="${b.id}">${ic('trash')}</button></div>`).join('')||'<p class="mu">Nenhuma música na trilha.</p>';
   }
+  /* seleção de vários itens */
+  let sel=new Set(),selMode=false,lastSel=null;
+  function bulkUI(){
+    for(const id of[...sel])if(!items.some(x=>x.id===id))sel.delete(id);
+    $('#bSel').classList.toggle('on',selMode);
+    const B=$('#bulk');B.hidden=!selMode;if(!selMode)return;
+    const n=sel.size,all=n===items.length&&n>0;
+    B.innerHTML=`<label class="chk" style="margin:0"><input type="checkbox" id="selAll"${all?' checked':''}>${n?`<b>${n}</b> selecionado${n>1?'s':''}`:'Toque nos itens para selecionar'}</label>
+      <div class="row" style="gap:6px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end">
+        <span class="sec"${n?'':' hidden'}>${ic('clock')}<input type="number" id="selDur" min="2" max="600" placeholder="seg." title="Duração (segundos) para os selecionados"><button id="selDurOk">Aplicar</button></span>
+        <button id="selDup"${n?'':' disabled'}>${ic('copy')}Duplicar</button><button class="dg" id="selRm"${n?'':' disabled'}>${ic('trash')}Remover</button><button id="selX">Concluir</button></div>`;
+  }
+  const setSelMode=v=>{selMode=v;if(!v)sel.clear();render()};
+  $('#bSel').onclick=()=>setSelMode(!selMode);
+  $('#bulk').onclick=async e=>{
+    const t=e.target.closest('button,input');if(!t)return;
+    if(t.id==='selAll'){if(t.checked)items.forEach(x=>sel.add(x.id));else sel.clear();render();return}
+    if(t.id==='selX')return setSelMode(false);
+    const S=items.filter(x=>sel.has(x.id));if(!S.length)return;
+    if(t.id==='selRm'){if(!confirm(`Remover ${S.length} ${S.length>1?'itens':'item'} da programação?`))return;for(const x of S)await del(x.id);sel.clear();toast(`${S.length} removido${S.length>1?'s':''}`);load()}
+    else if(t.id==='selDup'){let o=Math.max(...items.map(x=>x.order))+1;for(const x of S)await put({...x,id:uid(),order:o++});toast(`${S.length} duplicado${S.length>1?'s':''} no fim da lista`);load()}
+    else if(t.id==='selDurOk'){const v=Math.max(2,+$('#selDur').value||0);if(!+$('#selDur').value)return toast('Digite os segundos');
+      let n=0;for(const x of S)if(x.type!=='video'&&x.type!=='audio'){x.dur=v;await put(x);n++}toast(n?`Duração de ${v}s aplicada a ${n} ${n>1?'itens':'item'}`:'Vídeos e áudios tocam até o fim');load()}
+  };
+  $('#list').addEventListener('click',e=>{
+    if(!selMode||e.target.closest('.ac button,.sec,.grip'))return;
+    const it=e.target.closest('.it');if(!it)return;e.preventDefault();e.stopImmediatePropagation();
+    const id=it.dataset.id;
+    if(e.shiftKey&&lastSel){const ids=items.map(x=>x.id),a=ids.indexOf(lastSel),b=ids.indexOf(id);ids.slice(Math.min(a,b),Math.max(a,b)+1).forEach(x=>sel.add(x))}
+    else sel.has(id)?sel.delete(id):sel.add(id);
+    lastSel=id;render();
+  },true);
+  addEventListener('keydown',e=>{if(selMode&&(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='a'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();items.forEach(x=>sel.add(x.id));render()}
+    if(selMode&&e.key==='Escape'&&!document.querySelector('dialog[open]'))setSelMode(false)});
   $('#list').onclick=async e=>{
     const b=e.target.closest('button');if(!b)return;
     const id=b.closest('.it').dataset.id,it=items.find(x=>x.id===id),a=b.dataset.a;
@@ -2048,7 +2132,7 @@ function bootPC(){
     }
   }
   async function addFiles(files,asBg){
-    files=[...files]; // copia: o campo de arquivo é limpo logo em seguida
+    files=[...files].sort((a,b)=>a.name.localeCompare(b.name,'pt',{numeric:true})); // copia (o campo é limpo em seguida) e ordena pelo nome
     let o=Date.now(),conv=0;const skipped=[];
     for(const f of files){
       const n=f.name.toLowerCase();
@@ -2079,6 +2163,14 @@ function bootPC(){
     load();if(!asBg)view('list');
   }
   $('#file').onchange=e=>{addFiles(e.target.files);e.target.value=''};
+  $('#bPick').onclick=()=>$('#file').click();
+  $('#bPickDir').onclick=()=>$('#dirIn').click();
+  $('#dirIn').onchange=e=>{
+    const ok=/\.(jpe?g|png|gif|webp|bmp|avif|heic|pdf|txt)$/i;
+    const fs=[...e.target.files].filter(f=>!/(^|\/)\./.test(f.webkitRelativePath||f.name)&&(ok.test(f.name)||VEXT.test(f.name)||AEXT.test(f.name)));e.target.value='';
+    if(!fs.length)return toast('Nenhum arquivo compatível nesta pasta');
+    toast(`${fs.length} arquivo${fs.length>1?'s':''} encontrado${fs.length>1?'s':''} na pasta`);addFiles(fs);
+  };
   $('#bgFile').onchange=e=>{addFiles(e.target.files,true);e.target.value=''};
   addEventListener('dragover',e=>e.preventDefault());
   addEventListener('drop',e=>{if(e.dataTransfer.files.length){e.preventDefault();addFiles(e.dataTransfer.files)}});
@@ -2086,11 +2178,12 @@ function bootPC(){
 
   /* ---------- conexão com a TV ---------- */
   const PCNAME=devName();
-  let tvs=[],lobSt='w',target=null,screens=null,retryT,localOn=false,syncing=false,again=false,autoT;
+  let takenMsg='',tvs=[],lobSt='w',target=null,screens=null,retryT,localOn=false,syncing=false,again=false,autoT;
   const isOn=()=>!!(conn&&conn.open);
   const setConn=(s,t)=>{$('#dot').className='dot '+s;$('#cTxt').textContent=t};
   function idleChip(){
     if(isOn()||want)return;
+    if(takenMsg)return setConn('',takenMsg);
     if(localOn)return setConn('on','Apresentando nesta tela');
     const n=tvs.length;setConn('',n?`Nenhuma TV conectada · ${n} na rede`:'Nenhuma TV conectada');
   }
@@ -2106,12 +2199,13 @@ function bootPC(){
 
   function ensurePeer(cb){
     if(peer&&!peer.destroyed){peer.open?cb(peer):peer.once('open',()=>cb(peer));return}
-    peer=new Peer();
+    peer=new Peer(peerOpts());
     peer.on('open',()=>cb(peer));
     peer.on('disconnected',()=>{if(!peer.destroyed)setTimeout(()=>!peer.destroyed&&peer.reconnect(),1500)});
     peer.on('error',e=>{
       if(e.type==='peer-unavailable'){
         if(/net-/.test(e.message||''))return; // sala da rede ainda não existe: tratado pela descoberta
+        const pid=(/peer (\S+)/.exec(e.message||'')||[])[1];if(pid&&probing.has(pid)){probing.get(pid)('off');return}
         if(want&&target){setConn('w',`${target.name} não respondeu — tentando de novo…`);clearTimeout(retryT);retryT=setTimeout(()=>want&&connectTV(target),5000)}
       }else if(['network','server-error','socket-error','socket-closed'].includes(e.type))setConn('','Sem conexão com a internet');
     });
@@ -2122,7 +2216,8 @@ function bootPC(){
     conn=c;acks={};
     c.on('open',()=>{
       if(conn!==c)return;setConn('on',info.name);toast('Conectado a '+info.name);
-      c.send({t:'cfg',cfg});c.send({t:'stbg',bg:stageBg()});syncUI();renderDevs();sync();
+      c.send({t:'cfg',cfg});c.send({t:'stbg',bg:stageBg()});if(iceTurn().length)c.send({t:'ice',turn:iceTurn()});
+      if(net&&info.code){saveTV(info);st[info.code]='on'}syncUI();renderDevs();renderSaved();sync();
     });
     c.on('close',()=>{
       if(c!==conn)return;conn=null;curId=null;tvPlaying=false;Object.values(acks).forEach(f=>f());acks={};syncUI();renderDevs();
@@ -2134,14 +2229,60 @@ function bootPC(){
       else if(d.t==='ack'&&acks[d.id]){acks[d.id]();delete acks[d.id]}
       else if(d.t==='state')onState(d);
       else if(d.t==='vfail')onVfail(d.id);
+      else if(d.t==='info'&&d.name&&info.code){info.name=d.name;if(target&&target.code===info.code){target.name=d.name;localStorage.last=JSON.stringify(target)}saveTV({code:info.code,name:d.name});setConn('on',d.name);renderSaved()}
+      else if(d.t==='taken'&&c===conn){want=false;clearTimeout(retryT);toast(`Outro aparelho assumiu o controle de ${info.name}`);takenMsg=`${info.name} está sendo controlada por outro aparelho`;setConn('',takenMsg)}
     });
   }
+  /* TVs salvas (qualquer rede) */
+  const savedGet=()=>{try{return JSON.parse(localStorage.savedTVs||'[]')}catch(e){return[]}},savedPut=a=>localStorage.savedTVs=JSON.stringify(a.slice(0,20));
+  function saveTV(t){const a=savedGet(),o=a.find(x=>x.code===t.code);savedPut([{code:t.code,name:(t.name&&!/^TV [A-Z0-9]+$/.test(t.name))?t.name:(o&&o.name)||t.name||('TV '+t.code)},...a.filter(x=>x.code!==t.code)])}
+  const st={},probing=new Map();
+  function probe(code){
+    if(probing.has(PREFIX+code))return;st[code]='chk';renderSaved();
+    ensurePeer(p=>{const c=p.connect(PREFIX+code,{reliable:true});let done=false;
+      const fin=(s,info)=>{if(done)return;done=true;clearTimeout(to);probing.delete(PREFIX+code);st[code]=s;
+        if(info&&info.name){const a=savedGet(),x=a.find(y=>y.code===code);if(x&&x.name!==info.name){x.name=info.name;savedPut(a)}}
+        setTimeout(()=>{try{c.close()}catch(e){}},300);renderSaved()};
+      const to=setTimeout(()=>fin('off'),8000);probing.set(PREFIX+code,fin);
+      c.on('open',()=>c.send({t:'ping'}));
+      c.on('data',d=>{if(d.t==='pong')fin(d.busy?'busy':'on',d)});
+      c.on('error',()=>fin('off'));
+    });
+  }
+  function renderSaved(){
+    const a=savedGet(),cc=isOn()&&target&&target.code;
+    $('#saved').innerHTML=a.map(t=>{const s=cc===t.code?'cur':st[t.code]||'';
+      return `<div class="dev${s==='cur'?' cur':''}" data-sc="${esc(t.code)}"><div class="di">${ic('tv')}</div><div class="nm"><b>${esc(t.name)}</b><small class="mu">${
+        s==='cur'?'<span class="tag ok">Conectada</span>':s==='on'?'<span class="tag ok">Online</span>':s==='busy'?'<span class="tag">Em uso</span>':s==='off'?'<span class="tag off">Offline</span>':s==='chk'?'<span class="tag chk">verificando…</span>':''} Endereço <b style="font-family:JetBrains Mono,monospace;letter-spacing:.08em;display:inline">${esc(t.code)}</b></small></div>
+        <button class="ic" data-sa="link" title="Copiar link de controle remoto (para usar em outro aparelho)">${ic('link')}</button><button class="ic dg" data-sa="rm" title="Remover da lista">${ic('x')}</button>${s==='cur'?'':`<button class="pri" data-sa="go">Conectar</button>`}</div>`}).join('')
+      ||'<p class="mu" style="font-size:12px;margin:6px 2px">As TVs que você conectar ficam salvas aqui, prontas para usar de qualquer rede.</p>';
+  }
+  $('#saved').onclick=e=>{const b=e.target.closest('[data-sa]');if(!b)return;const code=b.closest('[data-sc]').dataset.sc,t=savedGet().find(x=>x.code===code);if(!t)return;
+    if(b.dataset.sa==='go'){$('#dlg').close();connectTV(t)}
+    else if(b.dataset.sa==='rm'){savedPut(savedGet().filter(x=>x.code!==code));renderSaved()}
+    else if(b.dataset.sa==='link'){const u=BASE+'?tv='+code+'#pc';(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('Link copiado: abra em outro aparelho para controlar esta TV'),()=>prompt('Copie o link de controle:',u))}};
+  /* servidor de retransmissão (TURN) */
+  function iceForm(){$('#iceUrl').value=localStorage.iceUrl||'';const t=iceTurn().find(x=>x._manual)||{};$('#turnUrl').value=t._manual?[].concat(t.urls)[0]:'';$('#turnUser').value=t._manual?t.username||'':'';$('#turnPass').value=t._manual?t.credential||'':'';
+    $('#iceSt').textContent=iceTurn().length?'TURN configurado ✓':''}
+  $('#iceSave').onclick=async()=>{
+    const u=$('#iceUrl').value.trim(),m=$('#turnUrl').value.trim();$('#iceSt').textContent='Testando…';
+    if(u){localStorage.iceUrl=u;if(!await refreshIce()){$('#iceSt').textContent='Não foi possível ler o link da Metered. Confira a chave (apiKey).';return}}
+    else{localStorage.removeItem('iceUrl');if(!m){$('#iceSt').textContent='Preencha o link ou o servidor manual.';return}
+      localStorage.iceTurn=JSON.stringify([{urls:m,username:$('#turnUser').value.trim(),credential:$('#turnPass').value,_manual:1}])}
+    const ok=await testTurn(iceTurn().map(({_manual,...x})=>x));
+    $('#iceSt').textContent=ok?'Retransmissão funcionando ✓':'Salvo, mas o teste não obteve resposta do servidor. Confira os dados.';
+    if(peer&&!peer.destroyed&&!isOn()){try{peer.destroy()}catch(e){}peer=null}
+  };
+  $('#iceClr').onclick=()=>{localStorage.removeItem('iceUrl');localStorage.removeItem('iceTurn');iceForm();toast('Servidor de retransmissão removido')};
+  refreshIce();
   function connectTV(t){
+    takenMsg='';
     target={code:t.code,name:t.name||('TV '+t.code)};localStorage.last=JSON.stringify(target);want=true;
     setConn('w','Conectando a '+target.name+'…');
     ensurePeer(p=>{if(want&&target&&target.code===t.code)attach(p.connect(PREFIX+t.code,{reliable:true}),target,true)});
   }
   function disconnect(){
+    takenMsg='';
     want=false;target=null;clearTimeout(retryT);localStorage.removeItem('last');
     const c=conn;conn=null;curId=null;tvPlaying=false;Object.values(acks).forEach(f=>f());acks={};
     if(c)try{c.close()}catch(e){}
@@ -2161,6 +2302,7 @@ function bootPC(){
       <div class="nm"><b>${esc(t.name)}</b><small class="mu">${me?'<span class="tag ok">Conectada</span>':busy?`<span class="tag">Em uso · ${esc(t.busy)}</span>`:''}${esc([t.name!==t.model&&t.model,t.res].filter(Boolean).join(' · '))}</small></div>
       ${me?`<button class="ic" data-a="ren" title="Renomear esta TV">${ic('edit')}</button><button data-a="off">Desconectar</button>`:`<button class="pri" data-a="go">${busy?'Assumir':'Conectar'}</button>`}</div>`;
     }).join('')||(lobSt==='off'?'':`<div class="dev hint">Nenhuma TV ainda. Abra o endereço da TV no navegador dela (veja abaixo) — ela aparece aqui automaticamente.</div>`);
+    {const a=savedGet();let ch=false;for(const t of tvs){const x=a.find(y=>y.code===t.code);if(x&&x.name!==t.name){x.name=t.name;ch=true}}if(ch){savedPut(a);renderSaved()}}
     if(on&&target){const t=tvs.find(x=>x.code===target.code);if(t&&t.name!==target.name){target.name=t.name;localStorage.last=JSON.stringify(target);setConn('on',t.name)}}
     idleChip();
   }
@@ -2171,7 +2313,7 @@ function bootPC(){
     else if(b.dataset.a==='off')disconnect();
     else if(b.dataset.a==='ren'){
       const n=(prompt('Nome desta TV (ex.: TV da Recepção)',t.name)||'').trim().slice(0,40);
-      if(n&&send({t:'name',name:n})){t.name=target.name=n;localStorage.last=JSON.stringify(target);setConn('on',n);renderDevs()}
+      if(n&&send({t:'name',name:n})){t.name=target.name=n;localStorage.last=JSON.stringify(target);setConn('on',n);saveTV(target);renderDevs();renderSaved()}
     }
   };
   $('#bRescan').onclick=e=>{const b=e.currentTarget;b.classList.remove('spin');void b.offsetWidth;b.classList.add('spin');lobby.update()};
@@ -2228,8 +2370,9 @@ function bootPC(){
   }
 
   function openPicker(){
-    $('#tvUrl').textContent=BASE+'#tv';$('#code').value='';
-    renderDevs();renderScr();loadScreens(false);lobby.update();$('#dlg').showModal();
+    $('#tvUrl').textContent=BASE+'#tv';$('#code').value='';iceForm();
+    renderDevs();renderSaved();renderScr();loadScreens(false);lobby.update();$('#dlg').showModal();
+    for(const t of savedGet())if(!(isOn()&&target&&target.code===t.code))probe(t.code);
   }
   $('#bConn').onclick=openPicker;
   $('#bDisc').onclick=disconnect;
@@ -2239,7 +2382,7 @@ function bootPC(){
     if(!items.length)return toast('Adicione itens à programação primeiro');
     ctl({t:'cmd',c:'show',id:items[0].id});
   };
-  $('#dOk').onclick=()=>{const c=$('#code').value.trim().toUpperCase();if(c.length<4)return toast('Digite o código mostrado na TV');$('#dlg').close();connectTV({code:c,name:'TV '+c})};
+  $('#dOk').onclick=()=>{const c=$('#code').value.replace(/[^A-Za-z0-9]/g,'').toUpperCase();if(c.length<4)return toast('Digite o endereço mostrado na TV');$('#dlg').close();const o=savedGet().find(x=>x.code===c);connectTV(o||{code:c,name:'TV '+c})};
   $('#code').onkeydown=e=>{if(e.key==='Enter')$('#dOk').click()};
 
   /* envio da programação (automático ao conectar e a cada alteração) */
@@ -2347,7 +2490,9 @@ function bootPC(){
 
   fillForm();syncUI();load();renderDevs();renderScr();
   let last=null;try{last=JSON.parse(localStorage.last||'null')}catch(e){if(localStorage.last)last={code:localStorage.last}}
-  if(last&&last.code)connectTV(last);
+  const qtv=(new URLSearchParams(location.search).get('tv')||'').replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+  if(qtv.length>=4){history.replaceState(null,'',BASE+'#pc');localStorage.seen=1;const o=savedGet().find(x=>x.code===qtv);connectTV(o||{code:qtv,name:'TV '+qtv});toast('Conectando à TV '+qtv+'…')}
+  else if(last&&last.code)connectTV(last);
   else if(!localStorage.seen){localStorage.seen=1;openPicker()}
 }
 
@@ -2462,6 +2607,7 @@ function bootTV(kind){
       if(d.from&&d.from!==busyBy){busyBy=d.from;lob&&lob.update();stat()}
       conn.send({t:'has',ids:(await all()).map(x=>x.id)});
     }
+    else if(d.t==='ice'){if(Array.isArray(d.turn)&&d.turn.length)localStorage.iceTurn=JSON.stringify(d.turn)}
     else if(d.t==='name'){localStorage.tvname=d.name;lob&&lob.update();stat();badge('Nome da TV: '+d.name)}
     else if(d.t==='item'){
       const B=(x,t)=>x instanceof Blob?x:new Blob([x],{type:t||''});
@@ -2502,19 +2648,28 @@ function bootTV(kind){
     else if(peerOk)d='on',t=lobSt==='on'?'Pronta · aparece automaticamente nos computadores desta rede':lobSt==='off'?'Pronta · conecte usando o código abaixo':'Pronta · anunciando na rede…';
     s.innerHTML=`<span class="dot ${d}"></span>${esc(t)}`;
   }
+  function showQR(code){
+    const box=$('#tvQR');if(!box)return;const url=BASE+'?tv='+code+'#pc';
+    const draw=()=>{try{const q=qrcode(0,'M');q.addData(url);q.make();box.firstElementChild.innerHTML=q.createSvgTag({cellSize:4,margin:2,scalable:true});box.hidden=false}catch(e){}};
+    if(window.qrcode)return draw();
+    const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';sc.onload=draw;document.head.appendChild(sc);
+  }
   const getPeer=cb=>{if(peer&&peer.open&&!peer.destroyed)cb(peer);else setTimeout(()=>getPeer(cb),1000)};
   function startPeer(){
     const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     let code=localStorage.tvcode;
     if(!code){code=Array.from({length:6},()=>A[Math.random()*A.length|0]).join('');localStorage.tvcode=code}
     myCode=code;$('#tvCode').textContent=code;stat();
-    peer=new Peer(PREFIX+code);
-    peer.on('open',()=>{tries=0;peerOk=true;netErr=false;stat();
+    peer=new Peer(PREFIX+code,peerOpts());
+    peer.on('open',()=>{tries=0;peerOk=true;netErr=false;stat();showQR(code);
       if(!lob)lob=startLobby(getPeer,me,null,s=>{lobSt=s;stat()});else lob.update()});
     peer.on('connection',c=>{
-      if(conn&&conn!==c){const o=conn;conn=null;o.close()}conn=c;
-      c.on('open',()=>{badge('Computador conectado');report();stat()});
-      c.on('data',onData);
+      // só assume o controle quando o computador manda a primeira mensagem (verificações de status não derrubam quem está conectado)
+      c.on('data',d=>{
+        if(d.t==='ping'){c.send({t:'pong',name:tvName(),busy:conn&&conn.open&&conn!==c?(busyBy||'outro aparelho'):null});setTimeout(()=>{try{c.close()}catch(e){}},2000);return}
+        if(conn!==c){if(conn){const o=conn;conn=null;try{o.send({t:'taken'})}catch(e){}setTimeout(()=>{try{o.close()}catch(e){}},400)}conn=c;badge('Computador conectado');try{c.send({t:'info',name:tvName()})}catch(e){}report();stat()}
+        onData(d);
+      });
       c.on('close',()=>{if(conn!==c)return;conn=null;busyBy=null;lob&&lob.update();stat();badge('Computador desconectado')});
     });
     peer.on('disconnected',()=>{peerOk=false;stat();setTimeout(()=>!peer.destroyed&&peer.reconnect(),2000)});

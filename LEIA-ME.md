@@ -35,6 +35,14 @@ Na aba **Modelos**:
 - **Apresentação pronta:** cria de uma vez uma *Apresentação institucional*, uma *Reunião de resultados* ou um *Informativo da semana* completos, no tema escolhido. Depois é só editar.
 - Na TV, os slides entram com animação suave e a foto de fundo tem um leve movimento de zoom.
 
+## Conectar à TV: mesma rede ou qualquer lugar
+- **Mesma rede:** a TV aparece sozinha em "TVs na sua rede".
+- **Qualquer rede (pelo endereço):** cada TV mostra na tela um **Endereço** fixo (ex.: `K7M2QX`) e um **QR Code**. Digite o endereço em **Conectar TV**, ou aponte a câmera do celular para o QR Code. Funciona com a TV em outro prédio ou outra cidade; os dois aparelhos só precisam de internet.
+- As TVs usadas ficam em **"TVs salvas"**, com status Online / Em uso / Offline. O botão 🔗 copia um **link de controle remoto** para abrir em outro aparelho.
+- Se outro aparelho assumir a TV, o anterior para de tentar reconectar e mostra o aviso.
+- **Redes restritas (empresas, 4G):** se a TV aparecer Online mas a conexão não completar, cadastre um servidor de retransmissão (TURN) em **Conectar TV › Conexão entre redes diferentes (avançado)**. A Metered oferece 20 GB/mês grátis com cadastro. A configuração é enviada para a TV automaticamente.
+- Por limitação dos navegadores, não é possível conectar digitando o IP da TV. O endereço da TV cumpre esse papel e funciona mesmo quando o IP muda.
+
 ## Aparência do sistema
 Clique no ícone de **paleta** no topo:
 - **6 temas de interface:** Noite, Claro, Grafite, Oceano, Rosé e Floresta.
@@ -43,6 +51,12 @@ Clique no ícone de **paleta** no topo:
 - **Programação em Lista ou Grade**, com miniaturas grandes. Também há um atalho nos ícones ao lado de "Programação". Na grade, dá para arrastar os cartões para reordenar.
 - **Fotos e vídeos verticais na TV** usam o plano de fundo do sistema nas laterais, em vez de faixas pretas, com uma sombra suave em volta da mídia. Na aba **Tela › Fundo de fotos e vídeos verticais** você pode trocar para "Desfoque" (a própria foto desfocada) ou "Preto". Quando você muda a aparência, a TV conectada se atualiza sozinha. Se você usa mais de um aparelho (computador e celular), a TV fica com o fundo alterado por último. Para forçar o fundo de um aparelho, use **Tela › Enviar à TV**.
 - As escolhas ficam salvas no aparelho. "Restaurar padrão" volta ao visual original.
+
+## Vários arquivos de uma vez
+- **Escolher arquivos:** na janela de seleção, segure **Ctrl** e clique em cada arquivo, use **Shift** para um intervalo ou **Ctrl+A** para todos. Também dá para arrastar vários arquivos de uma vez para a área "Solte arquivos aqui".
+- **Escolher pasta:** adiciona tudo o que for compatível dentro de uma pasta, na ordem dos nomes (01, 02, 10…).
+- **Selecionar na programação:** o botão ☑ ao lado de "Programação" ativa a seleção. Toque nos itens (Shift+clique marca um intervalo, Ctrl+A marca todos) e depois **mude a duração**, **duplique** ou **remova** todos de uma vez.
+- **Várias fotos de pessoas:** no Ranking e nos Aniversariantes, o botão **"Várias fotos"** cria uma pessoa para cada foto, usando o nome do arquivo (ex.: `ana_souza.jpg` vira "Ana Souza").
 
 ## Vídeos e áudios em qualquer formato
 - Ao adicionar vídeos AVI, MKV, WMV, MOV, FLV, MPEG, 3GP, TS, HEVC/H.265 etc., ou áudios WMA, FLAC, AC3, AMR etc., o app converte sozinho para **MP4 (H.264 + AAC)** ou **M4A**, formatos que tocam em qualquer TV. A conversão acontece no próprio navegador, com uma barra de progresso, e nada é enviado para a internet.
