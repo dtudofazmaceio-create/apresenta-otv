@@ -69,6 +69,14 @@ Clique no ícone de **paleta** no topo:
 - Mantenha o app aberto enquanto converte. Vídeos 4K longos podem levar alguns minutos.
 - Arquivos muito longos podem demorar para converter. O limite é cerca de 1,8 GB por arquivo.
 
+## Conectar uma única vez
+- **A TV guarda o mesmo endereço para sempre.** Recarregar a página, fechar e abrir o navegador ou abrir em outra aba não muda o código.
+- **O computador se reconecta sozinho** à última TV usada, assim que a página da TV estiver aberta. Não é preciso digitar o endereço de novo.
+- **A TV lembra que é uma TV.** Depois da primeira vez, abrir o endereço do sistema no navegador dela (mesmo sem o `#tv`) já vai direto para a tela da TV.
+- **Dica**: defina o sistema como página inicial do navegador da TV, ou use o app instalado ou o atalho do Windows. Assim, ao ligar, é só abrir o navegador.
+- **Se a TV estiver aberta em duas abas**, a mais nova assume e a antiga se desativa, para não disputar o endereço. Esse conflito era o que causava tela escura e troca de endereço.
+- **Proteção contra tela escura**: se o navegador da TV congelar animações ou a página ficar parada, a TV se recupera sozinha em poucos segundos.
+
 ## Fundo musical das apresentações
 Na aba **Música** há 3 trilhas instrumentais originais, no estilo podcast, criadas para o sistema. Por serem originais, não têm direitos autorais de terceiros.
 - **Podcast Leve** (padrão): lo-fi tranquilo, para informativos e avisos.
